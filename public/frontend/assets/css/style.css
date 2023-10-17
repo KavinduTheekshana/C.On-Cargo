@@ -1,0 +1,9 @@
+.slider-content h2{
+    text-shadow: 2px 2px 7px #000000;
+}
+.about-name .about-say-img img{
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+    border-radius: 50%;
+}
