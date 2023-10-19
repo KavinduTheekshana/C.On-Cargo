@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xl-6 col-lg-6">
-                <div class="about-img mb-30" ata-animscroll="fade-up" data-animscroll-delay="100">
+                <div class="about-img mb-30" data-animscroll="fade-right">
                     <img src="{{ asset('frontend/assets/img/about/1.jpg')}}" alt="">
                 </div>
             </div>
@@ -10,13 +10,13 @@
                 <div class="about-wrapper mb-30">
                     <div class="section-title pos-rel mb-35">
                         <h1>01</h1>
-                        <span class="line">About Us</span>
-                        <h2>Modern & Trusted Logistics Company</h2>
+                        <span data-animscroll="fade-up" class="line">About Us</span>
+                        <h2 data-animscroll="fade-up">Modern & Trusted Logistics Company</h2>
                     </div>
-                    <div class="about-us-text pos-rel">
+                    <div class="about-us-text pos-rel" data-animscroll="fade-up">
                         <p>At C.On, we're dedicated to simplifying your cargo needs. With a global network, we offer seamless solutions for your UK-Sri Lanka shipments. Trust us to deliver reliability and expertise every time. Our experienced team is committed to your cargo's safety and timely delivery, making us your go-to partner for international logistics.</p>
                     </div>
-                    <div class="row mb-10">
+                    <div class="row mb-10" data-animscroll="fade-up">
                         <div class="col-xl-6 col-lg-6 col-md-6 mb-30">
                             <div class="about-content">
                                 <div class="about-icon f-left">
@@ -40,7 +40,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="about-name">
+                    <div class="about-name" data-animscroll="fade-up">
                         <div class="about-say-img">
                             <img src="{{ asset('frontend/assets/img/about/dineshnew.jpg')}}" alt="">
                         </div>

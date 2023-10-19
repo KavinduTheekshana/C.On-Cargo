@@ -25,52 +25,14 @@
                     <div class="main-menu text-right">
                         <nav id="mobile-menu">
                             <ul>
-                                <li class="active"><a href="index.html">home <i class="far fa-plus"></i></a>
-                                    <ul class="sub-menu text-left">
-                                        <li><a href="index.html">home 1</a></li>
-                                        <li><a href="index-2.html">home 2</a></li>
-                                        <li><a href="index-3.html">home 3</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="about.html">About </a></li>
-                                <li><a href="#">Pages</a>
-                                    <ul class="sub-menu text-left">
-                                        <li><a href="career.html">Career</a>
-                                        <li><a href="faq.html">Faq</a>
-                                        <li><a href="our-history.html">History</a>
-                                        <li><a href="pricing.html">Pricing</a>
-                                        <li><a href="team.html">Team</a>
-                                        <li><a href="contact.html">Contact</a>
-                                    </ul>
-                                </li>
-                                <li><a href="services-01.html">Services</a>
-                                    <ul class="sub-menu text-left">
-                                        <li><a href="services-01.html">services 01</a>
-                                        <li><a href="services-02.html">services 02</a></li>
-                                        <li><a href="services-03.html">services 03</a></li>
-                                        <li><a href="services-details-01.html">Services Details 01</a></li>
-                                        <li><a href="services-details-02.html">Services Details 02</a></li>
-                                        <li><a href="services-details-03.html">Services Details 03</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="case-studies-01.html">Case</a>
-                                    <ul class="sub-menu text-left">
-                                        <li><a href="case-studies-01.html">case study 01</a></li>
-                                        <li><a href="case-studies-02.html">case study 02</a></li>
-                                        <li><a href="case-details.html">case details</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="blog.html">News</a>
-                                    <ul class="sub-menu text-left">
-                                        <li><a href="blog.html">Blog Sidebar</a></li>
-                                        <li><a href="blog-grid.html">Blog Grid</a></li>
-                                        <li><a href="blog-details.html">Blog Post Image</a></li>
-                                        <li><a href="blog-details-audio.html">Blog Post Audio</a></li>
-                                        <li><a href="blog-details-video.html">Blog Post Video</a></li>
-                                        <li><a href="blog-details-gallery.html">Blog Post Gallery</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="contact.html">contact</a></li>
+                              
+                                <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="{{ route('/') }}">Home </a></li>
+                                <li class="{{ request()->is('about') ? 'active' : '' }}"><a href="{{ route('/') }}">About </a></li>
+                                <li class="{{ request()->is('about') ? 'active' : '' }}"><a href="{{ route('/') }}">Services </a></li>
+                                <li class="{{ request()->is('tracking') ? 'active' : '' }}"><a href="{{ route('/') }}">Tracking </a></li>
+                                <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ route('contact') }}">Contact </a></li>
+                              
+                            
                             </ul>
                         </nav>
                     </div>

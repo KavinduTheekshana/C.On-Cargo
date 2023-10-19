@@ -26,8 +26,9 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}">
     {{-- Anim Trap  --}}
-    <link rel="stylesheet" href="{{ asset('frontend/assets/plugin/animtrap/css/animtrap.min.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('frontend/assets/plugin/animtrap/css/animtrap.css') }}">
+    
+@vite('resources/js/app.js')
 </head>
 
 <body>
@@ -224,10 +225,15 @@
 
     <script src="{{ asset('frontend/assets/plugin/animtrap/js/anim-effect.js') }}"></script>
     <script src="{{ asset('frontend/assets/plugin/animtrap/js/anim-scroll.js') }}"></script>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCo_pcAdFNbTDCAvMwAD19oRTuEmb9M50c"></script>
+
+    
     <script>
-        ANIMSCROLL.init({
-            easing: 'ease-in-out-sine'
-        });
+       ANIMSCROLL.init({
+        easing: 'ease-in-out-sine'
+    });
     </script>
 </body>
 
