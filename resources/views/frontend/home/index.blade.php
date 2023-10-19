@@ -51,7 +51,7 @@
 
 
         <!-- blog-area-start -->
-        @include('frontend.home.blog')
+        {{-- @include('frontend.home.blog') --}}
         <!-- blog-area-end -->
 
         <!-- brand-area-start -->

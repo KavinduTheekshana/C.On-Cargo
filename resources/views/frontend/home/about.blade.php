@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-xl-6 col-lg-6">
                 <div class="about-img mb-30" data-animscroll="fade-right">
-                    <img src="{{ asset('frontend/assets/img/about/1.jpg')}}" alt="">
+                    <img src="{{ asset('frontend/assets/img/about/1.jpg') }}" alt="">
                 </div>
             </div>
             <div class="col-xl-6 col-lg-6">
@@ -14,7 +14,10 @@
                         <h2 data-animscroll="fade-up">Modern & Trusted Logistics Company</h2>
                     </div>
                     <div class="about-us-text pos-rel" data-animscroll="fade-up">
-                        <p>At C.On, we're dedicated to simplifying your cargo needs. With a global network, we offer seamless solutions for your UK-Sri Lanka shipments. Trust us to deliver reliability and expertise every time. Our experienced team is committed to your cargo's safety and timely delivery, making us your go-to partner for international logistics.</p>
+                        <p>At C.On, we're dedicated to simplifying your cargo needs. With a global network, we offer
+                            seamless solutions for your UK-Sri Lanka shipments. Trust us to deliver reliability and
+                            expertise every time. Our experienced team is committed to your cargo's safety and timely
+                            delivery, making us your go-to partner for international logistics.</p>
                     </div>
                     <div class="row mb-10" data-animscroll="fade-up">
                         <div class="col-xl-6 col-lg-6 col-md-6 mb-30">
@@ -42,7 +45,7 @@
                     </div>
                     <div class="about-name" data-animscroll="fade-up">
                         <div class="about-say-img">
-                            <img src="{{ asset('frontend/assets/img/about/dineshnew.jpg')}}" alt="">
+                            <img src="{{ asset('frontend/assets/img/about/dineshnew.jpg') }}" alt="">
                         </div>
                         <div class="about-say-content">
                             <h4>Dinesh Wickramasingha</h4>

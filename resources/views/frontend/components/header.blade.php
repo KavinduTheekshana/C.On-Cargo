@@ -27,8 +27,8 @@
                             <ul>
                               
                                 <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="{{ route('/') }}">Home </a></li>
-                                <li class="{{ request()->is('about') ? 'active' : '' }}"><a href="{{ route('/') }}">About </a></li>
-                                <li class="{{ request()->is('about') ? 'active' : '' }}"><a href="{{ route('/') }}">Services </a></li>
+                                <li class="{{ request()->is('about') ? 'active' : '' }}"><a href="{{ route('about') }}">About </a></li>
+                                <li class="{{ request()->is('services') ? 'active' : '' }}"><a href="{{ route('about') }}">Services </a></li>
                                 <li class="{{ request()->is('tracking') ? 'active' : '' }}"><a href="{{ route('/') }}">Tracking </a></li>
                                 <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ route('contact') }}">Contact </a></li>
                               

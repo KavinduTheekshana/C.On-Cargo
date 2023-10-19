@@ -4,7 +4,7 @@
     <main>
         <!-- breadcrumb-area-start -->
         @section('page_img', asset('frontend/assets/img/bg/bg-10.jpg'))
-        @section('page_name', 'Contact US')
+        @section('page_name', 'Contact Us')
         @include('frontend.components.breadcrumb')
         <!-- breadcrumb-area-end -->
         @include('frontend.contact.map')
