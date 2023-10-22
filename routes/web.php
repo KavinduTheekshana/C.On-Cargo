@@ -21,6 +21,9 @@ Route::get('/', function () {
 Route::get('about', function () {
     return view('frontend.about.index');
 })->name('about');
+Route::get('services', function () {
+    return view('frontend.services.index');
+})->name('services');
 Route::get('contact', function () {
     return view('frontend.contact.index');
 })->name('contact');

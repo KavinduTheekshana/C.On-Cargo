@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-xl-8 col-lg-8 offset-lg-2 offset-xl-2" data-animscroll="fade-up" data-animscroll-delay="500">
                 <div class="section-title section-2 text-center pos-rel mr-80 ml-80">
-                    <h1>04</h1>
+                    <h1>06</h1>
                     <span class="border-left-1"></span>
                     <span>Frequently Asked Questions</span>
                     <span class="border-right-1"></span>

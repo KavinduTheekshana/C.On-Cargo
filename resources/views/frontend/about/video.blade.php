@@ -1,4 +1,4 @@
-<div class="video-02-area pt-270 pb-260" style="background-image:url({{ asset('frontend/assets/img/bg/bg-12.jpg')}})">
+<div class="video-02-area pt-270 pb-260" style="background-image:url({{ asset('frontend/assets/img/bg/bg-12.jpg')}})" data-animscroll="fade-up" data-animscroll-delay="500">
     <div class="container">
         <div class="row">
             <div class="col-xl-12">

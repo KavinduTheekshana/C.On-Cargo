@@ -1,7 +1,7 @@
 <div class="about-me-area pt-125 pb-100">
     <div class="container">
         <div class="row mb-40">
-            <div class="cl-xl-6 col-lg-6">
+            <div class="cl-xl-6 col-lg-6" data-animscroll="fade-right" data-animscroll-delay="100">
                 <div class="about-me-single">
                     <div class="section-title pos-rel mb-30">
                         <h1>01</h1>
@@ -10,7 +10,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-6 col-lg-6">
+            <div class="col-xl-6 col-lg-6" data-animscroll="fade-left" data-animscroll-delay="100">
                 <div class="about-right-single mb-30">
                     <div class="about-me-info">
                         <span>
@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xl-4 col-lg-4 col-md-6">
+            <div class="col-xl-4 col-lg-4 col-md-6" data-animscroll="fade-up" data-animscroll-delay="100">
                 <div class="about-me-wrapper active mb-30">
                     <div class="about-me-img">
                         <img src="{{ asset('frontend/assets/img/bg/cargo-ship.jpg') }}" alt="">
@@ -39,7 +39,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-lg-4 col-md-6">
+            <div class="col-xl-4 col-lg-4 col-md-6" data-animscroll="fade-up" data-animscroll-delay="200">
                 <div class="about-me-wrapper mb-30">
                     <div class="about-me-img">
                         <img src="{{ asset('frontend/assets/img/bg/export-import-plane-1.jpg') }}" alt="">
@@ -55,7 +55,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-lg-4 col-md-6">
+            <div class="col-xl-4 col-lg-4 col-md-6" data-animscroll="fade-up" data-animscroll-delay="300">
                 <div class="about-me-wrapper mb-30">
                     <div class="about-me-img">
                         <img src="{{ asset('frontend/assets/img/bg/prima-60t-gallery01.jpg') }}" alt="">
