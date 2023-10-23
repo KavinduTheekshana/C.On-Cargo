@@ -12,21 +12,21 @@
         <!-- features-area-end -->
 
         <!-- about-us-area-start -->
-        @include('frontend.home.about')
+        {{-- @include('frontend.home.about') --}}
         <!-- about-us-area-end -->
 
         <!-- cta-area-start -->
-        @include('frontend.home.support')
+        {{-- @include('frontend.home.support') --}}
         <!-- cta-area-end -->
 
     
 
         <!-- services-area-start -->
-        @include('frontend.home.services')
+        {{-- @include('frontend.home.services') --}}
         <!-- services-area-end -->
 
         <!-- appiontment-area-start -->
-        @include('frontend.home.appoinment')
+        @include('frontend.home.quote')
         <!-- appiontment-area-end -->
 
         <!-- testimonial-area-start -->

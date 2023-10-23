@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {{-- Anim Trap  --}}
     <link rel="stylesheet" href="{{ asset('frontend/assets/plugin/animtrap/css/animtrap.css') }}">
 
