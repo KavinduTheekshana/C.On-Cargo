@@ -29,7 +29,7 @@ Route::get('contact', function () {
 })->name('contact');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('backend.dashboard.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
