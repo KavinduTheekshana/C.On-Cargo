@@ -3,62 +3,62 @@
         <div class="row brand-active">
             <div class="col-xl-12">
                 <div class="brand-img text-center">
-                    <img src="assets/img/brand/01.png" alt="" />
+                    <img src="{{ asset('frontend/assets/img/brand/01.png')}}" alt="" />
                 </div>
             </div>
             <div class="col-xl-12">
                 <div class="brand-img text-center">
-                    <img src="assets/img/brand/02.png" alt="" />
+                    <img src="{{ asset('frontend/assets/img/brand/02.png')}}" alt="" />
                 </div>
             </div>
             <div class="col-xl-12">
                 <div class="brand-img text-center">
-                    <img src="assets/img/brand/03.png" alt="" />
+                    <img src="{{ asset('frontend/assets/img/brand/03.png')}}" alt="" />
                 </div>
             </div>
             <div class="col-xl-12">
                 <div class="brand-img text-center">
-                    <img src="assets/img/brand/04.png" alt="" />
+                    <img src="{{ asset('frontend/assets/img/brand/04.png')}}" alt="" />
                 </div>
             </div>
             <div class="col-xl-12">
                 <div class="brand-img text-center">
-                    <img src="assets/img/brand/05.png" alt="" />
+                    <img src="{{ asset('frontend/assets/img/brand/05.png')}}" alt="" />
                 </div>
             </div>
             <div class="col-xl-12">
                 <div class="brand-img text-center">
-                    <img src="assets/img/brand/06.png" alt="" />
+                    <img src="{{ asset('frontend/assets/img/brand/06.png')}}" alt="" />
                 </div>
             </div>
             <div class="col-xl-12">
                 <div class="brand-img text-center">
-                    <img src="assets/img/brand/01.png" alt="" />
+                    <img src="{{ asset('frontend/assets/img/brand/01.png')}}" alt="" />
                 </div>
             </div>
             <div class="col-xl-12">
                 <div class="brand-img text-center">
-                    <img src="assets/img/brand/02.png" alt="" />
+                    <img src="{{ asset('frontend/assets/img/brand/02.png')}}" alt="" />
                 </div>
             </div>
             <div class="col-xl-12">
                 <div class="brand-img text-center">
-                    <img src="assets/img/brand/03.png" alt="" />
+                    <img src="{{ asset('frontend/assets/img/brand/03.png')}}" alt="" />
                 </div>
             </div>
             <div class="col-xl-12">
                 <div class="brand-img text-center">
-                    <img src="assets/img/brand/04.png" alt="" />
+                    <img src="{{ asset('frontend/assets/img/brand/04.png')}}" alt="" />
                 </div>
             </div>
             <div class="col-xl-12">
                 <div class="brand-img text-center">
-                    <img src="assets/img/brand/05.png" alt="" />
+                    <img src="{{ asset('frontend/assets/img/brand/05.png')}}" alt="" />
                 </div>
             </div>
             <div class="col-xl-12">
                 <div class="brand-img text-center">
-                    <img src="assets/img/brand/06.png" alt="" />
+                    <img src="{{ asset('frontend/assets/img/brand/06.png')}}" alt="" />
                 </div>
             </div>
         </div>

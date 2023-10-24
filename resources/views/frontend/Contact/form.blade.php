@@ -1,4 +1,4 @@
-<div class="contact-us-area pt-125 pb-115 mb-130" style="background-image:url(assets/img/bg/09.jpg)">
+<div class="contact-us-area pt-125 pb-115 mb-130" style="background-image:url({{ asset('frontend/assets/img/bg/09.jpg')}})">
     <div class="container">
         <div class="row">
             <div class="col-xl-8 col-lg-8 offset-lg-2 offset-xl-2">

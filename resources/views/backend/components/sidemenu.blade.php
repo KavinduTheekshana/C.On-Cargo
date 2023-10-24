@@ -22,6 +22,13 @@
           <div data-i18n="Dashboard">Dashboard</div>
         </a>
       </li>
+
+      <li class="menu-item {{ request()->is('customers') ? 'active' : '' }}">
+        <a href="{{ route('customers') }}" class="menu-link">
+          <i class="menu-icon tf-icons mdi mdi-account-multiple-outline"></i>
+          <div data-i18n="Customers">Customers</div>
+        </a>
+      </li>
       <li class="menu-item">
         <a href="app-chat.html" class="menu-link">
           <i class="menu-icon tf-icons mdi mdi-message-outline"></i>

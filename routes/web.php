@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// -------------------Front End---------------------------------------------
 Route::get('/', function () {
     return view('frontend.home.index');
 })->name('/');
@@ -28,15 +30,28 @@ Route::get('contact', function () {
     return view('frontend.contact.index');
 })->name('contact');
 
-Route::get('/dashboard', function () {
-    return view('backend.dashboard.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+// -------------------Back End---------------------------------------------
+Route::middleware(['auth', 'verified'])->group(function () {
+
+    Route::get('/dashboard', function () {
+        return view('backend.dashboard.dashboard');
+    })->name('dashboard');
+
+
+    Route::get('/customers', function () {
+        return view('backend.customers.customers');
+    })->name('customers');
+
+  
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     // Route::get('/redirect', [HomeController::class, 'index']);
+   
 });
-
+Route::post('/save-customers', [CustomerController::class, 'save'])->name('customer.save');
 require __DIR__.'/auth.php';
