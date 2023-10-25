@@ -2,7 +2,6 @@
 
 @section('content')
     <!-- Content -->
-
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row g-4 mb-4">
             <div class="col-sm-6 col-xl-3">
@@ -95,12 +94,17 @@
 
         <div class="card">
             <div class="card-header border-bottom">
-          
-                    <h5 class="card-title">Customers Table</h5>
+                <div class="row">
+                    <div class="col">
+                        <h5 class="card-title">Customers Table</h5>
+                    </div>
+                    <div class="col d-flex" style="justify-content: end"> <button type="button" class="btn btn-primary"
+                            data-bs-toggle="offcanvas" data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd"><span
+                                class="mdi mdi-plus"></span> &nbsp;Add Customer</button></div>
+                </div>
 
-                    <button type="button" class="btn btn-primary">Primary</button>
-            
-                <h5 class="card-title">Customers Table</h5>
+
+                {{-- <h5 class="card-title">Customers Table</h5> --}}
                 {{-- <div class="d-flex justify-content-between align-items-center row py-3 gap-3 gap-md-0">
                     <div class="col-md-4 user_role"></div>
                     <div class="col-md-4 user_plan"></div>
@@ -108,30 +112,75 @@
                 </div> --}}
             </div>
             <div class="card-datatable table-responsive">
-            <table id="example" class="table table-striped table-bordered" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Stars</th>
-                        <th>Comment</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
+                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Contact</th>
+                            <th>Address</th>
+                            <th>Post Code</th>
+                            <th>Country</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                    <tr>
-                        <td>12312</td>
-                        <td>12312</td>
-                        <td>12312</td>
-                        <td>12312</td>
-                        <td>12312</td>
-               
-                        <td>12312</td>
-                    </tr>
-                </tbody>
-            </table>
+                    <tbody>
+                        @foreach ($customers as $customer)
+                            <tr>
+                                <td>
+                                    <div class="d-flex mb-3">
+                                        <div class="avatar me-2">
+                                            <span
+                                                class="avatar-initial rounded-circle bg-label-danger">{{ strtoupper(substr($customer->firstname, 0, 1)) }}{{ strtoupper(substr($customer->lastname, 0, 1)) }}</span>
+                                        </div>
+                                        <div class="flex-grow-1 row">
+                                            <div class="col-9 mb-sm-0 mb-2">
+                                                <h6 class="mb-0">{{ $customer->firstname }}&nbsp;{{ $customer->lastname }}
+                                                </h6>
+                                                <span>{{ $customer->email }}&nbsp;@if ($customer->status)
+                                                        <span class="badge rounded-pill bg-label-success">Active</span>
+                                                    @else
+                                                        <span class="badge rounded-pill bg-label-danger">Diactive</span>
+                                                    @endif
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{ $customer->contact }}</td>
+                                <td>{{ $customer->address }}</td>
+                                <td>{{ $customer->postcode }}</td>
+                                <td>
+                                    {{ $customer->country }}
+                                </td>
+
+
+
+
+
+                                <td>
+                                    @if ($customer->status)
+                                        <a href="{{ route('customer.diactive', ['id' => $customer->id]) }}" type="button"
+                                            class="btn btn-icon btn-danger btn-fab demo waves-effect waves-light">
+                                            <i class="tf-icons mdi mdi-lock-outline"></i>
+                                        </a>
+                                    @else
+                                        <a href="{{ route('customer.active', ['id' => $customer->id]) }}" type="button"
+                                            class="btn btn-icon btn-success btn-fab demo waves-effect waves-light">
+                                            <i class="tf-icons mdi mdi-lock-open-variant-outline"></i>
+                                        </a>
+                                    @endif
+
+                                    <button type="button" onclick="openSweetAlert({{ $customer->id }})"
+                                        class="btn btn-icon btn-warning btn-fab demo waves-effect waves-light">
+                                        <i class="tf-icons mdi mdi-trash-can-outline"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
             {{-- <div class="card-datatable table-responsive">
                 <table class="datatables-users table">
@@ -156,52 +205,71 @@
                 </table>
             </div> --}}
             <!-- Offcanvas to add new user -->
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddUser"
-                aria-labelledby="offcanvasAddUserLabel">
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEnd" aria-labelledby="offcanvasEndLabel">
                 <div class="offcanvas-header">
                     <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Add Customers</h5>
-                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                    <button id="btnClose" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                         aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body mx-0 flex-grow-0 h-100">
 
-                    @include('backend.components.alert')
-                    <form class="add-new-user pt-0" method="POST"
-                        action="{{ route('customer.save') }}" enctype="multipart/form-data">
+                    <form class="add-new-user pt-0" method="POST" action="{{ route('customer.save') }}"
+                        enctype="multipart/form-data">
                         @csrf
 
-                  
+
 
 
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="text" class="form-control" id="add-user-firstname" placeholder="John"
-                                name="firstname" aria-label="John" />
+                                name="firstname" aria-label="John" value="{{ old('firstname') }}" />
                             <label for="add-user-firstname">First Name</label>
+                            @error('firstname')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="text" class="form-control" id="add-user-lastname" placeholder="Doe"
-                                name="lastname" aria-label="John Doe" />
+                                name="lastname" aria-label="Doe" value="{{ old('lastname') }}" />
                             <label for="add-user-lastname">Last Name</label>
+                            @error('lastname')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="text" id="add-user-email" class="form-control"
-                                placeholder="john.doe@example.com" aria-label="john.doe@example.com" name="email" />
+                                placeholder="john.doe@example.com" aria-label="john.doe@example.com" name="email"
+                                value="{{ old('email') }}" />
                             <label for="add-user-email">Email</label>
+                            @error('email')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="text" id="add-user-contact" class="form-control phone-mask"
-                                placeholder="+44 75 032 88 488" aria-label="john.doe@example.com" name="contact" />
+                                placeholder="+44 75 032 88 488" aria-label="john.doe@example.com" name="contact"
+                                value="{{ old('contact') }}" />
                             <label for="add-user-contact">Contact</label>
+                            @error('contact')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="text" id="add-user-address" class="form-control"
-                                placeholder="12 King Arthur Ct,Waltham Cross" aria-label="jdoe1" name="address" />
+                                placeholder="12 King Arthur Ct,Waltham Cross" aria-label="jdoe1" name="address"
+                                value="{{ old('address') }}" />
                             <label for="add-user-company">Address</label>
+                            @error('address')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="text" id="add-user-postcode" class="form-control" placeholder="EN8 8EH"
-                                aria-label="jdoe1" name="postcode" />
+                                aria-label="jdoe1" name="postcode" value="{{ old('postcode') }}" />
                             <label for="add-user-company">Post Code</label>
+                            @error('postcode')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
                             <select name="country" id="country" class="select2 form-select">
@@ -210,9 +278,12 @@
                                 <option value="United Kingdom">United Kingdom</option>
                             </select>
                             <label for="country">Country</label>
+                            @error('country')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
                         <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
-       
+
                     </form>
                 </div>
             </div>
@@ -233,10 +304,52 @@
 
 
 @push('pagejs')
-<script>
-     $(document).ready(function() {
-        $('#example').DataTable();
-    });
-</script>
     <script src="{{ asset('backend/assets/js/app-user-list.js') }}"></script>
+@endpush
+
+@push('pagejs')
+    <script>
+        // datatable 
+        $(document).ready(function() {
+            $('#example').DataTable();
+        });
+
+        // Sweet Alert 
+        function openSweetAlert($id) {
+            console.log($id);
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    fetch(`/customer-delete/${$id}`, {
+                            method: 'GET',
+                            headers: {
+                                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                            },
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.message === 'Item deleted successfully') {
+                                Swal.fire('Deleted!', 'The item has been deleted.', 'success');
+                                // Reload the current page after a short delay
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 1000); // 1000 milliseconds = 1 second
+                            } else {
+                                Swal.fire('Error', 'Something went wrong!', 'error');
+                            }
+                        });
+
+
+                }
+            })
+        }
+    </script>
 @endpush

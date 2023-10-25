@@ -7,10 +7,11 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+  public function index()
+    {
+        $customers = Customer::all();
+        return view('backend.customers.customers', compact('customers'));
+    }
 
     public function save(Request $request)
     {
@@ -34,6 +35,25 @@ class CustomerController extends Controller
         $customer->save();
         return redirect()->back()->with('status', 'New Customer Added Sucessfully');
     }
-
+    public function active($id)
+    {
+        $testimonials = Customer::find($id);
+        $testimonials->status = '1';
+        $testimonials->save();
+        return redirect()->back()->with('status', 'Customer Activated Sucessfully');
+    }
+    public function diactive($id)
+    {
+        $testimonials = Customer::find($id);
+        $testimonials->status = '0';
+        $testimonials->save();
+        return redirect()->back()->with('status', 'Customer Diactivated Sucessfully');
+    }
+    public function delete($id)
+    {
+        $testimonials = Customer::find($id);
+        $testimonials->delete();
+        return response()->json(['message' => 'Item deleted successfully']);
+    }
 
 }

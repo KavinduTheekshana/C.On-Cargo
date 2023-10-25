@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('firstname');
             $table->string('lastname');
-            $table->string('email')->unique()->nullable();
-            $table->string('contact')->unique();
+            $table->boolean('status')->default(1);
+            $table->string('email');
+            $table->string('contact');
             $table->string('address');
             $table->string('postcode');
             $table->string('country');

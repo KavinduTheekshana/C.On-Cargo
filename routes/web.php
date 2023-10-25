@@ -39,11 +39,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
 
-    Route::get('/customers', function () {
-        return view('backend.customers.customers');
-    })->name('customers');
-
-  
+    // Route::get('/customers', function () {
+    //     return view('backend.customers.customers');
+    // })->name('customers');  
+    Route::get('/customers', [CustomerController::class, 'index'])->name('customers');
+    Route::post('/save-customers', [CustomerController::class, 'save'])->name('customer.save');
+    Route::get('/customer-delete/{id}', [CustomerController::class, 'delete'])->name('customer.delete');
+    Route::get('/customer-active/{id}', [CustomerController::class, 'active'])->name('customer.active');
+    Route::get('/customer-diactive/{id}', [CustomerController::class, 'diactive'])->name('customer.diactive');
 });
 
 Route::middleware('auth')->group(function () {
