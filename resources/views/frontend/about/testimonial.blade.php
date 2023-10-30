@@ -15,15 +15,16 @@
             <div class="col-xl-12">
                 <div class="clients-wrapper mt-75">
                     <div class="tesimonial-02-content">
-                        <p>Those who do not know how to pursu pleasure snall encounter consequence that are extre painful.Ullams corporis suscipit laboriosam nisi ut aliquid exea com
-                            modi consequatur quis autem veleumae.</p>
+                        <p>Excellent service with fare prices. I brought goods from Sri Lanka to UK through them recently, And it is
+                            so fast and smooth. The thing is they shipped my goods before the payment and they are providing a
+                            hats off service. I will definitely use the service again, highly recommended</p>
                         <div class="clientsay-name">
                             <div class="client-say-img">
-                                <img src="assets/img/testimonial/t-01.png" alt="">
+                                <img src="{{ asset('frontend/assets/img/testimonial/testimonial1.jpeg')}}" alt="">
                             </div>
                             <div class="client-say-content">
-                                <h4>Oliver D. Dummer</h4>
-                                <span>General manager</span>
+                                <h4>Pradeep Wasantha</h4>
+                                <span>Customer</span>
                             </div>
                         </div>
                     </div>
@@ -32,15 +33,16 @@
             <div class="col-xl-12">
                 <div class="clients-wrapper mt-75">
                     <div class="tesimonial-02-content">
-                        <p>Those who do not know how to pursu pleasure snall encounter consequence that are extre painful.Ullams corporis suscipit laboriosam nisi ut aliquid exea com
-                            modi consequatur quis autem veleumae.</p>
+                        <p>If you are looking for a fast &amp; efficient Cargo service, this is the correct place you should go for. They are
+                            giving an excellent customer service. Specially they deliver our packages safely without any damages or
+                            losses. And door to door they deliver on time without any delay. I would highly recommend this place.</p>
                         <div class="clientsay-name">
                             <div class="client-say-img">
-                                <img src="assets/img/testimonial/t-02.png" alt="">
+                                <img src="{{ asset('frontend/assets/img/testimonial/testimonial2.jpeg')}}" alt="">
                             </div>
                             <div class="client-say-content">
-                                <h4>Dewey M. Lewis</h4>
-                                <span>Application Designer</span>
+                                <h4>Kumara Janappriya</h4>
+                                <span>Customer</span>
                             </div>
                         </div>
                     </div>
@@ -49,15 +51,53 @@
             <div class="col-xl-12">
                 <div class="clients-wrapper mt-75">
                     <div class="tesimonial-02-content">
-                        <p>Those who do not know how to pursu pleasure snall encounter consequence that are extre painful.Ullams corporis suscipit laboriosam nisi ut aliquid exea com
-                            modi consequatur quis autem veleumae.</p>
+                        <p>Highly reliable service with weekly Cargo from Sri Lanka to UK. send various types of door to door items
+                            including fragile stuff. Each and every time all the items reached destination within 7 – 8 days without any
+                            issue. The service and expertise was outstanding and the price was very reasonable. Thank You</p>
                         <div class="clientsay-name">
                             <div class="client-say-img">
-                                <img src="assets/img/testimonial/t-01.png" alt="">
+                                <img src="{{ asset('frontend/assets/img/testimonial/testimonial3.jpeg')}}" alt="">
                             </div>
                             <div class="client-say-content">
-                                <h4>Oliver D. Dummer</h4>
-                                <span>General manager</span>
+                                <h4>Nirmala Wijerathna</h4>
+                                <span>Customer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12">
+                <div class="clients-wrapper mt-75">
+                    <div class="tesimonial-02-content">
+                        <p>The best customer service. I contacted a few shipping places but they all let me down last minute. Finally
+                            I contacted C.ON Cargo and the customer service I received was amazing, They were really helpful, The
+                            cargo finally arrived in Sri Lanka before the expected day. I want to thanks and will always use them for
+                            my cargo needs from now on. Thank you</p>
+                        <div class="clientsay-name">
+                            <div class="client-say-img">
+                                <img src="{{ asset('frontend/assets/img/testimonial/testimonial4.jpeg')}}" alt="">
+                            </div>
+                            <div class="client-say-content">
+                                <h4>Indika Rasaputhra</h4>
+                                <span>Customer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12">
+                <div class="clients-wrapper mt-75">
+                    <div class="tesimonial-02-content">
+                        <p>I have used them a few times for bring &amp; send to parcels. I have never been disappointed. Still need to do
+                            some improvements but they provide a valuable service to the Sri Lankans. C.ON Cargo do a pretty good
+                            job at a reasonable cost.</p>
+                        <div class="clientsay-name">
+                            <div class="client-say-img">
+                                <img src="{{ asset('frontend/assets/img/testimonial/testimonial5.jpeg')}}" alt="">
+                            </div>
+                            <div class="client-say-content">
+                                <h4>Ajith Herath</h4>
+                                <span>Customer</span>
                             </div>
                         </div>
                     </div>

@@ -4,7 +4,7 @@
             <div class="col-xl-12">
                 <div class="video-wrapper text-center">
                     <div class="video-icon">
-                        <a class="popup-video play-btn-style" href="https://www.youtube.com/watch?v=LTXD6XZXc3U"><i class="fas fa-play"></i></a>
+                        <a class="popup-video play-btn-style" href="#"><i class="fas fa-play"></i></a>
                     </div>
                     <div class="video-text">
                         <h2>Watch Our Latest <br> Videos Now</h2>
