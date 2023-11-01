@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="{{ asset('backend/assets/vendor/css/rtl/theme-default.css') }}"
         class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('backend/assets/css/demo.css') }}" />
+    <link rel="stylesheet" href="{{ asset('backend/assets/css/style.css') }}" />
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('backend/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
@@ -52,7 +53,7 @@
     <!-- Page CSS -->
 
     <link rel="stylesheet" href="{{ asset('backend/assets/vendor/css/pages/app-logistics-dashboard.css') }}" />
-
+    @stack('styles')
     <!-- Helpers -->
     <script src="{{ asset('backend/assets/vendor/js/helpers.js') }}"></script>
     <script src="{{ asset('backend/assets/vendor/js/template-customizer.js') }}"></script>

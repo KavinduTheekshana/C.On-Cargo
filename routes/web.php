@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -39,14 +40,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
 
-    // Route::get('/customers', function () {
-    //     return view('backend.customers.customers');
-    // })->name('customers');  
+  //Customers
     Route::get('/customers', [CustomerController::class, 'index'])->name('customers');
     Route::post('/save-customers', [CustomerController::class, 'save'])->name('customer.save');
     Route::get('/customer-delete/{id}', [CustomerController::class, 'delete'])->name('customer.delete');
     Route::get('/customer-active/{id}', [CustomerController::class, 'active'])->name('customer.active');
     Route::get('/customer-diactive/{id}', [CustomerController::class, 'diactive'])->name('customer.diactive');
+
+    //Invoice
+    Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice');
+    Route::get('/create', [InvoiceController::class, 'create'])->name('create');
+
 });
 
 Route::middleware('auth')->group(function () {

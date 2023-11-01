@@ -9,33 +9,10 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <div class="me-1">
-                                <p class="text-heading mb-2">Session</p>
+                                <p class="text-heading mb-2">Total Customers</p>
                                 <div class="d-flex align-items-center">
                                     <h4 class="mb-2 me-1 display-6">21,459</h4>
-                                    <p class="text-success mb-2">(+29%)</p>
                                 </div>
-                                <p class="mb-0">Total Users</p>
-                            </div>
-                            <div class="avatar">
-                                <div class="avatar-initial bg-label-primary rounded">
-                                    <div class="mdi mdi-account-outline mdi-24px"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-xl-3">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div class="me-1">
-                                <p class="text-heading mb-2">Paid Users</p>
-                                <div class="d-flex align-items-center">
-                                    <h4 class="mb-2 me-1 display-6">4,567</h4>
-                                    <p class="text-success mb-2">(+18%)</p>
-                                </div>
-                                <p class="mb-0">Last week analytics</p>
                             </div>
                             <div class="avatar">
                                 <div class="avatar-initial bg-label-danger rounded">
@@ -51,12 +28,10 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <div class="me-1">
-                                <p class="text-heading mb-2">Active Users</p>
+                                <p class="text-heading mb-2">Active Customers</p>
                                 <div class="d-flex align-items-center">
-                                    <h4 class="mb-2 me-1 display-6">19,860</h4>
-                                    <p class="text-danger mb-2">(-14%)</p>
+                                    <h4 class="mb-2 me-1 display-6">4,567</h4>
                                 </div>
-                                <p class="mb-0">Last week analytics</p>
                             </div>
                             <div class="avatar">
                                 <div class="avatar-initial bg-label-success rounded">
@@ -72,12 +47,29 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <div class="me-1">
+                                <p class="text-heading mb-2">Active Customers</p>
+                                <div class="d-flex align-items-center">
+                                    <h4 class="mb-2 me-1 display-6">19,860</h4>
+                                </div>
+                            </div>
+                            <div class="avatar">
+                                <div class="avatar-initial bg-label-primary rounded">
+                                    <div class="mdi mdi-account-outline mdi-24px"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div class="me-1">
                                 <p class="text-heading mb-2">Pending Users</p>
                                 <div class="d-flex align-items-center">
                                     <h4 class="mb-2 me-1 display-6">237</h4>
-                                    <p class="text-success mb-2">(+42%)</p>
                                 </div>
-                                <p class="mb-0">Last week analytics</p>
                             </div>
                             <div class="avatar">
                                 <div class="avatar-initial bg-label-warning rounded">
@@ -102,17 +94,9 @@
                             data-bs-toggle="offcanvas" data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd"><span
                                 class="mdi mdi-plus"></span> &nbsp;Add Customer</button></div>
                 </div>
-
-
-                {{-- <h5 class="card-title">Customers Table</h5> --}}
-                {{-- <div class="d-flex justify-content-between align-items-center row py-3 gap-3 gap-md-0">
-                    <div class="col-md-4 user_role"></div>
-                    <div class="col-md-4 user_plan"></div>
-                    <div class="col-md-4 user_status"></div>
-                </div> --}}
             </div>
             <div class="card-datatable table-responsive">
-                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                <table id="customer" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>Customer</th>
@@ -125,13 +109,16 @@
                     </thead>
 
                     <tbody>
-                        @foreach ($customers as $customer)
+                        @php
+                            $classes = ['bg-label-warning', 'bg-label-danger', 'bg-label-info', 'bg-label-primary', 'bg-label-secondary', 'bg-label-success'];
+                        @endphp
+                        @foreach ($customers as $index => $customer)
                             <tr>
                                 <td>
                                     <div class="d-flex mb-3">
                                         <div class="avatar me-2">
                                             <span
-                                                class="avatar-initial rounded-circle bg-label-danger">{{ strtoupper(substr($customer->firstname, 0, 1)) }}{{ strtoupper(substr($customer->lastname, 0, 1)) }}</span>
+                                                class="avatar-initial rounded-circle {{ $classes[$index % count($classes)] }}">{{ strtoupper(substr($customer->firstname, 0, 1)) }}{{ strtoupper(substr($customer->lastname, 0, 1)) }}</span>
                                         </div>
                                         <div class="flex-grow-1 row">
                                             <div class="col-9 mb-sm-0 mb-2">
@@ -160,22 +147,28 @@
 
 
                                 <td>
-                                    @if ($customer->status)
-                                        <a href="{{ route('customer.diactive', ['id' => $customer->id]) }}" type="button"
-                                            class="btn btn-icon btn-danger btn-fab demo waves-effect waves-light">
-                                            <i class="tf-icons mdi mdi-lock-outline"></i>
-                                        </a>
-                                    @else
-                                        <a href="{{ route('customer.active', ['id' => $customer->id]) }}" type="button"
-                                            class="btn btn-icon btn-success btn-fab demo waves-effect waves-light">
-                                            <i class="tf-icons mdi mdi-lock-open-variant-outline"></i>
-                                        </a>
-                                    @endif
+                                    <div class="row">
+                                        @if ($customer->status)
+                                            <a href="{{ route('customer.diactive', ['id' => $customer->id]) }}"
+                                                type="button"
+                                                class="btn btn-icon btn-danger btn-fab demo waves-effect waves-light m-1">
+                                                <i class="tf-icons mdi mdi-lock-outline"></i>
+                                            </a>
+                                        @else
+                                            <a href="{{ route('customer.active', ['id' => $customer->id]) }}"
+                                                type="button"
+                                                class="btn btn-icon btn-success btn-fab demo waves-effect waves-light m-1">
+                                                <i class="tf-icons mdi mdi-lock-open-variant-outline"></i>
+                                            </a>
+                                        @endif
 
-                                    <button type="button" onclick="openSweetAlert({{ $customer->id }})"
-                                        class="btn btn-icon btn-warning btn-fab demo waves-effect waves-light">
-                                        <i class="tf-icons mdi mdi-trash-can-outline"></i>
-                                    </button>
+                                        <button type="button" onclick="openSweetAlert({{ $customer->id }})"
+                                            class="btn btn-icon btn-warning btn-fab demo waves-effect waves-light m-1">
+                                            <i class="tf-icons mdi mdi-trash-can-outline"></i>
+                                        </button>
+
+                                    </div>
+
                                 </td>
                             </tr>
                         @endforeach
@@ -307,11 +300,11 @@
     <script src="{{ asset('backend/assets/js/app-user-list.js') }}"></script>
 @endpush
 
-@push('pagejs')
+@push('scripts')
     <script>
         // datatable 
         $(document).ready(function() {
-            $('#example').DataTable();
+            $('#customer').DataTable();
         });
 
         // Sweet Alert 

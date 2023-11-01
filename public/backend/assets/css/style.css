@@ -1,0 +1,14 @@
+.vertical-line::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-right: 1px solid #868686; /* Adjust line color and width */
+}
+.line {
+    position: relative; /* Required for positioning the line */
+}
+.pr-100{
+    padding-right: 100px !important;
+}

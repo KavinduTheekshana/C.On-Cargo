@@ -22,13 +22,51 @@
           <div data-i18n="Dashboard">Dashboard</div>
         </a>
       </li>
-
       <li class="menu-item {{ request()->is('customers') ? 'active' : '' }}">
         <a href="{{ route('customers') }}" class="menu-link">
           <i class="menu-icon tf-icons mdi mdi-account-multiple-outline"></i>
           <div data-i18n="Customers">Customers</div>
         </a>
       </li>
+      <li class="menu-item {{ request()->is('invoice', 'create') ? 'open' : '' }}">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons mdi mdi-file-document-outline"></i>
+          <div data-i18n="Invoice">Invoice</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item {{ request()->is('invoice') ? 'active' : '' }}">
+            <a href="{{ route('invoice') }}" class="menu-link">
+              <div data-i18n="List">List</div>
+            </a>
+          </li>
+          <li class="menu-item {{ request()->is('create') ? 'active' : '' }}">
+            <a href="{{ route('create') }}" class="menu-link">
+              <div data-i18n="Create">Create</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-invoice-preview.html" class="menu-link">
+              <div data-i18n="Preview">Preview</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-invoice-edit.html" class="menu-link">
+              <div data-i18n="Edit">Edit</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="app-invoice-add.html" class="menu-link">
+              <div data-i18n="Add">Add</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      {{-- <li class="menu-item {{ request()->is('invoice') ? 'active' : '' }}">
+        <a href="{{ route('invoice') }}" class="menu-link">
+          <i class="menu-icon tf-icons mdi mdi-file-document-outline"></i>
+          <div data-i18n="Invoice">Invoice</div>
+        </a>
+      </li> --}}
       <li class="menu-item">
         <a href="app-chat.html" class="menu-link">
           <i class="menu-icon tf-icons mdi mdi-message-outline"></i>
