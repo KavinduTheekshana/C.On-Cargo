@@ -50,7 +50,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //Invoice
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice');
     Route::get('/create', [InvoiceController::class, 'create'])->name('create');
-
+    Route::post('/store', [InvoiceController::class, 'store'])->name('invoices.store');
 });
 
 Route::middleware('auth')->group(function () {

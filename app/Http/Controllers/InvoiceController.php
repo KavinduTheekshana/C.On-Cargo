@@ -20,7 +20,9 @@ class InvoiceController extends Controller
     public function create()
     {
         $customers = Customer::all();
-        return view('backend.invoice.create', compact('customers'));
+        $lastInvoiceId = Invoice::max('id');
+        $nextInvoiceId = $lastInvoiceId + 1;
+        return view('backend.invoice.create', compact('customers','nextInvoiceId'));
     }
 
     /**
@@ -28,7 +30,20 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all()); 
+        // Validation can be added here
+        $invoiceData = $request->only([
+            'invoice_id', 'date', 'job_number', 'customer_id', 'sender_id', 
+            'receiver_id', 'collection_fee', 'handling_fee', 'total_fee', 'note'
+        ]);
+
+        $invoice = Invoice::create($invoiceData);
+
+        foreach ($request->items as $itemData) {
+            $invoice->items()->create($itemData);
+        }
+        // return redirect()->back()->with('status', 'New Customer Added Sucessfully');
+        return redirect()->back()->with('status', 'Invoice created successfully.');
     }
 
     /**

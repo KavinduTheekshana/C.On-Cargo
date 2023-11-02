@@ -12,3 +12,13 @@
 .pr-100{
     padding-right: 100px !important;
 }
+.d-bg {
+    background-color: #f4f4f6 !important;
+}
+.total-font{
+    font-size: 34px !important;
+}
+.total-text{
+    display: flex;
+    justify-content: end;
+}
