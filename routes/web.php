@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AgentsController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
@@ -40,17 +41,25 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
 
-  //Customers
+    //Customers
     Route::get('/customers', [CustomerController::class, 'index'])->name('customers');
     Route::post('/save-customers', [CustomerController::class, 'save'])->name('customer.save');
     Route::get('/customer-delete/{id}', [CustomerController::class, 'delete'])->name('customer.delete');
     Route::get('/customer-active/{id}', [CustomerController::class, 'active'])->name('customer.active');
     Route::get('/customer-diactive/{id}', [CustomerController::class, 'diactive'])->name('customer.diactive');
 
+    //Agents
+    Route::get('/agents', [AgentsController::class, 'index'])->name('agents');
+    Route::post('/save-agents', [AgentsController::class, 'save'])->name('agents.save');
+    Route::get('/agents-delete/{id}', [AgentsController::class, 'delete'])->name('agents.delete');
+    Route::get('/agents-active/{id}', [AgentsController::class, 'active'])->name('agents.active');
+    Route::get('/agents-diactive/{id}', [AgentsController::class, 'diactive'])->name('agents.diactive');
+
     //Invoice
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice');
     Route::get('/create', [InvoiceController::class, 'create'])->name('create');
     Route::post('/store', [InvoiceController::class, 'store'])->name('invoices.store');
+    Route::get('/invoice-delete/{id}', [InvoiceController::class, 'delete'])->name('invoice.delete');
 });
 
 Route::middleware('auth')->group(function () {
@@ -58,7 +67,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     // Route::get('/redirect', [HomeController::class, 'index']);
-   
+
 });
+Route::get('/logout', function () {
+    auth()->logout();
+    return redirect('/login');
+})->name('logout');
 Route::post('/save-customers', [CustomerController::class, 'save'])->name('customer.save');
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

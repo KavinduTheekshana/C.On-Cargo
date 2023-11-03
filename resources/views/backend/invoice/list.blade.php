@@ -80,23 +80,42 @@
                     <div class="col">
                         <h5 class="card-title">Invoice List Table</h5>
                     </div>
-                    <div class="col d-flex" style="justify-content: end"> <a href="{{ route('create') }}" type="button" class="btn btn-primary"><span
-                                class="mdi mdi-plus"></span> &nbsp;Create Invoice</a></div>
+                    <div class="col d-flex" style="justify-content: end"> <a href="{{ route('create') }}" type="button"
+                            class="btn btn-primary"><span class="mdi mdi-plus"></span> &nbsp;Create Invoice</a></div>
                 </div>
             </div>
             <div class="card-datatable table-responsive">
                 <table id="invoice" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Customer</th>
-                            <th>Contact</th>
-                            <th>Address</th>
-                            <th>Post Code</th>
-                            <th>Country</th>
+                            <th>ID</th>
+                            <th>Date</th>
+                            <th>Job Number</th>
+                            <th>Customer ID</th>
+                            <th>Sender Details</th>
+                            {{-- <th>Receiver Details</th> --}}
+                            <th>Amount</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
+                    @foreach ($invoices as $item)
+                    <tr>
+                        <td>{{$item->invoice_id}}</td>
+                        <td>{{$item->date}}</td>
+                        <td>{{$item->job_number}}</td>
+                        <td>{{$item->customer_id}}</td>
+                        <td><b>{{$item->sender->firstname}}&nbsp;{{$item->sender->lastname}} </b><br>{{$item->sender->address}}</td>
+                        {{-- <td><b>{{$item->receiver->firstname}}&nbsp;{{$item->receiver->lastname}} </b><br>{{$item->receiver->address}}</td> --}}
+                        <td>£{{$item->total_fee}}</td>
+                        <td>
 
+                            <button type="button" onclick="openSweetAlert({{ $item->id }})"
+                                class="btn btn-icon btn-danger btn-fab demo waves-effect waves-light m-1">
+                                <i class="tf-icons mdi mdi-trash-can-outline"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    @endforeach
                     <tbody>
 
                     </tbody>
@@ -122,5 +141,43 @@
         $(document).ready(function() {
             $('#invoice').DataTable();
         });
+
+          // Sweet Alert 
+          function openSweetAlert($id) {
+            console.log($id);
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    fetch(`/invoice-delete/${$id}`, {
+                            method: 'GET',
+                            headers: {
+                                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                            },
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.message === 'Invoice deleted successfully') {
+                                Swal.fire('Deleted!', 'The Invoice has been deleted.', 'success');
+                                // Reload the current page after a short delay
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 1000); // 1000 milliseconds = 1 second
+                            } else {
+                                Swal.fire('Error', 'Something went wrong!', 'error');
+                            }
+                        });
+
+
+                }
+            })
+        }
     </script>
 @endpush

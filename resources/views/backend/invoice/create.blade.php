@@ -51,14 +51,14 @@
                                             <div class="input-group input-group-merge disabled">
                                                 <span class="input-group-text">#</span>
                                                 <input type="text" class="form-control d-bg" readonly name="invoice_id"
-                                                    id="invoiceId" value="{{ $nextInvoiceId }}" />
+                                                    id="invoiceId" value="{{ strtoupper(Auth::user()->identity) }}-{{ $nextInvoiceId }}" />
                                             </div>
                                         </dd>
                                         <dt class="col-sm-6 mb-2 d-md-flex align-items-center justify-content-end">
                                             <span class="fw-normal">Date:</span>
                                         </dt>
                                         <dd class="col-sm-6">
-                                            <input type="text" class="form-control date-picker" name="date"
+                                            <input type="text" class="form-control date-picker" name="date" value="{{ old('date') }}"
                                                 placeholder="YYYY-MM-DD" />
                                         </dd>
                                         <dt class="col-sm-6 mb-2 d-md-flex align-items-center justify-content-end">
@@ -67,7 +67,7 @@
                                         <dd class="col-sm-6">
                                             <div class="input-group input-group-merge ">
                                                 <span class="input-group-text">#</span>
-                                                <input type="text" name="job_number" class="form-control"
+                                                <input type="text" name="job_number" value="{{ old('job_number') }}" class="form-control"
                                                     id="jobNumber" />
                                             </div>
                                         </dd>
@@ -77,7 +77,7 @@
                                         <dd class="col-sm-6">
                                             <div class="input-group input-group-merge ">
                                                 <span class="input-group-text">#</span>
-                                                <input type="text" class="form-control" id="customer_id"
+                                                <input type="text" class="form-control" value="{{ old('customer_id') }}"
                                                     name="customer_id" />
                                             </div>
                                         </dd>
@@ -188,12 +188,12 @@
 
                                             <div class="col">
                                                 <p class="mb-2 repeater-title">Collection & Delivery</p>
-                                                <input type="number" name="collection_fee" class="form-control mb-2"
+                                                <input type="number" name="collection_fee" class="form-control mb-2" value="{{ old('collection_fee') }}"
                                                     id="collection-input" onkeyup="calculateTotal()" placeholder="0" />
                                             </div>
                                             <div class="col">
                                                 <p class="mb-2 repeater-title">Handling Fee</p>
-                                                <input type="number" name="handling_fee" class="form-control"
+                                                <input type="number" name="handling_fee" class="form-control" value="{{ old('handling_fee') }}"
                                                     id="handling-input" onkeyup="calculateTotal()" placeholder="0" />
                                             </div>
                                         </div>
@@ -267,61 +267,19 @@
             <div class="col-lg-3 col-12 invoice-actions">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <button class="btn btn-primary d-grid w-100 mb-3" data-bs-toggle="offcanvas"
+                        {{-- <button type="button" class="btn btn-outline-secondary d-grid w-100 mb-3" data-bs-toggle="offcanvas"
                             data-bs-target="#sendInvoiceOffcanvas">
                             <span class="d-flex align-items-center justify-content-center text-nowrap"><i
                                     class="mdi mdi-send-outline scaleX-n1-rtl me-2"></i>Send Invoice</span>
-                        </button>
-                        <a href="./app-invoice-preview.html"
-                            class="btn btn-outline-secondary d-grid w-100 mb-3">Preview</a>
-                        <button type="submit" class="btn btn-outline-secondary d-grid w-100">Save</button>
+                        </button> --}}
+                        {{-- <a href="./app-invoice-preview.html"
+                            class="btn btn-outline-secondary d-grid w-100 mb-3">Preview</a> --}}
+                        <button type="submit" name="action" value="preview" class="btn btn-lg btn-outline-secondary d-grid w-100 mb-3">Save & Preview</button>
+                        <button type="submit" name="action" value="save" class="btn btn-lg btn-primary d-grid w-100">Save</button>
                     </div>
                 </div>
                 </form>
-                <div class="mb-4">
-                    <div class="form-floating form-floating-outline mb-4">
-                        <select class="form-select bg-body mb-4" id="select-payment-add">
-                            <option value="Bank Account">Bank Account</option>
-                            <option value="Paypal">Paypal</option>
-                            <option value="Card">Credit/Debit Card</option>
-                            <option value="UPI Transfer">UPI Transfer</option>
-                        </select>
-                        <label for="select-payment-add" class="bg-body">Accept payments via</label>
-                    </div>
-                    <div class="d-flex justify-content-between mb-2">
-                        <label for="payment-terms" class="mb-0">Payment Terms</label>
-                        <label class="switch switch-primary me-0">
-                            <input type="checkbox" class="switch-input" id="payment-terms" checked />
-                            <span class="switch-toggle-slider">
-                                <span class="switch-on"></span>
-                                <span class="switch-off"></span>
-                            </span>
-                            <span class="switch-label"></span>
-                        </label>
-                    </div>
-                    <div class="d-flex justify-content-between mb-2">
-                        <label for="client-notes" class="mb-0">Client Notes</label>
-                        <label class="switch switch-primary me-0">
-                            <input type="checkbox" class="switch-input" id="client-notes" />
-                            <span class="switch-toggle-slider">
-                                <span class="switch-on"></span>
-                                <span class="switch-off"></span>
-                            </span>
-                            <span class="switch-label"></span>
-                        </label>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <label for="payment-stub" class="mb-0">Payment Stub</label>
-                        <label class="switch switch-primary me-0">
-                            <input type="checkbox" class="switch-input" id="payment-stub" />
-                            <span class="switch-toggle-slider">
-                                <span class="switch-on"></span>
-                                <span class="switch-off"></span>
-                            </span>
-                            <span class="switch-label"></span>
-                        </label>
-                    </div>
-                </div>
+               
                 <div class="card mb-4">
                     <div class="card-body">
                         <label for="selectSender">&nbsp;&nbsp;Select Sender:</label>
@@ -365,54 +323,7 @@
         </div>
 
         <!-- Offcanvas -->
-        <!-- Send Invoice Sidebar -->
-        <div class="offcanvas offcanvas-end" id="sendInvoiceOffcanvas" aria-hidden="true">
-            <div class="offcanvas-header mb-3">
-                <h5 class="offcanvas-title">Send Invoice</h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                    aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body flex-grow-1">
-                <form>
-                    <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" class="form-control" id="invoice-from" value="shelbyComapny@email.com"
-                            placeholder="company@email.com" />
-                        <label for="invoice-from">From</label>
-                    </div>
-                    <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" class="form-control" id="invoice-to" value="qConsolidated@email.com"
-                            placeholder="company@email.com" />
-                        <label for="invoice-to">To</label>
-                    </div>
-                    <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" class="form-control" id="invoice-subject"
-                            value="Invoice of purchased Admin Templates" placeholder="Invoice regarding goods" />
-                        <label for="invoice-subject">Subject</label>
-                    </div>
-                    <div class="form-floating form-floating-outline mb-4">
-                        <textarea class="form-control" name="invoice-message" id="invoice-message" style="height: 190px">
-    Dear Queen Consolidated,
-        Thank you for your business, always a pleasure to work with you!
-        We have generated a new invoice in the amount of $95.59
-        We would appreciate payment of this invoice by 05/11/2021</textarea>
-                        <label for="invoice-message">Message</label>
-                    </div>
-                    <div class="mb-4">
-                        <span class="badge bg-label-primary rounded-pill">
-                            <i class="mdi mdi-link-variant mdi-14px me-1"></i>
-                            <span class="align-middle">Invoice Attached</span>
-                        </span>
-                    </div>
-                    <div class="mb-3 d-flex flex-wrap">
-                        <button type="button" class="btn btn-primary me-3" data-bs-dismiss="offcanvas">Send</button>
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="offcanvas">
-                            Cancel
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <!-- /Send Invoice Sidebar -->
+    
 
         <!-- /Offcanvas -->
     </div>
@@ -453,7 +364,6 @@
                 var country = $(data.element).data('country');
 
                 $('#sender_id').val(id);
-                $('#customer_id').val(id);
                 $('#senderDetails').html(
                     `<b>Name:</b> ${name}<br><b>Address:</b> ${address}<br><b>Postcode:</b> ${postcode}<br><b>Email:</b> ${email}<br><b>Contact:</b> ${contact}<br><b>Country:</b> ${country}`
                 );

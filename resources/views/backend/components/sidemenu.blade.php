@@ -22,6 +22,12 @@
           <div data-i18n="Dashboard">Dashboard</div>
         </a>
       </li>
+      <li class="menu-item {{ request()->is('agents') ? 'active' : '' }}">
+        <a href="{{ route('agents') }}" class="menu-link">
+          <i class="menu-icon tf-icons mdi mdi-account-star"></i>
+          <div data-i18n="Agents">Agents</div>
+        </a>
+      </li>
       <li class="menu-item {{ request()->is('customers') ? 'active' : '' }}">
         <a href="{{ route('customers') }}" class="menu-link">
           <i class="menu-icon tf-icons mdi mdi-account-multiple-outline"></i>

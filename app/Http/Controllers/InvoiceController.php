@@ -10,7 +10,7 @@ class InvoiceController extends Controller
 {
     public function index()
     {
-        $invoices = Customer::all();
+        $invoices = Invoice::with(['sender', 'receiver'])->get();
         return view('backend.invoice.list', compact('invoices'));
     }
 
@@ -30,8 +30,19 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all()); 
         // Validation can be added here
+        $this->validate($request, [
+            'invoice_id' => 'required|string|max:255',
+            'date' => 'required|date',
+            'job_number' => 'required|string|max:255',
+            'customer_id' => 'required|integer|exists:customers,id',
+            'sender_id' => 'required|integer|exists:customers,id',
+            'receiver_id' => 'required|integer|exists:customers,id',
+            'total_fee' => 'required|numeric',
+            'note' => 'nullable|string'
+        ]);
+
+
         $invoiceData = $request->only([
             'invoice_id', 'date', 'job_number', 'customer_id', 'sender_id', 
             'receiver_id', 'collection_fee', 'handling_fee', 'total_fee', 'note'
@@ -42,16 +53,18 @@ class InvoiceController extends Controller
         foreach ($request->items as $itemData) {
             $invoice->items()->create($itemData);
         }
-        // return redirect()->back()->with('status', 'New Customer Added Sucessfully');
-        return redirect()->back()->with('status', 'Invoice created successfully.');
+        if ($request->input('action') == 'save') {
+            return redirect()->back()->with('status', 'Invoice created successfullyyyyyyyyy.');
+        } elseif ($request->input('action') == 'preview') {
+            return redirect()->back()->with('status', 'Invoice created successfully.');
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Invoice $invoice)
+    public function delete($id)
     {
-        //
+        $Invoice = Invoice::find($id);
+        $Invoice->delete();
+        return response()->json(['message' => 'Invoice deleted successfully']);
     }
 
     /**

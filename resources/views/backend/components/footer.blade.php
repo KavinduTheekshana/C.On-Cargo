@@ -8,8 +8,8 @@
                 <script>
                     document.write(new Date().getFullYear());
                 </script>
-                , made with <span class="text-danger"><i class="tf-icons mdi mdi-heart"></i></span> by
-                <a href="https://pixinvent.com" target="_blank" class="footer-link fw-medium">Pixinvent</a>
+                | Developed by
+                <a href="https://creatxsoftware.com" target="_blank" class="footer-link fw-medium">Creatx Software</a>
             </div>
           
         </div>

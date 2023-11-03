@@ -88,22 +88,22 @@
             <div class="card-header border-bottom">
                 <div class="row">
                     <div class="col">
-                        <h5 class="card-title">Customers Table</h5>
+                        <h5 class="card-title">Agents Table</h5>
                     </div>
                     <div class="col d-flex" style="justify-content: end"> <button type="button" class="btn btn-primary"
                             data-bs-toggle="offcanvas" data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd"><span
-                                class="mdi mdi-plus"></span> &nbsp;Add Customer</button></div>
+                                class="mdi mdi-plus"></span> &nbsp;Add Agent</button></div>
                 </div>
             </div>
             <div class="card-datatable table-responsive">
                 <table id="customer" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Customer</th>
+                            <th>Agent</th>
                             <th>Contact</th>
-                            <th>Address</th>
-                            <th>Post Code</th>
-                            <th>Country</th>
+                            <th>Identity</th>
+                            <th>Location</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -112,35 +112,35 @@
                         @php
                             $classes = ['bg-label-warning', 'bg-label-danger', 'bg-label-info', 'bg-label-primary', 'bg-label-secondary', 'bg-label-success'];
                         @endphp
-                        @foreach ($customers as $index => $customer)
+                        @foreach ($agents as $index => $agent)
                             <tr>
                                 <td>
                                     <div class="d-flex mb-3">
-                                        <div class="avatar me-2">
+                                        <div class="avatar me-2 avatar-lg">
                                             <span
-                                                class="avatar-initial rounded-circle {{ $classes[$index % count($classes)] }}">{{ strtoupper(substr($customer->firstname, 0, 1)) }}{{ strtoupper(substr($customer->lastname, 0, 1)) }}</span>
+                                                class="avatar-initial rounded-circle {{ $classes[$index % count($classes)] }}">{{ $agent->identity }}</span>
                                         </div>
                                         <div class="flex-grow-1 row">
                                             <div class="col-9 mb-sm-0 mb-2">
-                                                <h6 class="mb-0">{{ $customer->firstname }}&nbsp;{{ $customer->lastname }}
+                                                <h6 class="mb-0">{{ $agent->name }}
                                                 </h6>
-                                                <span>{{ $customer->email }}&nbsp;@if ($customer->status)
-                                                        <span class="badge rounded-pill bg-success">Active</span>
-                                                    @else
-                                                        <span class="badge rounded-pill bg-warning">Diactive</span>
-                                                    @endif
+                                                <span>{{ $agent->email }}
                                                 </span>
                                             </div>
 
                                         </div>
                                     </div>
                                 </td>
-                                <td>{{ $customer->contact }}</td>
-                                <td>{{ $customer->address }}</td>
-                                <td>{{ $customer->postcode }}</td>
+                                <td>{{ $agent->phone }}</td>
+                                <td>{{ strtoupper($agent->identity) }}</td>
                                 <td>
-                                    {{ $customer->country }}
+                                    {{ $agent->location }}
                                 </td>
+                                <td>@if ($agent->status)
+                                    <span class="badge rounded-pill bg-success">Active</span>
+                                @else
+                                    <span class="badge rounded-pill bg-warning">Diactive</span>
+                                @endif</td>
 
 
 
@@ -148,21 +148,20 @@
 
                                 <td>
                                     <div class="row">
-                                        @if ($customer->status)
-                                            <a href="{{ route('customer.diactive', ['id' => $customer->id]) }}"
+                                        @if ($agent->status)
+                                            <a href="{{ route('customer.diactive', ['id' => $agent->id]) }}"
                                                 type="button"
                                                 class="btn btn-icon btn-warning btn-fab demo waves-effect waves-light m-1">
                                                 <i class="tf-icons mdi mdi-lock-outline"></i>
                                             </a>
                                         @else
-                                            <a href="{{ route('customer.active', ['id' => $customer->id]) }}"
-                                                type="button"
+                                            <a href="{{ route('customer.active', ['id' => $agent->id]) }}" type="button"
                                                 class="btn btn-icon btn-success btn-fab demo waves-effect waves-light m-1">
                                                 <i class="tf-icons mdi mdi-lock-open-variant-outline"></i>
                                             </a>
                                         @endif
 
-                                        <button type="button" onclick="openSweetAlert({{ $customer->id }})"
+                                        <button type="button" onclick="openSweetAlert({{ $agent->id }})"
                                             class="btn btn-icon btn-danger btn-fab demo waves-effect waves-light m-1">
                                             <i class="tf-icons mdi mdi-trash-can-outline"></i>
                                         </button>
@@ -200,13 +199,13 @@
             <!-- Offcanvas to add new user -->
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEnd" aria-labelledby="offcanvasEndLabel">
                 <div class="offcanvas-header">
-                    <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Add Customers</h5>
+                    <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Add Agent</h5>
                     <button id="btnClose" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                         aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body mx-0 flex-grow-0 h-100">
 
-                    <form class="add-new-user pt-0" method="POST" action="{{ route('customer.save') }}"
+                    <form class="add-new-user pt-0" method="POST" action="{{ route('agents.save') }}"
                         enctype="multipart/form-data">
                         @csrf
 
@@ -214,21 +213,14 @@
 
 
                         <div class="form-floating form-floating-outline mb-4">
-                            <input type="text" class="form-control" id="add-user-firstname" placeholder="John"
-                                name="firstname" aria-label="John" value="{{ old('firstname') }}" />
-                            <label for="add-user-firstname">First Name</label>
-                            @error('firstname')
+                            <input type="text" class="form-control" id="add-user-firstname" placeholder="John Doe"
+                                name="name" aria-label="John Doe" value="{{ old('name') }}" />
+                            <label for="add-user-name">Name</label>
+                            @error('name')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            <input type="text" class="form-control" id="add-user-lastname" placeholder="Doe"
-                                name="lastname" aria-label="Doe" value="{{ old('lastname') }}" />
-                            <label for="add-user-lastname">Last Name</label>
-                            @error('lastname')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
-                        </div>
+
                         <div class="form-floating form-floating-outline mb-4">
                             <input type="text" id="add-user-email" class="form-control"
                                 placeholder="john.doe@example.com" aria-label="john.doe@example.com" name="email"
@@ -248,33 +240,39 @@
                             @enderror
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
-                            <input type="text" id="add-user-address" class="form-control"
-                                placeholder="12 King Arthur Ct,Waltham Cross" aria-label="jdoe1" name="address"
-                                value="{{ old('address') }}" />
-                            <label for="add-user-company">Address</label>
-                            @error('address')
+                            <input type="text" id="add-agent-identity" class="form-control" placeholder="WD"
+                                aria-label="wd" name="identity" value="{{ old('identity') }}" />
+                            <label for="add-agent-identity">Identity</label>
+                            @error('identity')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
-                            <input type="text" id="add-user-postcode" class="form-control" placeholder="EN8 8EH"
-                                aria-label="jdoe1" name="postcode" value="{{ old('postcode') }}" />
-                            <label for="add-user-company">Post Code</label>
-                            @error('postcode')
+                            <input type="text" id="add-agent-location" class="form-control" placeholder="Manchester"
+                                aria-label="jdoe1" name="location" value="{{ old('location') }}" />
+                            <label for="add-agent-location">Location</label>
+                            @error('location')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input type="password" id="add-password" class="form-control" placeholder="*********"
+                                name="password" />
+                            <label for="add-password">Password</label>
+                            @error('password')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
-                            <select name="country" id="country" class="select2 form-select">
-                                <option value="">Select</option>
-                                <option value="Sri Lanka">Sri Lanka</option>
-                                <option value="United Kingdom">United Kingdom</option>
-                            </select>
-                            <label for="country">Country</label>
-                            @error('country')
+                            <input type="password" id="add-confirm-password" class="form-control" placeholder="********"
+                                name="password_confirmation" />
+                            <label for="add-confirm-password"> Confirm Password</label>
+                            @error('password')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
+
                         <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
 
                     </form>
@@ -321,7 +319,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
 
-                    fetch(`/customer-delete/${$id}`, {
+                    fetch(`/agents-delete/${$id}`, {
                             method: 'GET',
                             headers: {
                                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
@@ -329,7 +327,7 @@
                         })
                         .then(response => response.json())
                         .then(data => {
-                            if (data.message === 'Item deleted successfully') {
+                            if (data.message === 'Agent deleted successfully') {
                                 Swal.fire('Deleted!', 'The item has been deleted.', 'success');
                                 // Reload the current page after a short delay
                                 setTimeout(() => {

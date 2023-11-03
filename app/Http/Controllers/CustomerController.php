@@ -37,22 +37,22 @@ class CustomerController extends Controller
     }
     public function active($id)
     {
-        $testimonials = Customer::find($id);
-        $testimonials->status = '1';
-        $testimonials->save();
+        $customer = Customer::find($id);
+        $customer->status = '1';
+        $customer->save();
         return redirect()->back()->with('status', 'Customer Activated Sucessfully');
     }
     public function diactive($id)
     {
-        $testimonials = Customer::find($id);
-        $testimonials->status = '0';
-        $testimonials->save();
+        $customer = Customer::find($id);
+        $customer->status = '0';
+        $customer->save();
         return redirect()->back()->with('status', 'Customer Diactivated Sucessfully');
     }
     public function delete($id)
     {
-        $testimonials = Customer::find($id);
-        $testimonials->delete();
+        $customer = Customer::find($id);
+        $customer->delete();
         return response()->json(['message' => 'Item deleted successfully']);
     }
 

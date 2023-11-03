@@ -20,4 +20,13 @@ class Invoice extends Model
     {
         return $this->hasMany(Item::class);
     }
+
+    public function sender()
+    {
+        return $this->belongsTo(Customer::class, 'sender_id');
+    }
+    public function receiver()
+    {
+        return $this->belongsTo(Customer::class, 'receiver_id');
+    }
 }
