@@ -59,6 +59,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice');
     Route::get('/create', [InvoiceController::class, 'create'])->name('create');
     Route::post('/store', [InvoiceController::class, 'store'])->name('invoices.store');
+    Route::get('/preview/{id}', [InvoiceController::class, 'preview'])->name('invoice.preview');
     Route::get('/invoice-delete/{id}', [InvoiceController::class, 'delete'])->name('invoice.delete');
 });
 

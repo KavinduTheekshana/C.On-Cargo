@@ -34,7 +34,7 @@
           <div data-i18n="Customers">Customers</div>
         </a>
       </li>
-      <li class="menu-item {{ request()->is('invoice', 'create') ? 'open' : '' }}">
+      <li class="menu-item {{ request()->is('invoice', 'create', 'preview/*') ? 'open' : '' }}">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons mdi mdi-file-document-outline"></i>
           <div data-i18n="Invoice">Invoice</div>

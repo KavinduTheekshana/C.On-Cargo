@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('customer_id')->nullable();
             $table->string('sender_id');
             $table->string('receiver_id');
-            $table->string('collection_fee')->nullable();
-            $table->string('handling_fee')->nullable();
+            $table->string('collection_fee')->default('0');
+            $table->string('handling_fee')->default('0');
             $table->string('total_fee');
             $table->longText('note')->nullable();
             $table->softDeletes();

@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
+use Milon\Barcode\DNS1D;
 
 class InvoiceController extends Controller
 {
     public function index()
     {
-        $invoices = Invoice::with(['sender', 'receiver'])->get();
+        $invoices = Invoice::with(['sender', 'receiver'])
+        ->orderBy('created_at', 'desc')
+        ->get();
         return view('backend.invoice.list', compact('invoices'));
     }
 
@@ -22,7 +25,9 @@ class InvoiceController extends Controller
         $customers = Customer::all();
         $lastInvoiceId = Invoice::max('id');
         $nextInvoiceId = $lastInvoiceId + 1;
-        return view('backend.invoice.create', compact('customers','nextInvoiceId'));
+        $nextInvoiceNumber = str_pad($nextInvoiceId, 5, '0', STR_PAD_LEFT);
+        // dd($nextInvoiceNumber);
+        return view('backend.invoice.create', compact('customers', 'nextInvoiceNumber'));
     }
 
     /**
@@ -44,7 +49,7 @@ class InvoiceController extends Controller
 
 
         $invoiceData = $request->only([
-            'invoice_id', 'date', 'job_number', 'customer_id', 'sender_id', 
+            'invoice_id', 'date', 'job_number', 'customer_id', 'sender_id',
             'receiver_id', 'collection_fee', 'handling_fee', 'total_fee', 'note'
         ]);
 
@@ -65,6 +70,13 @@ class InvoiceController extends Controller
         $Invoice = Invoice::find($id);
         $Invoice->delete();
         return response()->json(['message' => 'Invoice deleted successfully']);
+    }
+
+
+    public function preview($id)
+    {
+        $invoice = Invoice::with(['sender', 'receiver', 'items'])->find($id);
+        return view('backend.invoice.preview', compact('invoice'));
     }
 
     /**

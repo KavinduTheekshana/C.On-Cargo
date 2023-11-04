@@ -149,13 +149,13 @@
                                 <td>
                                     <div class="row">
                                         @if ($agent->status)
-                                            <a href="{{ route('customer.diactive', ['id' => $agent->id]) }}"
+                                            <a href="{{ route('agents.diactive', ['id' => $agent->id]) }}"
                                                 type="button"
                                                 class="btn btn-icon btn-warning btn-fab demo waves-effect waves-light m-1">
                                                 <i class="tf-icons mdi mdi-lock-outline"></i>
                                             </a>
                                         @else
-                                            <a href="{{ route('customer.active', ['id' => $agent->id]) }}" type="button"
+                                            <a href="{{ route('agents.active', ['id' => $agent->id]) }}" type="button"
                                                 class="btn btn-icon btn-success btn-fab demo waves-effect waves-light m-1">
                                                 <i class="tf-icons mdi mdi-lock-open-variant-outline"></i>
                                             </a>

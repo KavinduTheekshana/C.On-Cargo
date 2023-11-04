@@ -51,7 +51,7 @@
                                             <div class="input-group input-group-merge disabled">
                                                 <span class="input-group-text">#</span>
                                                 <input type="text" class="form-control d-bg" readonly name="invoice_id"
-                                                    id="invoiceId" value="{{ strtoupper(Auth::user()->identity) }}-{{ $nextInvoiceId }}" />
+                                                    id="invoiceId" value="{{ strtoupper(Auth::user()->identity) }}-{{ $nextInvoiceNumber }}" />
                                             </div>
                                         </dd>
                                         <dt class="col-sm-6 mb-2 d-md-flex align-items-center justify-content-end">
@@ -274,7 +274,7 @@
                         </button> --}}
                         {{-- <a href="./app-invoice-preview.html"
                             class="btn btn-outline-secondary d-grid w-100 mb-3">Preview</a> --}}
-                        <button type="submit" name="action" value="preview" class="btn btn-lg btn-outline-secondary d-grid w-100 mb-3">Save & Preview</button>
+                        {{-- <button type="submit" name="action" value="preview" class="btn btn-lg btn-outline-secondary d-grid w-100 mb-3">Save & Preview</button> --}}
                         <button type="submit" name="action" value="save" class="btn btn-lg btn-primary d-grid w-100">Save</button>
                     </div>
                 </div>
