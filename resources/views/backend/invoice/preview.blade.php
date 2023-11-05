@@ -231,7 +231,7 @@
 
             <!-- Invoice Actions -->
             <div class="col-xl-3 col-md-4 col-12 invoice-actions">
-                <div class="card">
+                <div class="card mb-4">
                     <div class="card-body">
                         <button class="btn btn-primary d-grid w-100 mb-3" data-bs-toggle="offcanvas"
                             data-bs-target="#sendInvoiceOffcanvas">
@@ -242,17 +242,33 @@
                         <button class="btn btn-outline-secondary d-grid w-100 mb-3" id="print-pdf">
                             Print
                         </button>
-                        <a href="./app-invoice-edit.html" class="btn btn-outline-secondary d-grid w-100 mb-3">
+                        {{-- <a href="./app-invoice-edit.html" class="btn btn-outline-secondary d-grid w-100 mb-3">
                             Edit Invoice
-                        </a>
-                        <button class="btn btn-success d-grid w-100" data-bs-toggle="offcanvas"
+                        </a> --}}
+                        {{-- <button class="btn btn-success d-grid w-100" data-bs-toggle="offcanvas"
                             data-bs-target="#addPaymentOffcanvas">
                             <span class="d-flex align-items-center justify-content-center text-nowrap"><i
                                     class="mdi mdi-currency-usd me-1"></i>Add Payment</span>
-                        </button>
+                        </button> --}}
                     </div>
                 </div>
+
+
+                <div id="response-message" class="alert alert-info alert-dismissible" style="display: none;"
+                    role="alert">
+                  
+        
+                    <p class="mb-0" id="response-message-text">
+                        
+                    </p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+          
+
             </div>
+
+
             <!-- /Invoice Actions -->
         </div>
 
@@ -267,95 +283,34 @@
             <div class="offcanvas-body flex-grow-1">
                 <form>
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" class="form-control" id="invoice-from" value="shelbyComapny@email.com"
-                            placeholder="company@email.com" />
+                        <input type="text" class="form-control" id="invoice-from" value="sales@concargo.co.uk"
+                            placeholder="sales@concargo.co.uk" disabled />
                         <label for="invoice-from">From</label>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" class="form-control" id="invoice-to" value="qConsolidated@email.com"
-                            placeholder="company@email.com" />
+                        <input type="text" class="form-control" id="invoice-to"
+                            value="{{ $invoice->sender->email }}" placeholder="company@email.com" />
                         <label for="invoice-to">To</label>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" class="form-control" id="invoice-subject"
-                            value="Invoice of purchased Admin Templates" placeholder="Invoice regarding goods" />
+                        <input type="text" class="form-control" id="email-subject" value="Invoice of C.On Cargo Ltd"
+                            placeholder="Invoice regarding goods" />
                         <label for="invoice-subject">Subject</label>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
                         <textarea class="form-control" name="invoice-message" id="invoice-message" style="height: 190px">
-Dear Queen Consolidated,
-    Thank you for your business, always a pleasure to work with you!
-    We have generated a new invoice in the amount of $95.59
-    We would appreciate payment of this invoice by 05/11/2021</textarea
-                >
-                <label for="invoice-message">Message</label>
-              </div>
-              <div class="mb-4">
-                <span class="badge bg-label-primary rounded-pill">
-                  <i class="mdi mdi-link-variant mdi-14px me-1"></i>
-                  <span class="align-middle">Invoice Attached</span>
-                </span>
-              </div>
-              <div class="mb-3 d-flex flex-wrap">
-                <button id="send-email" type="button" class="btn btn-primary me-3" data-bs-dismiss="offcanvas">Send</button>
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="offcanvas">
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-        <!-- /Send Invoice Sidebar -->
-
-        <!-- Add Payment Sidebar -->
-        <div class="offcanvas offcanvas-end" id="addPaymentOffcanvas" aria-hidden="true">
-          <div class="offcanvas-header mb-3">
-            <h5 class="offcanvas-title">Add Payment</h5>
-            <button
-              type="button"
-              class="btn-close text-reset"
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body flex-grow-1">
-            <div class="d-flex justify-content-between bg-lighter p-2 mb-3">
-              <p class="mb-0">Invoice Balance:</p>
-              <p class="fw-medium mb-0">$5000.00</p>
-            </div>
-            <form>
-              <div class="input-group input-group-merge mb-4">
-                <span class="input-group-text">$</span>
-                <div class="form-floating form-floating-outline">
-                  <input
-                    type="text"
-                    id="invoiceAmount"
-                    name="invoiceAmount"
-                    class="form-control invoice-amount"
-                    placeholder="100" />
-                  <label for="invoiceAmount">Payment Amount</label>
-                </div>
-              </div>
-              <div class="form-floating form-floating-outline mb-4">
-                <input id="payment-date" class="form-control invoice-date" type="text" />
-                <label for="payment-date">Payment Date</label>
-              </div>
-              <div class="form-floating form-floating-outline mb-4">
-                <select class="form-select" id="payment-method">
-                  <option value="" selected disabled>Select payment method</option>
-                  <option value="Cash">Cash</option>
-                  <option value="Bank Transfer">Bank Transfer</option>
-                  <option value="Debit Card">Debit Card</option>
-                  <option value="Credit Card">Credit Card</option>
-                  <option value="Paypal">Paypal</option>
-                </select>
-                <label for="payment-method">Payment Method</label>
-              </div>
-              <div class="form-floating form-floating-outline mb-4">
-                <textarea class="form-control" id="payment-note" style="height: 62px"></textarea>
-                        <label for="payment-note">Internal Payment Note</label>
+                            Please find the attached PDF invoice.</textarea>
+                        <label for="invoice-message">Message</label>
+                    </div>
+                    <div class="mb-4">
+                        <span class="badge bg-label-primary rounded-pill">
+                            <i class="mdi mdi-link-variant mdi-14px me-1"></i>
+                            <span class="align-middle">Invoice Attached</span>
+                        </span>
                     </div>
                     <div class="mb-3 d-flex flex-wrap">
-                        <button type="button" class="btn btn-primary me-3" data-bs-dismiss="offcanvas">Send</button>
+                        <button id="send-email" type="button" class="btn btn-primary me-3"
+                            data-bs-dismiss="offcanvas">Send</button>
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="offcanvas">
                             Cancel
                         </button>
@@ -363,7 +318,8 @@ Dear Queen Consolidated,
                 </form>
             </div>
         </div>
-        <!-- /Add Payment Sidebar -->
+        <!-- /Send Invoice Sidebar -->
+
 
         <!-- /Offcanvas -->
     </div>
@@ -488,17 +444,16 @@ Dear Queen Consolidated,
 
         // -------------- Mail Invoice ---------------
         document.getElementById('send-email').addEventListener('click', function() {
-          const canvasOptions = {
+            const canvasOptions = {
                 scale: 3, // Adjust scale factor as needed for quality vs. performance
                 useCORS: true // This is important if you have images that are hosted on other domains
             };
-            html2canvas(document.getElementById('content-to-print'),canvasOptions).then(canvas => {
+            html2canvas(document.getElementById('content-to-print'), canvasOptions).then(canvas => {
                 const pdf = new window.jspdf.jsPDF({
                     orientation: 'portrait',
                     unit: 'mm',
                     format: 'a4'
                 });
-
                 const imgData = canvas.toDataURL('image/jpeg', 0.85);
                 const imgWidth = 210; // A4 width in mm
                 const pageHeight = 297; // A4 height in mm
@@ -511,7 +466,7 @@ Dear Queen Consolidated,
 
                 while (heightLeft >= 0) {
                     position = heightLeft - imgHeight;
-              
+
                     pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
                     heightLeft -= pageHeight;
                 }
@@ -519,6 +474,12 @@ Dear Queen Consolidated,
                 // Convert the PDF to a base64 string
                 const pdfBase64String = pdf.output('datauristring');
                 const base64Data = pdfBase64String.split(';base64,')[1];
+
+                const emailSubject = document.getElementById('email-subject').value;
+                const emailReciever = document.getElementById('invoice-to').value;
+                const emailMessage = document.getElementById('invoice-message').value;
+
+
 
                 fetch('/sendpdf', {
                         method: 'POST',
@@ -528,17 +489,29 @@ Dear Queen Consolidated,
                                 .getAttribute('content')
                         },
                         body: JSON.stringify({
-                            pdf: base64Data
+                            pdf: base64Data,
+                            subject: emailSubject,
+                            receiver: emailReciever,
+                            message: emailMessage
                         })
                     })
                     .then(response => response.json())
                     .then(data => {
-                        console.log('Success:', data);
+                        displayMessag(data.message);
                     })
                     .catch((error) => {
-                        console.error('Error:', error);
+                        displayMessag('Error: ' + error.message);
                     });
             });
         });
+
+        function displayMessag(message) {
+            const messageDiv = document.getElementById('response-message');
+            messageDiv.style.display = 'block';
+            var messageParagraph = document.getElementById('response-message-text');
+            messageParagraph.textContent = message;
+        }
+
+    
     </script>
 @endpush

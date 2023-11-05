@@ -18,22 +18,28 @@ class InvoiceController extends Controller
     public function sendPdf(Request $request)
     {
         $request->validate([
-            'pdf' => 'required|string', // Ensure that you're receiving a string
+            'pdf' => 'required|string',
+            'subject' => 'required|string',
+            'receiver' => 'required|string|email',
+            'message' => 'required|string',
         ]);
 
         $pdfData = $request->input('pdf');
-        $recipientEmail = 'kavindutheekshana@gmail.com'; // The email where you want to send the PDF
+        $subjectLine = $request->input('subject');
+        $recipientEmail = $request->input('receiver');
+        $emailMessage = $request->input('message');
+
 
         // Decode the PDF from the base64 string
         $decodedPdf = base64_decode($pdfData);
 
         // Use Laravel's Mailable feature to send the PDF as an attachment
         try {
-            Mail::to($recipientEmail)->send(new SendPdfMail($pdfData));
-            return response()->json(['message' => 'PDF sent successfully']);
+            Mail::to($recipientEmail)->send(new SendPdfMail($pdfData,$subjectLine,$emailMessage));
+            return response()->json(['message' => 'Invoice sent successfully']);
         } catch (\Exception $e) {
             // Handle the error
-            return response()->json(['message' => 'Failed to send PDF', 'error' => $e->getMessage()], 500);
+            return response()->json(['message' => 'Failed to send Invoice', 'error' => $e->getMessage()], 500);
         }
     }
 

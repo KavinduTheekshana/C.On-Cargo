@@ -5,6 +5,6 @@
     <title>PDF Invoice</title>
 </head>
 <body>
-    <p>Please find the attached PDF invoice.</p>
+    <p>{{ $emailMessage }}</p>
 </body>
 </html>
