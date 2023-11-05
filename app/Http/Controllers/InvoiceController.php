@@ -4,11 +4,39 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Invoice;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
-use Milon\Barcode\DNS1D;
+use Barryvdh\DomPDF\PDF as PDFWrapper;
+use App\Mail\SendPdfMail;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use App\Mail\PdfMail;
 
 class InvoiceController extends Controller
 {
+    public function sendPdf(Request $request)
+    {
+        $request->validate([
+            'pdf' => 'required|string', // Ensure that you're receiving a string
+        ]);
+
+        $pdfData = $request->input('pdf');
+        $recipientEmail = 'kavindutheekshana@gmail.com'; // The email where you want to send the PDF
+
+        // Decode the PDF from the base64 string
+        $decodedPdf = base64_decode($pdfData);
+
+        // Use Laravel's Mailable feature to send the PDF as an attachment
+        try {
+            Mail::to($recipientEmail)->send(new SendPdfMail($pdfData));
+            return response()->json(['message' => 'PDF sent successfully']);
+        } catch (\Exception $e) {
+            // Handle the error
+            return response()->json(['message' => 'Failed to send PDF', 'error' => $e->getMessage()], 500);
+        }
+    }
+
     public function index()
     {
         $invoices = Invoice::with(['sender', 'receiver'])
@@ -79,6 +107,12 @@ class InvoiceController extends Controller
         return view('backend.invoice.preview', compact('invoice'));
     }
 
+    // public function Download($id)
+    // {
+    //     $invoice = Invoice::with(['sender', 'receiver', 'items'])->find($id);
+    //     return view('invoices', compact('invoice'));
+    // }
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -98,8 +132,32 @@ class InvoiceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Invoice $invoice)
+
+
+    public function show($invoice_id)
     {
-        //
+        $invoice = Invoice::find($invoice_id);
+
+        // Handle the case where the invoice isn't found
+        if (!$invoice) {
+            abort(404);
+        }
+
+        return view('invoicedownload', compact('invoice'));
+    }
+    public function downloadPdf($invoice_id)
+    {
+        $invoice = Invoice::find($invoice_id);
+
+        // Handle the case where the invoice isn't found
+        if (!$invoice) {
+            abort(404);
+        }
+
+        $pdf = PDF::loadView('invoicedownload', compact('invoice'))
+        ->setPaper('A4', 'portrait');
+
+        // Return the PDF download
+        return $pdf->download("invoice_{$invoice->id}.pdf");
     }
 }

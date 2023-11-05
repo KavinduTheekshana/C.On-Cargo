@@ -76,3 +76,13 @@ Route::get('/logout', function () {
 })->name('logout');
 Route::post('/save-customers', [CustomerController::class, 'save'])->name('customer.save');
 require __DIR__ . '/auth.php';
+
+
+Route::get('/invoice/{invoice_id}', [InvoiceController::class, 'show'])->name('invoice.show');
+// Route::get('/download/{invoice_id}', [InvoiceController::class, 'downloadPdf'])->name('invoice.download');
+// Route::get('/invoice/download/{invoice_id}', 'InvoiceController@downloadPdf');
+
+Route::get('/invoice/{invoice_id}', [InvoiceController::class, 'show'])->name('invoice.show');
+Route::post('/sendpdf', [InvoiceController::class, 'sendPdf']);
+Route::get('/invoice/download/{invoice_id}', [InvoiceController::class, 'downloadPdf'])->name('invoice.download');
+
