@@ -61,6 +61,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/store', [InvoiceController::class, 'store'])->name('invoices.store');
     Route::get('/preview/{id}', [InvoiceController::class, 'preview'])->name('invoice.preview');
     Route::get('/invoice-delete/{id}', [InvoiceController::class, 'delete'])->name('invoice.delete');
+    Route::post('/sendpdf', [InvoiceController::class, 'sendPdf']);
+    Route::get('/invoice/download/{invoice_id}', [InvoiceController::class, 'downloadPdf'])->name('invoice.download');
+
+    // label 
+    Route::get('/label/{id}', [InvoiceController::class, 'label'])->name('label.preview');
 });
 
 Route::middleware('auth')->group(function () {
@@ -78,11 +83,8 @@ Route::post('/save-customers', [CustomerController::class, 'save'])->name('custo
 require __DIR__ . '/auth.php';
 
 
-Route::get('/invoice/{invoice_id}', [InvoiceController::class, 'show'])->name('invoice.show');
+// Route::get('/invoice/{invoice_id}', [InvoiceController::class, 'show'])->name('invoice.show');
 // Route::get('/download/{invoice_id}', [InvoiceController::class, 'downloadPdf'])->name('invoice.download');
 // Route::get('/invoice/download/{invoice_id}', 'InvoiceController@downloadPdf');
 
-Route::get('/invoice/{invoice_id}', [InvoiceController::class, 'show'])->name('invoice.show');
-Route::post('/sendpdf', [InvoiceController::class, 'sendPdf']);
-Route::get('/invoice/download/{invoice_id}', [InvoiceController::class, 'downloadPdf'])->name('invoice.download');
-
+// Route::get('/label/{invoice_id}', [InvoiceController::class, 'label'])->name('invoice.show');

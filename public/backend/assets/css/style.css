@@ -9,16 +9,28 @@
 .line {
     position: relative; /* Required for positioning the line */
 }
-.pr-100{
+.pr-100 {
     padding-right: 100px !important;
 }
 .d-bg {
     background-color: #f4f4f6 !important;
 }
-.total-font{
+.total-font {
     font-size: 34px !important;
 }
-.total-text{
+.total-text {
     display: flex;
     justify-content: end;
+}
+.default-curser {
+    cursor: default !important;
+}
+.barcode-text {
+    font-size: 16px !important;
+    margin-bottom: 0px !important;
+}
+.label {
+    width: 210mm;
+    height: 148.5mm;
+    border: 1px solid;
 }

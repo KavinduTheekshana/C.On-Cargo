@@ -51,15 +51,16 @@
                                             <div class="input-group input-group-merge disabled">
                                                 <span class="input-group-text">#</span>
                                                 <input type="text" class="form-control d-bg" readonly name="invoice_id"
-                                                    id="invoiceId" value="{{ strtoupper(Auth::user()->identity) }}-{{ $nextInvoiceNumber }}" />
+                                                    id="invoiceId"
+                                                    value="{{ strtoupper(Auth::user()->identity) }}-{{ $nextInvoiceNumber }}" />
                                             </div>
                                         </dd>
                                         <dt class="col-sm-6 mb-2 d-md-flex align-items-center justify-content-end">
                                             <span class="fw-normal">Date:</span>
                                         </dt>
                                         <dd class="col-sm-6">
-                                            <input type="text" class="form-control date-picker" name="date" value="{{ old('date') }}"
-                                                placeholder="YYYY-MM-DD" />
+                                            <input type="text" class="form-control date-picker" name="date"
+                                                value="{{ old('date') }}" placeholder="YYYY-MM-DD" />
                                         </dd>
                                         <dt class="col-sm-6 mb-2 d-md-flex align-items-center justify-content-end">
                                             <span class="fw-normal">Job Number:</span>
@@ -67,8 +68,8 @@
                                         <dd class="col-sm-6">
                                             <div class="input-group input-group-merge ">
                                                 <span class="input-group-text">#</span>
-                                                <input type="text" name="job_number" value="{{ old('job_number') }}" class="form-control"
-                                                    id="jobNumber" />
+                                                <input type="text" name="job_number" value="{{ old('job_number') }}"
+                                                    class="form-control" id="jobNumber" />
                                             </div>
                                         </dd>
                                         <dt class="col-sm-6 mb-2 d-md-flex align-items-center justify-content-end">
@@ -121,15 +122,18 @@
                                                         <p class="mb-2 repeater-title">Item (CM)</p>
                                                         <div class="row mb-3">
                                                             <div class="col">
-                                                                <input type="number" name="items[0][width]" class="form-control width-input"
+                                                                <input type="number" name="items[0][width]"
+                                                                    class="form-control width-input"
                                                                     placeholder="Width" />
                                                             </div>
                                                             <div class="col">
-                                                                <input type="number" name="items[0][height]" class="form-control height-input"
+                                                                <input type="number" name="items[0][height]"
+                                                                    class="form-control height-input"
                                                                     placeholder="Height" />
                                                             </div>
                                                             <div class="col">
-                                                                <input type="number" name="items[0][length]" class="form-control length-input"
+                                                                <input type="number" name="items[0][length]"
+                                                                    class="form-control length-input"
                                                                     placeholder="Length" />
                                                             </div>
                                                         </div>
@@ -139,9 +143,10 @@
                                                         <div class="row">
                                                             <div class="col">
                                                                 <p class="mb-2 repeater-title">Volume Weight</p>
-                                                                <input type="text" name="items[0][volume_weight]" readonly
+                                                                <input type="text" name="items[0][volume_weight]"
+                                                                    readonly
                                                                     class="form-control invoice-volume-weight mb-2 d-bg"
-                                                                     placeholder="00" />
+                                                                    placeholder="00" />
                                                             </div>
                                                             <div class="col">
                                                                 <p class="mb-2 repeater-title">Unit Price (£)</p>
@@ -151,16 +156,17 @@
                                                             </div>
                                                             <div class="col">
                                                                 <p class="mb-2 repeater-title">Weight (KG)</p>
-                                                                <input type="number" name="items[0][weight]" class="form-control weight-input"
-                                                                    placeholder="0" />
+                                                                <input type="number" name="items[0][weight]"
+                                                                    class="form-control weight-input" placeholder="0" />
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-1 col-12 pe-0">
-                                                        <p class="mb-2 repeater-title">Price (£)</p> 
-                                                        <input type="text" name="items[0][price]" class="form-control total-display d-bg"  readonly
-                                                                 placeholder="£0.00" />
+                                                        <p class="mb-2 repeater-title">Price (£)</p>
+                                                        <input type="text" name="items[0][price]"
+                                                            class="form-control total-display d-bg" readonly
+                                                            placeholder="£0.00" />
                                                         {{-- <p class="mb-0 total-display">£0.00</p> --}}
                                                     </div>
                                                 </div>
@@ -188,13 +194,15 @@
 
                                             <div class="col">
                                                 <p class="mb-2 repeater-title">Collection & Delivery</p>
-                                                <input type="number" name="collection_fee" class="form-control mb-2" value="{{ old('collection_fee') }}"
-                                                    id="collection-input" onkeyup="calculateTotal()" placeholder="0" />
+                                                <input type="number" name="collection_fee" class="form-control mb-2"
+                                                    value="{{ old('collection_fee','0.00') }}" id="collection-input"
+                                                    onkeyup="calculateTotal()" placeholder="0" />
                                             </div>
                                             <div class="col">
                                                 <p class="mb-2 repeater-title">Handling Fee</p>
-                                                <input type="number" name="handling_fee" class="form-control" value="{{ old('handling_fee') }}"
-                                                    id="handling-input" onkeyup="calculateTotal()" placeholder="0" />
+                                                <input type="number" name="handling_fee" class="form-control"
+                                                    value="{{ old('handling_fee', '0.00') }}" id="handling-input"
+                                                    onkeyup="calculateTotal()" placeholder="0" />
                                             </div>
                                         </div>
                                     </div>
@@ -230,16 +238,19 @@
 
                                         <div class="d-flex justify-content-between mb-2">
                                             <div class="row">
-                                                <div class="col d-flex justify-content-end align-items-end">  <div class="content">
-                                                    <h3 class="w-px-150 total-text">Total (£):</h3>
-                                                </div></div>
-                                                
+                                                <div class="col d-flex justify-content-end align-items-end">
+                                                    <div class="content">
+                                                        <h3 class="w-px-150 total-text">Total (£):</h3>
+                                                    </div>
+                                                </div>
+
                                                 <div class="col">
-                                                    <input type="text" name="total_fee" readonly class="form-control d-bg total-font"
-                                                        id="fullamount" placeholder="£0.00" />
+                                                    <input type="text" name="total_fee" readonly
+                                                        class="form-control d-bg total-font" id="fullamount"
+                                                        placeholder="£0.00" />
                                                 </div>
                                             </div>
-                                         
+
 
                                             {{-- <h3 class="mb-0 pt-1" id="fullamount">£0.00</h3> --}}
                                         </div>
@@ -272,14 +283,16 @@
                             <span class="d-flex align-items-center justify-content-center text-nowrap"><i
                                     class="mdi mdi-send-outline scaleX-n1-rtl me-2"></i>Send Invoice</span>
                         </button> --}}
-                        {{-- <a href="./app-invoice-preview.html"
-                            class="btn btn-outline-secondary d-grid w-100 mb-3">Preview</a> --}}
+
                         {{-- <button type="submit" name="action" value="preview" class="btn btn-lg btn-outline-secondary d-grid w-100 mb-3">Save & Preview</button> --}}
-                        <button type="submit" name="action" value="save" class="btn btn-lg btn-primary d-grid w-100">Save</button>
+                        <button type="submit" name="action" value="save"
+                            class="btn btn-lg btn-primary d-grid w-100 mb-3">Save</button>
+                        <button name="action" value="preview" class="btn btn-outline-secondary d-grid w-100">Save &
+                            Preview</button>
                     </div>
                 </div>
                 </form>
-               
+
                 <div class="card mb-4">
                     <div class="card-body">
                         <label for="selectSender">&nbsp;&nbsp;Select Sender:</label>
@@ -317,13 +330,13 @@
                 </div>
 
                 @include('backend.components.alert')
-                
+
             </div>
             <!-- /Invoice Actions -->
         </div>
 
         <!-- Offcanvas -->
-    
+
 
         <!-- /Offcanvas -->
     </div>

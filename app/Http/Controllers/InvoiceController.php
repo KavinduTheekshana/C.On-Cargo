@@ -93,9 +93,11 @@ class InvoiceController extends Controller
             $invoice->items()->create($itemData);
         }
         if ($request->input('action') == 'save') {
-            return redirect()->back()->with('status', 'Invoice created successfullyyyyyyyyy.');
-        } elseif ($request->input('action') == 'preview') {
             return redirect()->back()->with('status', 'Invoice created successfully.');
+        } elseif ($request->input('action') == 'preview') {
+            return view('backend.invoice.preview', compact('invoice'))->with('status', 'Invoice created successfully.');
+            // return redirect()->route('backend.invoice.preview', ['id' => $invoice->id])->with('status', 'Invoice created successfully.');
+            // return redirect()->back()->with('status', 'Invoice created successfully.');
         }
     }
 
@@ -113,44 +115,12 @@ class InvoiceController extends Controller
         return view('backend.invoice.preview', compact('invoice'));
     }
 
-    // public function Download($id)
-    // {
-    //     $invoice = Invoice::with(['sender', 'receiver', 'items'])->find($id);
-    //     return view('invoices', compact('invoice'));
-    // }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Invoice $invoice)
+    public function label($id)
     {
-        //
+        $invoice = Invoice::with(['sender', 'receiver', 'items'])->find($id);
+        return view('backend.invoice.label', compact('invoice'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Invoice $invoice)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-
-
-    public function show($invoice_id)
-    {
-        $invoice = Invoice::find($invoice_id);
-
-        // Handle the case where the invoice isn't found
-        if (!$invoice) {
-            abort(404);
-        }
-
-        return view('invoicedownload', compact('invoice'));
-    }
+  
     public function downloadPdf($invoice_id)
     {
         $invoice = Invoice::find($invoice_id);
