@@ -99,6 +99,7 @@
                 <table id="customer" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Agent</th>
                             <th>Contact</th>
                             <th>Identity</th>
@@ -113,7 +114,9 @@
                             $classes = ['bg-label-warning', 'bg-label-danger', 'bg-label-info', 'bg-label-primary', 'bg-label-secondary', 'bg-label-success'];
                         @endphp
                         @foreach ($agents as $index => $agent)
+                        
                             <tr>
+                                <td>{{ $agent->id }}</td>
                                 <td>
                                     <div class="d-flex mb-3">
                                         <div class="avatar me-2 avatar-lg">
@@ -302,7 +305,9 @@
     <script>
         // datatable 
         $(document).ready(function() {
-            $('#customer').DataTable();
+            $('#customer').DataTable({
+                "order": [[ 0, "desc" ]]
+            });
         });
 
         // Sweet Alert 
@@ -319,7 +324,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
 
-                    fetch(`/agents-delete/${$id}`, {
+                    fetch(`/agents/delete/${$id}`, {
                             method: 'GET',
                             headers: {
                                 'X-CSRF-TOKEN': "{{ csrf_token() }}"

@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('agents', function (Blueprint $table) {
+        Schema::create('labels', function (Blueprint $table) {
             $table->id();
+            $table->string('label_id');
+            $table->string('date');
+            $table->string('sender_id');
+            $table->string('receiver_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('agents');
+        Schema::dropIfExists('labels');
     }
 };

@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Invoice;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-  public function index()
+    public function index()
     {
         $customers = Customer::all();
         return view('backend.customers.customers', compact('customers'));
@@ -51,9 +52,18 @@ class CustomerController extends Controller
     }
     public function delete($id)
     {
-        $customer = Customer::find($id);
-        $customer->delete();
-        return response()->json(['message' => 'Item deleted successfully']);
-    }
+        $customer = Customer::findOrFail($id);
 
+        $invoicesExist = Invoice::where(function($query) use ($customer) {
+            $query->where('sender_id', $customer->id)
+                  ->orWhere('receiver_id', $customer->id);
+        })->exists();
+
+        if ($invoicesExist) {
+            return response()->json(['message' => 'Customer cannot be deleted because there are associated invoices.']);
+        } else {
+            $customer->delete();
+            return response()->json(['message' => 'Customer deleted successfully']);
+        }
+    }
 }

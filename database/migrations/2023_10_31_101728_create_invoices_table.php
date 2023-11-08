@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('invoice_id');
             $table->string('date');
-            $table->string('job_number');
+            $table->string('job_number')->nullable();
             $table->string('customer_id')->nullable();
             $table->string('sender_id');
             $table->string('receiver_id');

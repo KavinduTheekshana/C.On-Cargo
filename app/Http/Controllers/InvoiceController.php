@@ -45,9 +45,7 @@ class InvoiceController extends Controller
 
     public function index()
     {
-        $invoices = Invoice::with(['sender', 'receiver'])
-        ->orderBy('created_at', 'desc')
-        ->get();
+        $invoices = Invoice::with(['sender', 'receiver'])->get();
         return view('backend.invoice.list', compact('invoices'));
     }
 
@@ -56,7 +54,7 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        $customers = Customer::all();
+        $customers = Customer::where('status', 1)->get();
         $lastInvoiceId = Invoice::max('id');
         $nextInvoiceId = $lastInvoiceId + 1;
         $nextInvoiceNumber = str_pad($nextInvoiceId, 5, '0', STR_PAD_LEFT);

@@ -27,23 +27,23 @@
                                     </div>
                                     <div class="row" style="font-size: 12px">
                                         <div class="col-md-6 vertical-line line">
-                                            <p class="mb-1"><b>C.On Group Ltd</b></p>
-                                            <p class="mb-1">12 King Arthur Ct, Waltham Cross, London, EN8 8EH</p>
-                                            <p class="mb-1">uk@concargo.co.uk</p>
-                                            <p class="mb-0">+44 75 032 88 488</p>
+                                            <p class="mb-1"><b>C.ON Group Ltd</b></p>
+                                            <p class="mb-1">12 King Arthur Road, Waltham Cross, London, EN8 8EH</p>
+                                            <p class="mb-1">info@concargo.co.uk</p>
+                                            <p class="mb-0">+44 7503 288 488</p>
                                         </div>
                                         <div class="col-md-6">
-                                            <p class="mb-1"><b>C.On Cargo Ltd</b></p>
-                                            <p class="mb-1">184/B, Moratuwa Road, Piliyandala, Sri Lanka</p>
+                                            <p class="mb-1"><b>C.ON Cargo Ltd</b></p>
+                                            <p class="mb-1">184/B, Moratuwa Road, Piliyandala, <br>Sri Lanka</p>
                                             <p class="mb-1">sl@concargo.co.uk</p>
-                                            <p class="mb-0">+94 76 699 66 52</p>
+                                            <p class="mb-0">+94 766 99 66 52</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div style="font-size: 12px">
                                     <h6 class="fw-medium">INVOICE #{{ $invoice->invoice_id }}</h6>
                                     <div class="mb-1">
-                                        <span>Date Issues:</span>
+                                        <span>Date Issue:</span>
                                         <span>{{ $invoice->date }}</span>
                                     </div>
                                     <div>
@@ -76,7 +76,7 @@
                                     <p class="mb-1"><b>Country:</b> {{ $invoice->sender->country }}</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <h6 class="pb-1">Receiver Details:</h6>
+                                    <h6 class="pb-1">Consignee Details:</h6>
                                     <p class="mb-1"><b>Name:</b> {{ $invoice->receiver->firstname }}
                                         {{ $invoice->sender->lastname }}</p>
                                     <p class="mb-1"><b>Address:</b> {{ $invoice->receiver->address }}</p>
@@ -123,7 +123,7 @@
 
                                     <tr>
                                         <td></td>
-                                        <td>Handling Fee</td>
+                                        <td>Other</td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -242,7 +242,7 @@
                         <button class="btn btn-outline-secondary d-grid w-100 mb-3" id="print-pdf">
                             Print
                         </button>
-                        <a href="{{ route('label.preview', ['id' => $invoice->id]) }}" type="button" class="btn btn-warning d-grid w-100 mb-3">
+                        <a href="{{ route('invoice.label.preview', ['id' => $invoice->id]) }}" type="button" class="btn btn-warning d-grid w-100 mb-3">
                             <span class="d-flex align-items-center justify-content-center text-nowrap"><i
                                     class="mdi mdi-receipt-text-check-outline scaleX-n1-rtl me-1"></i>Label</span>
                             </a>

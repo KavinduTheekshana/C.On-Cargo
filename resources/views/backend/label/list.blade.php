@@ -3,7 +3,7 @@
 @section('content')
     <!-- Content -->
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Invoice /</span> List</h4>
+        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Custom Label /</span> List</h4>
 
         <!-- Invoice List Widget -->
 
@@ -77,11 +77,11 @@
         <div class="card">
             <div class="card-header border-bottom">
                 <div class="row">
-                    <div class="col">
+                    <div class="col">   
                         <h5 class="card-title">Invoice List Table</h5>
                     </div>
-                    <div class="col d-flex" style="justify-content: end"> <a href="{{ route('invoice.create') }}" type="button"
-                            class="btn btn-primary"><span class="mdi mdi-plus"></span> &nbsp;Create Invoice</a></div>
+                    <div class="col d-flex" style="justify-content: end"> <a href="{{ route('label.create') }}" type="button"
+                            class="btn btn-primary"><span class="mdi mdi-plus"></span> &nbsp;Create Custom Label</a></div>
                 </div>
             </div>
             <div class="card-datatable table-responsive">

@@ -4,6 +4,7 @@ use App\Http\Controllers\AgentsController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\LabelController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,29 +44,32 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     //Customers
     Route::get('/customers', [CustomerController::class, 'index'])->name('customers');
-    Route::post('/save-customers', [CustomerController::class, 'save'])->name('customer.save');
-    Route::get('/customer-delete/{id}', [CustomerController::class, 'delete'])->name('customer.delete');
-    Route::get('/customer-active/{id}', [CustomerController::class, 'active'])->name('customer.active');
-    Route::get('/customer-diactive/{id}', [CustomerController::class, 'diactive'])->name('customer.diactive');
+    Route::post('/save/customers', [CustomerController::class, 'save'])->name('customer.save');
+    Route::get('/customer/delete/{id}', [CustomerController::class, 'delete'])->name('customer.delete');
+    Route::get('/customer/active/{id}', [CustomerController::class, 'active'])->name('customer.active');
+    Route::get('/customer/diactive/{id}', [CustomerController::class, 'diactive'])->name('customer.diactive');
 
     //Agents
     Route::get('/agents', [AgentsController::class, 'index'])->name('agents');
-    Route::post('/save-agents', [AgentsController::class, 'save'])->name('agents.save');
-    Route::get('/agents-delete/{id}', [AgentsController::class, 'delete'])->name('agents.delete');
-    Route::get('/agents-active/{id}', [AgentsController::class, 'active'])->name('agents.active');
-    Route::get('/agents-diactive/{id}', [AgentsController::class, 'diactive'])->name('agents.diactive');
+    Route::post('/save/agents', [AgentsController::class, 'save'])->name('agents.save');
+    Route::get('/agents/delete/{id}', [AgentsController::class, 'delete'])->name('agents.delete');
+    Route::get('/agents/active/{id}', [AgentsController::class, 'active'])->name('agents.active');
+    Route::get('/agents/diactive/{id}', [AgentsController::class, 'diactive'])->name('agents.diactive');
 
     //Invoice
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice');
-    Route::get('/create', [InvoiceController::class, 'create'])->name('create');
+    Route::get('/invoice/create', [InvoiceController::class, 'create'])->name('invoice.create');
     Route::post('/store', [InvoiceController::class, 'store'])->name('invoices.store');
-    Route::get('/preview/{id}', [InvoiceController::class, 'preview'])->name('invoice.preview');
-    Route::get('/invoice-delete/{id}', [InvoiceController::class, 'delete'])->name('invoice.delete');
+    Route::get('/invoice/preview/{id}', [InvoiceController::class, 'preview'])->name('invoice.preview');
+    Route::get('/invoice/label/{id}', [InvoiceController::class, 'label'])->name('invoice.label.preview');
+    // Route::get('/invoice/delete/{id}', [InvoiceController::class, 'delete'])->name('invoice.delete');
     Route::post('/sendpdf', [InvoiceController::class, 'sendPdf']);
     Route::get('/invoice/download/{invoice_id}', [InvoiceController::class, 'downloadPdf'])->name('invoice.download');
 
     // label 
-    Route::get('/label/{id}', [InvoiceController::class, 'label'])->name('label.preview');
+    Route::get('/label', [LabelController::class, 'index'])->name('label');
+    Route::get('/create/custom/label', [LabelController::class, 'create'])->name('label.create');
+
 });
 
 Route::middleware('auth')->group(function () {
@@ -79,12 +83,14 @@ Route::get('/logout', function () {
     auth()->logout();
     return redirect('/login');
 })->name('logout');
-Route::post('/save-customers', [CustomerController::class, 'save'])->name('customer.save');
+// Route::post('/save-customers', [CustomerController::class, 'save'])->name('customer.save');
 require __DIR__ . '/auth.php';
 
 
+
+// Route::get('/invoice/delete/{id}', [InvoiceController::class, 'delete'])->name('invoice.delete');
 // Route::get('/invoice/{invoice_id}', [InvoiceController::class, 'show'])->name('invoice.show');
 // Route::get('/download/{invoice_id}', [InvoiceController::class, 'downloadPdf'])->name('invoice.download');
 // Route::get('/invoice/download/{invoice_id}', 'InvoiceController@downloadPdf');
-
+// Route::get('/customer/delete/{id}', [CustomerController::class, 'delete'])->name('customer.delete');
 // Route::get('/label/{invoice_id}', [InvoiceController::class, 'label'])->name('invoice.show');

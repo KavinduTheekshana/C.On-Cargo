@@ -99,11 +99,9 @@
                 <table id="customer" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Customer</th>
-                            <th>Contact</th>
                             <th>Address</th>
-                            <th>Post Code</th>
-                            <th>Country</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -114,6 +112,7 @@
                         @endphp
                         @foreach ($customers as $index => $customer)
                             <tr>
+                                <td>{{ $customer->id }}</td>
                                 <td>
                                     <div class="d-flex mb-3">
                                         <div class="avatar me-2">
@@ -124,7 +123,9 @@
                                             <div class="col-9 mb-sm-0 mb-2">
                                                 <h6 class="mb-0">{{ $customer->firstname }}&nbsp;{{ $customer->lastname }}
                                                 </h6>
-                                                <span>{{ $customer->email }}&nbsp;@if ($customer->status)
+                                                <span>{{ $customer->email }} <br>
+                                                    {{ $customer->contact }} <br>
+                                                    @if ($customer->status)
                                                         <span class="badge rounded-pill bg-success">Active</span>
                                                     @else
                                                         <span class="badge rounded-pill bg-warning">Diactive</span>
@@ -135,12 +136,9 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>{{ $customer->contact }}</td>
-                                <td>{{ $customer->address }}</td>
-                                <td>{{ $customer->postcode }}</td>
-                                <td>
-                                    {{ $customer->country }}
-                                </td>
+
+                                <td>{{ $customer->address }} - {{ $customer->postcode }} | {{ $customer->country }}</td>
+
 
 
 
@@ -304,7 +302,23 @@
     <script>
         // datatable 
         $(document).ready(function() {
-            $('#customer').DataTable();
+            $('#customer').DataTable({
+                "order": [
+                    [0, "desc"]
+                ],
+                "columnDefs": [{
+                        "width": "20px",
+                        "targets": 0
+                    },{
+                        "width": "30%",
+                        "targets": 1
+                    },
+                    {
+                        "width": "50%",
+                        "targets": 2
+                    }
+                ]
+            });
         });
 
         // Sweet Alert 
@@ -321,7 +335,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
 
-                    fetch(`/customer-delete/${$id}`, {
+                    fetch(`/customer/delete/${$id}`, {
                             method: 'GET',
                             headers: {
                                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
@@ -329,13 +343,16 @@
                         })
                         .then(response => response.json())
                         .then(data => {
-                            if (data.message === 'Item deleted successfully') {
-                                Swal.fire('Deleted!', 'The item has been deleted.', 'success');
+                            if (data.message === 'Customer deleted successfully') {
+                                Swal.fire('Deleted!', 'The Customer has been deleted.', 'success');
                                 // Reload the current page after a short delay
                                 setTimeout(() => {
                                     location.reload();
                                 }, 1000); // 1000 milliseconds = 1 second
-                            } else {
+                            }else if (data.message === 'Customer cannot be deleted because there are associated invoices.') {
+                                Swal.fire('Error', 'Customer cannot be deleted because there are associated invoices.', 'error');
+                            }
+                            else {
                                 Swal.fire('Error', 'Something went wrong!', 'error');
                             }
                         });

@@ -35,3 +35,13 @@
   </div>
 
 @endif
+
+@if ($errors->any())
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+        <div>
+            @foreach ($errors->all() as $error)
+                <p class="mb-0">{{ $error }}</p>
+            @endforeach
+        </div>
+    </div>
+@endif
