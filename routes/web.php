@@ -62,13 +62,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/store', [InvoiceController::class, 'store'])->name('invoices.store');
     Route::get('/invoice/preview/{id}', [InvoiceController::class, 'preview'])->name('invoice.preview');
     Route::get('/invoice/label/{id}', [InvoiceController::class, 'label'])->name('invoice.label.preview');
-    // Route::get('/invoice/delete/{id}', [InvoiceController::class, 'delete'])->name('invoice.delete');
+    Route::get('/invoice/delete/{id}', [InvoiceController::class, 'delete'])->name('invoice.delete');
     Route::post('/sendpdf', [InvoiceController::class, 'sendPdf']);
     Route::get('/invoice/download/{invoice_id}', [InvoiceController::class, 'downloadPdf'])->name('invoice.download');
+    Route::get('/invoices/{invoice}/details', [InvoiceController::class, 'getInvoiceDetails'])->name('invoice.details');
+    // Route::get('/invoices/{invoice}/details', 'InvoiceController@getInvoiceDetails')->name('invoice.details');
 
-    // label 
-    Route::get('/label', [LabelController::class, 'index'])->name('label');
-    Route::get('/create/custom/label', [LabelController::class, 'create'])->name('label.create');
+
+
 
 });
 
@@ -83,7 +84,6 @@ Route::get('/logout', function () {
     auth()->logout();
     return redirect('/login');
 })->name('logout');
-// Route::post('/save-customers', [CustomerController::class, 'save'])->name('customer.save');
 require __DIR__ . '/auth.php';
 
 

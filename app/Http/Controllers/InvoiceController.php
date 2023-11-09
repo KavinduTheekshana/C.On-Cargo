@@ -118,7 +118,13 @@ class InvoiceController extends Controller
         $invoice = Invoice::with(['sender', 'receiver', 'items'])->find($id);
         return view('backend.invoice.label', compact('invoice'));
     }
-  
+
+    public function getInvoiceDetails($invoiceId)
+    {
+        $invoice = Invoice::with(['sender', 'receiver', 'items'])->find($invoiceId);
+        return response()->json($invoice);
+    }
+
     public function downloadPdf($invoice_id)
     {
         $invoice = Invoice::find($invoice_id);

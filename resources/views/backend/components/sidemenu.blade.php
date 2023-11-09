@@ -65,39 +65,6 @@
         </ul>
       </li>
 
-      <li class="menu-header fw-medium mt-4">
-        <span class="menu-header-text">Custom Options</span>
-      </li>
-
-      <li class="menu-item {{ request()->is('label','create/custom/label') ? 'open' : '' }}">
-        <a href="javascript:void(0);" class="menu-link menu-toggle">
-          <i class="menu-icon tf-icons mdi mdi-receipt-text-check-outline"></i>
-          <div data-i18n="Custom Label">Custom Label</div>
-        </a>
-        <ul class="menu-sub">
-          <li class="menu-item {{ request()->is('label') ? 'active' : '' }}">
-            <a href="{{ route('label') }}" class="menu-link">
-              <div data-i18n="Custom Label List">Custom Label List</div>
-            </a>
-          </li>
-          <li class="menu-item {{ request()->is('create/custom/label') ? 'active' : '' }}">
-            <a href="{{ route('label.create') }}" class="menu-link">
-              <div data-i18n="Create Label">Create Label</div>
-            </a>
-          </li>
-
-          <li class="menu-item {{ request()->is('/*') ? 'active' : '' }}">
-            <a  href="#" class="menu-link disabled default-curser">
-              <div data-i18n="Label Preview">Label Preview</div>
-            </a>
-          </li>
-          <li class="menu-item {{ request()->is('/*') ? 'active' : '' }}">
-            <a  href="#" class="menu-link disabled default-curser">
-              <div data-i18n="Label Preview">Label Preview</div>
-            </a>
-          </li>
-         
-        </ul>
-      </li>
+    
     </ul>
   </aside>

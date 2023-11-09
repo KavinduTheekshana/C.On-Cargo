@@ -305,9 +305,7 @@
     <script>
         // datatable 
         $(document).ready(function() {
-            $('#customer').DataTable({
-                "order": [[ 0, "desc" ]]
-            });
+            $('#customer').DataTable();
         });
 
         // Sweet Alert 

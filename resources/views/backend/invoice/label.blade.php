@@ -12,183 +12,81 @@
             <!-- Invoice -->
 
             <div class="col-xl-9 col-md-8 col mb-md-0 mb-4">
-                <div class="card invoice-preview-card" style="width: 210mm; height: 297mm;">
+                <div class="card invoice-preview-card" style="width: 210mm;">
+
                     <div id="content-to-print">
-                    <div class="label">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between flex-xl-row flex-md-column flex-sm-row flex-column">
-                                <div class="mb-xl-0 pb-1">
+                        @foreach ($invoice->items as $item)
+                            @for ($i = 0; $i < 2; $i++)
+                                <div class="label">
+                                    <div class="card-body p-manual">
+                                        <div
+                                            class="d-flex justify-content-between flex-xl-row flex-md-column flex-sm-row flex-column">
+                                            <div class="mb-xl-0 pb-1">
 
-                                    <div style="width: 300px" class="mb-2 mt-3">
-                                        <span class="app-brand-logo demo">
-                                            <img width="300px" src="{{ asset('backend/assets/svg/logo.png') }}"
-                                                alt="" srcset="">
-                                        </span>
-
+                                                <div style="width: 170px" class="mb-2 mt-1">
+                                                    <span class="app-brand-logo demo">
+                                                        <img width="170px" src="{{ asset('backend/assets/svg/logo.png') }}"
+                                                            alt="" srcset="">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div>
+                                                    {!! DNS1D::getBarcodeHtml("$invoice->invoice_id", 'C128', 1.5, 50) !!}
+                                                    <p class="barcode-text"> C.ON Cargo {{ $invoice->invoice_id }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                             
-                                </div>
-                                <div style="font-size: 12px">
-                                    <h5 class="fw-medium">INVOICE #{{ $invoice->invoice_id }}</h5>
-                                    
-                                  
-                                    <div>
-                                        {!! DNS1D::getBarcodeHtml("$invoice->invoice_id", 'C128', 2.1, 80) !!}
-                                     <p class="barcode-text">   C.On Cargo {{ $invoice->invoice_id }}</p>
+                                    <hr class="my-0" />
+                                    <div class="card-body p-manual pt-2">
+                                        <div class="row">
+                                            <div class="col-md-6 vertical-line line">
+                                                <h3 class="pb-0"><b>Sender Details:</b></h3>
+                                                <hr>
+                                                <h4 class="mb-2"><b>Name:</b> {{ $invoice->sender->firstname }}
+                                                    {{ $invoice->sender->lastname }}</h4>
+                                                <hr>
+                                                <h4 class="mb-2"><b>Address:</b> {{ $invoice->sender->address }} -
+                                                    {{ $invoice->sender->country }}</h4>
+                                                <hr>
+                                                <h4 class="mb-2"><b>Post Code:</b> {{ $invoice->sender->postcode }}</h4>
+                                                <hr>
+                                                <h4 class="mb-0"><b>Contact No:</b> {{ $invoice->sender->contact }}</h4>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h3 class="pb-0"><b>Receiver Details:</b></h3>
+                                                <hr>
+                                                <h4 class="mb-2"><b>Name:</b> {{ $invoice->receiver->firstname }}
+                                                    {{ $invoice->sender->lastname }}</p>
+                                                    <hr>
+                                                    <h4 class="mb-2"><b>Address:</b> {{ $invoice->receiver->address }}
+                                                    </h4>
+                                                    <hr>
+                                                    <h4 class="mb-2"><b>Post Code:</b> {{ $invoice->receiver->postcode }}
+                                                    </h4>
+                                                    <hr>
+                                                    <h4 class="mb-0"><b>Contact No:</b> {{ $invoice->receiver->contact }}
+                                                    </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="card-body p-manual pt-0">
+                                        <h3 class="pb-1"><b>{{ $item->width }}x{{ $item->height }}x{{ $item->length }}
+                                                cm
+                                                | {{ $item->weight }} kg</b></h3>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <hr class="my-0" />
-                        <div class="card-body" style="font-size: 12px">
-                            <div class="row">
-                                <div class="col-md-6 vertical-line line">
-                                    <h6 class="pb-1">Sender Details:</h6>
-                                    <p class="mb-1"><b>Name:</b> {{ $invoice->sender->firstname }}
-                                        {{ $invoice->sender->lastname }}</p>
-                                    <p class="mb-1"><b>Address:</b> {{ $invoice->sender->address }}</p>
-                                    <p class="mb-1"><b>Post Code:</b> {{ $invoice->sender->postcode }}</p>
-                                    <p class="mb-1"><b>Email:</b> {{ $invoice->sender->email }}</p>
-                                    <p class="mb-1"><b>Contact No:</b> {{ $invoice->sender->contact }}</p>
-                                    <p class="mb-1"><b>Country:</b> {{ $invoice->sender->country }}</p>
-                                </div>
-                                <div class="col-md-6">
-                                    <h6 class="pb-1">Receiver Details:</h6>
-                                    <p class="mb-1"><b>Name:</b> {{ $invoice->receiver->firstname }}
-                                        {{ $invoice->sender->lastname }}</p>
-                                    <p class="mb-1"><b>Address:</b> {{ $invoice->receiver->address }}</p>
-                                    <p class="mb-1"><b>Post Code:</b> {{ $invoice->receiver->postcode }}</p>
-                                    <p class="mb-1"><b>Email:</b> {{ $invoice->receiver->email }}</p>
-                                    <p class="mb-1"><b>Contact No:</b> {{ $invoice->receiver->contact }}</p>
-                                    <p class="mb-1"><b>Country:</b> {{ $invoice->receiver->country }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table table-borderless mb-5"
-                                style="margin: 0 !important; font-size: 12px; line-height: 0.3">
-                                <thead class="border-top">
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Dimensions (CM)</th>
-                                     
-                                        <th>Volume Weight</th>
-                                        <th>Weight (kg)</th>
-                                     
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($invoice->items as $item)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->width }}x{{ $item->height }}x{{ $item->length }}</td>
-                                       
-                                            <td>{{ $item->volume_weight }}</td>
-                                            <td>{{ $item->weight }} KG</td>
-                              
+                            @endfor
+                        @endforeach
 
-                                        </tr>
-                                    @endforeach
-                            
-
-                               
-
-
-                                </tbody>
-                            </table>
-                        </div>
-                       
                     </div>
-                    <div  class="label">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between flex-xl-row flex-md-column flex-sm-row flex-column">
-                                <div class="mb-xl-0 pb-1">
 
-                                    <div style="width: 300px" class="mb-2 mt-3">
-                                        <span class="app-brand-logo demo">
-                                            <img width="300px" src="{{ asset('backend/assets/svg/logo.png') }}"
-                                                alt="" srcset="">
-                                        </span>
-
-                                    </div>
-                             
-                                </div>
-                                <div style="font-size: 12px">
-                                    <h5 class="fw-medium">INVOICE #{{ $invoice->invoice_id }}</h5>
-                                    
-                                  
-                                    <div>
-                                        {!! DNS1D::getBarcodeHtml("$invoice->invoice_id", 'C128', 2.1, 80) !!}
-                                     <p class="barcode-text">   C.On Cargo {{ $invoice->invoice_id }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="my-0" />
-                        <div class="card-body" style="font-size: 12px">
-                            <div class="row">
-                                <div class="col-md-6 vertical-line line">
-                                    <h6 class="pb-1">Sender Details:</h6>
-                                    <p class="mb-1"><b>Name:</b> {{ $invoice->sender->firstname }}
-                                        {{ $invoice->sender->lastname }}</p>
-                                    <p class="mb-1"><b>Address:</b> {{ $invoice->sender->address }}</p>
-                                    <p class="mb-1"><b>Post Code:</b> {{ $invoice->sender->postcode }}</p>
-                                    <p class="mb-1"><b>Email:</b> {{ $invoice->sender->email }}</p>
-                                    <p class="mb-1"><b>Contact No:</b> {{ $invoice->sender->contact }}</p>
-                                    <p class="mb-1"><b>Country:</b> {{ $invoice->sender->country }}</p>
-                                </div>
-                                <div class="col-md-6">
-                                    <h6 class="pb-1">Receiver Details:</h6>
-                                    <p class="mb-1"><b>Name:</b> {{ $invoice->receiver->firstname }}
-                                        {{ $invoice->sender->lastname }}</p>
-                                    <p class="mb-1"><b>Address:</b> {{ $invoice->receiver->address }}</p>
-                                    <p class="mb-1"><b>Post Code:</b> {{ $invoice->receiver->postcode }}</p>
-                                    <p class="mb-1"><b>Email:</b> {{ $invoice->receiver->email }}</p>
-                                    <p class="mb-1"><b>Contact No:</b> {{ $invoice->receiver->contact }}</p>
-                                    <p class="mb-1"><b>Country:</b> {{ $invoice->receiver->country }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table table-borderless mb-5"
-                                style="margin: 0 !important; font-size: 12px; line-height: 0.3">
-                                <thead class="border-top">
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Dimensions (CM)</th>
-                                     
-                                        <th>Volume Weight</th>
-                                        <th>Weight (kg)</th>
-                                     
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($invoice->items as $item)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->width }}x{{ $item->height }}x{{ $item->length }}</td>
-                                       
-                                            <td>{{ $item->volume_weight }}</td>
-                                            <td>{{ $item->weight }} KG</td>
-                              
-
-                                        </tr>
-                                    @endforeach
-                            
-
-                               
-
-
-                                </tbody>
-                            </table>
-                        </div>
-                       
-                    </div>
-                </div>
-                    
-                    
                 </div>
             </div>
+
 
             <!-- /Invoice -->
 
@@ -196,32 +94,32 @@
             <div class="col-xl-3 col-md-4 col-12 invoice-actions">
                 <div class="card mb-4">
                     <div class="card-body">
-                 
+
                         <button id="download-pdf" class="btn btn-outline-secondary d-grid w-100 mb-3">Download</button>
                         <button class="btn btn-outline-secondary d-grid w-100 mb-3" id="print-pdf">
                             Print
                         </button>
 
-                        <a href="{{ route('invoice.preview', ['id' => $invoice->id]) }}" type="button" class="btn btn-primary d-grid w-100 mb-3">
+                        <a href="{{ route('invoice.preview', ['id' => $invoice->id]) }}" type="button"
+                            class="btn btn-primary d-grid w-100 mb-3">
                             <span class="d-flex align-items-center justify-content-center text-nowrap"><i
                                     class="mdi mdi-file-document-outline scaleX-n1-rtl me-1"></i>Invoice</span>
-                            </a>
+                        </a>
 
                     </div>
                 </div>
 
 
-                <div id="response-message" class="alert alert-info alert-dismissible" style="display: none;"
-                    role="alert">
-                  
-        
+                <div id="response-message" class="alert alert-info alert-dismissible" style="display: none;" role="alert">
+
+
                     <p class="mb-0" id="response-message-text">
-                        
+
                     </p>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
 
-          
+
 
             </div>
 
@@ -234,8 +132,7 @@
         <div class="offcanvas offcanvas-end" id="sendInvoiceOffcanvas" aria-hidden="true">
             <div class="offcanvas-header mb-3">
                 <h5 class="offcanvas-title">Send Invoice</h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                    aria-label="Close"></button>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body flex-grow-1">
                 <form>
@@ -245,8 +142,8 @@
                         <label for="invoice-from">From</label>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" class="form-control" id="invoice-to"
-                            value="{{ $invoice->sender->email }}" placeholder="company@email.com" />
+                        <input type="text" class="form-control" id="invoice-to" value="{{ $invoice->sender->email }}"
+                            placeholder="company@email.com" />
                         <label for="invoice-to">To</label>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
@@ -338,6 +235,11 @@
                 while (heightLeft >= 0) {
                     pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
                     heightLeft -= pageHeight;
+
+                    if (heightLeft > 0) {
+                        position = -heightLeft; // Move content up by the remaining height
+                        pdf.addPage(); // Add a new page
+                    }
                 }
                 const now = new Date();
                 const dateStr = now.toISOString().replace(/:/g, '-').replace(/\..+/, '').replace('T', '_');
@@ -380,6 +282,10 @@
                 while (heightLeft >= 0) {
                     pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
                     heightLeft -= pageHeight;
+                    if (heightLeft > 0) {
+                        position = -heightLeft; // Move content up by the remaining height
+                        pdf.addPage(); // Add a new page
+                    }
                 }
                 // Save the PDF
                 // Open PDF in new window and print

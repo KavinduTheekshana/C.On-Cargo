@@ -17,13 +17,17 @@
                         <div class="card-body pb-1">
                             <div class="d-flex justify-content-between flex-xl-row flex-md-column flex-sm-row flex-column">
                                 <div class="mb-xl-0 pb-1">
+                                    <div class="row">
+                                        <div style="width: 200px" class="mb-2 col">
+                                            <span class="app-brand-logo demo">
+                                                <img width="160px" src="{{ asset('backend/assets/svg/logo.png') }}"
+                                                    alt="" srcset="">
+                                            </span>
 
-                                    <div style="width: 200px" class="mb-2">
-                                        <span class="app-brand-logo demo">
-                                            <img width="160px" src="{{ asset('backend/assets/svg/logo.png') }}"
-                                                alt="" srcset="">
-                                        </span>
-
+                                        </div>
+                                    <div class="col">
+                                        <h1><b>INVOICE</b></h1>
+                                    </div>
                                     </div>
                                     <div class="row" style="font-size: 12px">
                                         <div class="col-md-6 vertical-line line">
@@ -57,7 +61,7 @@
 
                                     <div>
                                         {!! DNS1D::getBarcodeHtml("$invoice->invoice_id", 'C128', 1.1, 60) !!}
-                                        C.On Cargo {{ $invoice->invoice_id }}
+                                        C.ON Cargo {{ $invoice->invoice_id }}
                                     </div>
                                 </div>
                             </div>
@@ -192,22 +196,22 @@
 
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-4">
+                                <div class="col-3">
                                     <h6 class="pb-0">DON'T SEND</h6>
                                     <img width="100%" src="{{ asset('backend/assets/svg/invoiceicon.png') }}"
                                         alt="" srcset="">
                                 </div>
-                                <div class="col-8">
-                                    <h6 class="pb-0">TERMS & CONDETIONS</h6>
+                                <div class="col-9">
+                                    <h6 class="pb-0">TERMS & CONDITIONS</h6>
                                     <ul style="font-size: 12px">
                                         <li>All non document items are subject to inspection.</li>
                                         <li>Sender will be responsible penalties for any wrong declaration</li>
 
-                                        <li>Custom duty is not included. Any custom Duty, Customeris liable to pay.</li>
+                                        <li>Custom duty is not included. Any custom Duty, Customer is liable to pay.</li>
                                         <li>All deliveries are subject to Airline weather conditions, Custom clearance &
                                             flight schedule, Delays.</li>
                                         <li>Economy Air cargo ( Below 5 KG) Delivery Within 5-7 working days.</li>
-                                        <li>Chargeable weight (Gross weight or Volume weight) Whichever highest is.</li>
+                                        <li>Chargeable weight (Gross weight or Volume weight) which is highest.</li>
                                     </ul>
                                 </div>
                             </div>
@@ -217,9 +221,9 @@
                         <div class="card-body" style="font-size: 12px;">
                             <div class="row">
                                 <div class="col-12 justify-center text-center">
-                                    <p class="m-0">C.on Group Ltd - 12, King Arthur Road, Waltham Cross, London, EN8 8EH
+                                    <p class="m-0">C.ON Group Ltd - 12, King Arthur Road, Waltham Cross, London, EN8 8EH
                                         &nbsp; <span class="mdi mdi-phone-classic"> 01992416763</span></p>
-                                    <p>Company Reg No. 15130909 | VAT No. 114248415</p>
+                                    <p>Company Reg No. 15130909 | VAT No. 451 2523 24</p>
                                 </div>
                             </div>
                         </div>
@@ -242,10 +246,11 @@
                         <button class="btn btn-outline-secondary d-grid w-100 mb-3" id="print-pdf">
                             Print
                         </button>
-                        <a href="{{ route('invoice.label.preview', ['id' => $invoice->id]) }}" type="button" class="btn btn-warning d-grid w-100 mb-3">
+                        <a href="{{ route('invoice.label.preview', ['id' => $invoice->id]) }}" type="button"
+                            class="btn btn-warning d-grid w-100 mb-3">
                             <span class="d-flex align-items-center justify-content-center text-nowrap"><i
                                     class="mdi mdi-receipt-text-check-outline scaleX-n1-rtl me-1"></i>Label</span>
-                            </a>
+                        </a>
                         {{-- <a href="./app-invoice-edit.html" class="btn btn-outline-secondary d-grid w-100 mb-3">
                             Edit Invoice
                         </a> --}}

@@ -303,9 +303,6 @@
         // datatable 
         $(document).ready(function() {
             $('#customer').DataTable({
-                "order": [
-                    [0, "desc"]
-                ],
                 "columnDefs": [{
                         "width": "20px",
                         "targets": 0

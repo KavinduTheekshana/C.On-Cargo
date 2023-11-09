@@ -18,25 +18,33 @@
                         <div class="card-body">
                             <div class="row mx-0">
                                 <div class="col-md-7 mb-md-0 mb-4 ps-0">
-                                    <div class="d-flex svg-illustration align-items-center gap-2 mb-4">
+                                    <div class="svg-illustration align-items-center gap-2 mb-4">
+                                        <div class="row">
+
+
+                                        <div class="col">
                                         <span class="app-brand-logo demo">
                                             <img width="140px" src="{{ asset('frontend/assets/img/logo/logo.svg') }}"
                                                 alt="" />
                                         </span>
-
+                                    </div>
+                                        <div class="col">
+                                            <h1><b>INVOICE</b></h1>
+                                        </div>
+                                    </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6 vertical-line line">
-                                            <p class="mb-1"><b>C.On Group Ltd</b></p>
-                                            <p class="mb-1">12 King Arthur Ct, Waltham Cross, London, EN8 8EH</p>
-                                            <p class="mb-1">uk@concargo.co.uk</p>
-                                            <p class="mb-0">+44 75 032 88 488</p>
+                                            <p class="mb-1"><b>C.ON Group Ltd</b></p>
+                                            <p class="mb-1">12 King Arthur Road, Waltham Cross, London, EN8 8EH</p>
+                                            <p class="mb-1">info@concargo.co.uk</p>
+                                            <p class="mb-0">+44 7503 288 488</p>
                                         </div>
                                         <div class="col-md-6">
                                             <p class="mb-1"><b>C.On Cargo Ltd</b></p>
-                                            <p class="mb-1">184/B, Moratuwa Road, Piliyandala, Sri Lanka</p>
+                                            <p class="mb-1">184/B, Moratuwa Road, Piliyandala, <br>Sri Lanka</p>
                                             <p class="mb-1">sl@concargo.co.uk</p>
-                                            <p class="mb-0">+94 76 699 66 52</p>
+                                            <p class="mb-0">+94 766 99 66 52</p>
                                         </div>
                                     </div>
 
@@ -97,7 +105,7 @@
                                         <p id="senderDetails" class="mb-1"></p>
                                     </div>
                                     <div class="col-6 pr-100">
-                                        <h6 class="pb-2">Receiver Details:</h6>
+                                        <h6 class="pb-2">Consignee Details:</h6>
                                         <input type="hidden" id="receiver_id" name="receiver_id">
                                         <p id="receiverDetails" class="mb-1"></p>
                                     </div>
@@ -199,7 +207,7 @@
                                                     onkeyup="calculateTotal()" placeholder="0" />
                                             </div>
                                             <div class="col">
-                                                <p class="mb-2 repeater-title">Handling Fee</p>
+                                                <p class="mb-2 repeater-title">Other</p>
                                                 <input type="number" name="handling_fee" class="form-control"
                                                     value="{{ old('handling_fee', '0.00') }}" id="handling-input"
                                                     onkeyup="calculateTotal()" placeholder="0" />

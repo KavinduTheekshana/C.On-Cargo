@@ -26,11 +26,14 @@
     cursor: default !important;
 }
 .barcode-text {
-    font-size: 16px !important;
+    font-size: 15px !important;
     margin-bottom: 0px !important;
 }
 .label {
     width: 210mm;
     height: 148.5mm;
     border: 1px solid;
+}
+.p-manual{
+    padding: 22px 35px 12px 35px !important;
 }
