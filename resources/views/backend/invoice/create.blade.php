@@ -22,30 +22,31 @@
                                         <div class="row">
 
 
-                                        <div class="col">
-                                        <span class="app-brand-logo demo">
-                                            <img width="140px" src="{{ asset('frontend/assets/img/logo/logo.svg') }}"
-                                                alt="" />
-                                        </span>
-                                    </div>
-                                        <div class="col">
-                                            <h1><b>INVOICE</b></h1>
+                                            <div class="col">
+                                                <span class="app-brand-logo demo">
+                                                    <img width="140px"
+                                                        src="{{ asset('frontend/assets/img/logo/logo.svg') }}"
+                                                        alt="" />
+                                                </span>
+                                            </div>
+                                            <div class="col">
+                                                <h1><b>INVOICE</b></h1>
+                                            </div>
                                         </div>
                                     </div>
-                                    </div>
                                     <div class="row">
-                                        <div class="col-md-6 vertical-line line">
+                                        <div class="col-md-6 ">
                                             <p class="mb-1"><b>C.ON Group Ltd</b></p>
                                             <p class="mb-1">12 King Arthur Road, Waltham Cross, London, EN8 8EH</p>
                                             <p class="mb-1">info@concargo.co.uk</p>
                                             <p class="mb-0">+44 7503 288 488</p>
                                         </div>
-                                        <div class="col-md-6">
+                                        {{-- <div class="col-md-6">
                                             <p class="mb-1"><b>C.On Cargo Ltd</b></p>
                                             <p class="mb-1">184/B, Moratuwa Road, Piliyandala, <br>Sri Lanka</p>
                                             <p class="mb-1">sl@concargo.co.uk</p>
                                             <p class="mb-0">+94 766 99 66 52</p>
-                                        </div>
+                                        </div> --}}
                                     </div>
 
                                 </div>
@@ -84,10 +85,11 @@
                                             <span class="fw-normal">Customer ID:</span>
                                         </dt>
                                         <dd class="col-sm-6">
-                                            <div class="input-group input-group-merge ">
+                                            <div class="input-group input-group-merge disabled">
                                                 <span class="input-group-text">#</span>
-                                                <input type="text" class="form-control" value="{{ old('customer_id') }}"
-                                                    name="customer_id" />
+                                                <input type="text" class="form-control d-bg"
+                                                    value="{{ old('customer_id') }}" readonly name="customer_id"
+                                                    id="customer_id" />
                                             </div>
                                         </dd>
                                     </dl>
@@ -203,7 +205,7 @@
                                             <div class="col">
                                                 <p class="mb-2 repeater-title">Collection & Delivery</p>
                                                 <input type="number" name="collection_fee" class="form-control mb-2"
-                                                    value="{{ old('collection_fee','0.00') }}" id="collection-input"
+                                                    value="{{ old('collection_fee', '0.00') }}" id="collection-input"
                                                     onkeyup="calculateTotal()" placeholder="0" />
                                             </div>
                                             <div class="col">
@@ -303,6 +305,16 @@
 
                 <div class="card mb-4">
                     <div class="card-body">
+                        <label for="selectCustomer">&nbsp;&nbsp;Select Customer:</label>
+                        <select id="selectCustomer" class="select2 form-select form-select-lg" data-allow-clear="true">
+                            <option value="" data-address="">Select a Customer</option>
+                            @foreach ($customers as $customer)
+                                <option value="{{ $customer->id }}" data-id="{{ $customer->id }}">{{ $customer->firstname }}
+                                    {{ $customer->lastname }} - {{ $customer->address }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <hr>
                         <label for="selectSender">&nbsp;&nbsp;Select Sender:</label>
                         <select id="selectSender" class="select2 form-select form-select-lg" data-allow-clear="true">
                             <option value="" data-address="">Select a Sender</option>
@@ -371,9 +383,18 @@
     <script>
         $(document).ready(function() {
             // Initialize Select2
+            $('#selectCustomer').select2();
             $('#selectSender').select2();
             $('#selectReceiver').select2();
 
+
+            $('#selectCustomer').on('select2:select', function(e) {
+                var data = e.params.data;
+                var id = $(data.element).data('id');
+
+                $('#customer_id').val(id);
+
+            });
             $('#selectSender').on('select2:select', function(e) {
                 var data = e.params.data;
                 var id = $(data.element).data('id');

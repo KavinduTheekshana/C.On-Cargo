@@ -54,9 +54,9 @@ class CustomerController extends Controller
     {
         $customer = Customer::findOrFail($id);
 
-        $invoicesExist = Invoice::where(function($query) use ($customer) {
+        $invoicesExist = Invoice::where(function ($query) use ($customer) {
             $query->where('sender_id', $customer->id)
-                  ->orWhere('receiver_id', $customer->id);
+                ->orWhere('receiver_id', $customer->id);
         })->exists();
 
         if ($invoicesExist) {
@@ -65,5 +65,13 @@ class CustomerController extends Controller
             $customer->delete();
             return response()->json(['message' => 'Customer deleted successfully']);
         }
+    }
+    public function getCustomerInvoices($customer_id)
+    {
+        $invoices = Invoice::with(['sender', 'receiver'])
+        ->where('customer_id', $customer_id)
+        ->get();
+    //   dd($invoices);
+      return view('backend.customers.invoice_details', compact('invoices'))->render();
     }
 }

@@ -114,9 +114,9 @@
                             $classes = ['bg-label-warning', 'bg-label-danger', 'bg-label-info', 'bg-label-primary', 'bg-label-secondary', 'bg-label-success'];
                         @endphp
                         @foreach ($agents as $index => $agent)
-                        
+
                             <tr>
-                                <td>{{ $agent->id }}</td>
+                                <td>A{{ $agent->id }}</td>
                                 <td>
                                     <div class="d-flex mb-3">
                                         <div class="avatar me-2 avatar-lg">
@@ -303,12 +303,12 @@
 
 @push('scripts')
     <script>
-        // datatable 
+        // datatable
         $(document).ready(function() {
             $('#customer').DataTable();
         });
 
-        // Sweet Alert 
+        // Sweet Alert
         function openSweetAlert($id) {
             console.log($id);
             Swal.fire({

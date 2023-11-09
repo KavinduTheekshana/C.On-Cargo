@@ -112,7 +112,7 @@
                         @endphp
                         @foreach ($customers as $index => $customer)
                             <tr>
-                                <td>{{ $customer->id }}</td>
+                                <td>C{{ $customer->id }}</td>
                                 <td>
                                     <div class="d-flex mb-3">
                                         <div class="avatar me-2">
@@ -139,13 +139,15 @@
 
                                 <td>{{ $customer->address }} - {{ $customer->postcode }} | {{ $customer->country }}</td>
 
-
-
-
-
-
                                 <td>
                                     <div class="row">
+                                        <button type="button"
+                                            class="btn btn-icon btn-dark btn-fab demo waves-effect waves-light m-1 view-invoices"
+                                            data-bs-toggle="modal" title="View Invoice"
+                                            data-customerid="{{ $customer->id }}" data-bs-target="#addNewAddress">
+                                            <i class="tf-icons mdi mdi-eye-outline"></i>
+                                        </button>
+
                                         @if ($customer->status)
                                             <a href="{{ route('customer.diactive', ['id' => $customer->id]) }}"
                                                 type="button"
@@ -173,28 +175,7 @@
                     </tbody>
                 </table>
             </div>
-            {{-- <div class="card-datatable table-responsive">
-                <table class="datatables-users table">
 
-                    <thead class="table-light">
-                        <tr>
-                            <th></th>
-                            <th></th>
-                            <th>User</th>
-                            <th>Role</th>
-                            <th>Plan</th>
-                            <th>Billing</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>sadfsdf</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div> --}}
             <!-- Offcanvas to add new user -->
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEnd" aria-labelledby="offcanvasEndLabel">
                 <div class="offcanvas-header">
@@ -281,6 +262,20 @@
         </div>
     </div>
     <!-- / Content -->
+
+    {{-- Modal  --}}
+    <div class="modal fade" id="addNewAddress" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-simple modal-add-new-address">
+            <div class="modal-content p-3 p-md-5">
+                <div class="modal-body p-md-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div id="invoiceDetails"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- Modal  --}}
 @endsection
 @push('vendorsjs')
     <script src="{{ asset('backend/assets/vendor/libs/moment/moment.js') }}"></script>
@@ -300,25 +295,25 @@
 
 @push('scripts')
     <script>
-        // datatable 
-        $(document).ready(function() {
-            $('#customer').DataTable({
-                "columnDefs": [{
-                        "width": "20px",
-                        "targets": 0
-                    },{
-                        "width": "30%",
-                        "targets": 1
-                    },
-                    {
-                        "width": "50%",
-                        "targets": 2
-                    }
-                ]
-            });
-        });
+        // datatable
+        // $(document).ready(function() {
+        //     $('#customer').DataTable({
+        //         "columnDefs": [{
+        //                 "width": "20px",
+        //                 "targets": 0
+        //             }, {
+        //                 "width": "30%",
+        //                 "targets": 1
+        //             },
+        //             {
+        //                 "width": "50%",
+        //                 "targets": 2
+        //             }
+        //         ]
+        //     });
+        // });
 
-        // Sweet Alert 
+        // Sweet Alert
         function openSweetAlert($id) {
             console.log($id);
             Swal.fire({
@@ -346,10 +341,12 @@
                                 setTimeout(() => {
                                     location.reload();
                                 }, 1000); // 1000 milliseconds = 1 second
-                            }else if (data.message === 'Customer cannot be deleted because there are associated invoices.') {
-                                Swal.fire('Error', 'Customer cannot be deleted because there are associated invoices.', 'error');
-                            }
-                            else {
+                            } else if (data.message ===
+                                'Customer cannot be deleted because there are associated invoices.') {
+                                Swal.fire('Error',
+                                    'Customer cannot be deleted because there are associated invoices.',
+                                    'error');
+                            } else {
                                 Swal.fire('Error', 'Something went wrong!', 'error');
                             }
                         });
@@ -358,5 +355,56 @@
                 }
             })
         }
+
+        // shipments
+        $(document).ready(function() {
+            var dataTable = $('#customer').DataTable({
+                "columnDefs": [{
+                        "width": "20px",
+                        "targets": 0
+                    }, {
+                        "width": "30%",
+                        "targets": 1
+                    },
+                    {
+                        "width": "50%",
+                        "targets": 2
+                    }
+                ]
+            });
+
+            // Event delegation for dynamically loaded content
+            $('#customer').on('click', '.view-invoices', function() {
+                var customerId = $(this).data('customerid');
+
+                // Clear any previous invoice details
+                $('#invoiceDetails').empty();
+
+                // Now make the AJAX call to get the new data
+                $.ajax({
+                    url: '/get-invoice-details/' + customerId,
+                    type: 'GET',
+                    success: function(data) {
+                        // Populate the modal with new data
+                        $('#invoiceDetails').html(data);
+                        // Show the modal
+                        $('#addNewAddress').modal('show');
+                    },
+                    error: function() {
+                        // Handle any errors
+                        $('#invoiceDetails').html(
+                            '<p>There was an error loading the invoices. Please try again later.</p>'
+                            );
+                    }
+                });
+            });
+
+            // Clear the modal data when it's closed
+            $('#addNewAddress').on('hidden.bs.modal', function() {
+                $('#invoiceDetails').empty();
+                // Optionally insert 'No data' if needed
+                $('#invoiceDetails').html('<p>No data available.</p>');
+            });
+        });
     </script>
 @endpush

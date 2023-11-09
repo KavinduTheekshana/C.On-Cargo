@@ -38,41 +38,41 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <hr class="my-0" />
+                                    <hr class="my-0 black" />
                                     <div class="card-body p-manual pt-2">
                                         <div class="row">
                                             <div class="col-md-6 vertical-line line">
-                                                <h3 class="pb-0"><b>Sender Details:</b></h3>
-                                                <hr>
+                                                <h3 class="pb-0"><b class="black">Sender Details:</b></h3>
+                                                <hr class="black">
                                                 <h4 class="mb-2"><b>Name:</b> {{ $invoice->sender->firstname }}
                                                     {{ $invoice->sender->lastname }}</h4>
-                                                <hr>
-                                                <h4 class="mb-2"><b>Address:</b> {{ $invoice->sender->address }} -
+                                                    <hr class="black">
+                                                <h4 class="mb-2"><b>Address:</b>  <br>{{ $invoice->sender->address }} -
                                                     {{ $invoice->sender->country }}</h4>
-                                                <hr>
+                                                    <hr class="black">
                                                 <h4 class="mb-2"><b>Post Code:</b> {{ $invoice->sender->postcode }}</h4>
-                                                <hr>
+                                                <hr class="black">
                                                 <h4 class="mb-0"><b>Contact No:</b> {{ $invoice->sender->contact }}</h4>
 
                                             </div>
                                             <div class="col-md-6">
-                                                <h3 class="pb-0"><b>Receiver Details:</b></h3>
-                                                <hr>
+                                                <h3 class="pb-0"><b class="black">Consignee Details:</b></h3>
+                                                <hr class="black">
                                                 <h4 class="mb-2"><b>Name:</b> {{ $invoice->receiver->firstname }}
                                                     {{ $invoice->sender->lastname }}</p>
-                                                    <hr>
-                                                    <h4 class="mb-2"><b>Address:</b> {{ $invoice->receiver->address }}
+                                                    <hr class="black">
+                                                    <h4 class="mb-2"><b>Address:</b> <br> {{ $invoice->receiver->address }} - {{ $invoice->receiver->country }}
                                                     </h4>
-                                                    <hr>
+                                                    <hr class="black">
                                                     <h4 class="mb-2"><b>Post Code:</b> {{ $invoice->receiver->postcode }}
                                                     </h4>
-                                                    <hr>
+                                                    <hr class="black">
                                                     <h4 class="mb-0"><b>Contact No:</b> {{ $invoice->receiver->contact }}
                                                     </h4>
                                             </div>
                                         </div>
                                     </div>
-                                    <hr>
+                                    <hr class="black">
                                     <div class="card-body p-manual pt-0">
                                         <h3 class="pb-1"><b>{{ $item->width }}x{{ $item->height }}x{{ $item->length }}
                                                 cm

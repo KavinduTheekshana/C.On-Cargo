@@ -48,6 +48,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/customer/delete/{id}', [CustomerController::class, 'delete'])->name('customer.delete');
     Route::get('/customer/active/{id}', [CustomerController::class, 'active'])->name('customer.active');
     Route::get('/customer/diactive/{id}', [CustomerController::class, 'diactive'])->name('customer.diactive');
+    Route::get('/get-invoice-details/{customer_id}', [CustomerController::class, 'getCustomerInvoices'])->name('customer.invoices');
+
+
 
     //Agents
     Route::get('/agents', [AgentsController::class, 'index'])->name('agents');
@@ -94,3 +97,4 @@ require __DIR__ . '/auth.php';
 // Route::get('/invoice/download/{invoice_id}', 'InvoiceController@downloadPdf');
 // Route::get('/customer/delete/{id}', [CustomerController::class, 'delete'])->name('customer.delete');
 // Route::get('/label/{invoice_id}', [InvoiceController::class, 'label'])->name('invoice.show');
+Route::get('/get-invoice-details/{customer_id}', [CustomerController::class, 'getCustomerInvoices'])->name('customer.invoices');

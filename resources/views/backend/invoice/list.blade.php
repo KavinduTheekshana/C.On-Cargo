@@ -113,11 +113,13 @@
 
                                 <button type="button"
                                     class="btn btn-icon btn-dark btn-fab demo waves-effect waves-light m-1 preview-btn"
-                                    data-bs-toggle="modal" title="View Invoice" data-invoice-id="{{ $item->id }}" data-bs-target="#addNewAddress">
+                                    data-bs-toggle="modal" title="View Invoice" data-invoice-id="{{ $item->id }}"
+                                    data-bs-target="#addNewAddress">
                                     <i class="tf-icons mdi mdi-eye-outline"></i>
                                 </button>
 
-                                <a type="button" href="{{ route('invoice.preview', ['id' => $item->id]) }}" title="Invoice"
+                                <a type="button" href="{{ route('invoice.preview', ['id' => $item->id]) }}"
+                                    title="Invoice"
                                     class="btn btn-icon btn-primary btn-fab demo waves-effect waves-light m-1">
                                     <i class="tf-icons mdi mdi-file-document-outline"></i>
                                 </a>
@@ -208,7 +210,8 @@
                             <div class="row">
                                 <div class="col-md-6 vertical-line line">
                                     <h6 class="pb-1">Sender Details:</h6>
-                                    <p class="mb-1"><b>Name:</b> <span id="modalSenderFirstName"></span>&nbsp;<span id="modalSenderLastName"></span></p>
+                                    <p class="mb-1"><b>Name:</b> <span id="modalSenderFirstName"></span>&nbsp;<span
+                                            id="modalSenderLastName"></span></p>
                                     <p class="mb-1"><b>Address:</b> <span id="modalSenderAddress"></span></p>
                                     <p class="mb-1"><b>Post Code:</b> <span id="modalSenderPostCode"></span></p>
                                     <p class="mb-1"><b>Email:</b> <span id="modalSenderEmail"></span></p>
@@ -217,7 +220,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <h6 class="pb-1">Consignee Details:</h6>
-                                    <p class="mb-1"><b>Name:</b> <span id="modalReceiverFirstName"></span>&nbsp;<span id="modalReceiverLastName"></span></p>
+                                    <p class="mb-1"><b>Name:</b> <span id="modalReceiverFirstName"></span>&nbsp;<span
+                                            id="modalReceiverLastName"></span></p>
                                     <p class="mb-1"><b>Address:</b> <span id="modalReceiverAddress"></span></p>
                                     <p class="mb-1"><b>Post Code:</b> <span id="modaReceiverPostCode"></span></p>
                                     <p class="mb-1"><b>Email:</b> <span id="modalReceiverEmail"></span></p>
@@ -227,7 +231,7 @@
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table  id="modalItemsTable" class="table table-borderless mb-5"
+                            <table id="modalItemsTable" class="table table-borderless mb-5"
                                 style="margin: 0 !important; font-size: 12px;">
                                 <thead class="border-top">
                                     <tr>
@@ -245,25 +249,25 @@
 
 
                                 </tbody>
-<tfoot>
-    <tr>
-        <td></td>
-        <td>Collection & Delivary</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><span id="modalCollectionFee"></span></td>
-    </tr>
+                                <tfoot>
+                                    <tr>
+                                        <td></td>
+                                        <td>Collection & Delivary</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td><span id="modalCollectionFee"></span></td>
+                                    </tr>
 
-    <tr>
-        <td></td>
-        <td>Other</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><span id="modalHandlingFee"></span></td>
-    </tr>
-</tfoot>
+                                    <tr>
+                                        <td></td>
+                                        <td>Other</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td><span id="modalHandlingFee"></span></td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                         <hr>
@@ -429,16 +433,17 @@
                     $('#modalItemsTable tbody').empty();
 
                     // Populate items table
-                    response.items.forEach(function(item,index) {
+                    response.items.forEach(function(item, index) {
                         var iteration = index + 1;
                         var row = '<tr>' +
                             '<td>' + iteration + '</td>' +
-                            '<td>' + item.width + 'x' +item.height + 'x' + item.length + '</td>' +
+                            '<td>' + item.width + 'x' + item.height + 'x' + item.length +
+                            '</td>' +
                             '<td>' + item.unit_price + '</td>' +
                             '<td>' + item.volume_weight + '</td>' +
                             '<td>' + item.weight + '</td>' +
                             '<td>' + item.price + '</td>'
-                            '</tr>';
+                        '</tr>';
                         $('#modalItemsTable tbody').append(row);
                     });
 

@@ -37,3 +37,13 @@
 .p-manual{
     padding: 22px 35px 12px 35px !important;
 }
+.black{
+    color: black !important;
+}
+.pl-manual{
+    padding-left: 45px !important;
+}
+.position{
+    position: absolute;
+    bottom: 0;
+}

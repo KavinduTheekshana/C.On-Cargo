@@ -14,39 +14,40 @@
             <div class="col-xl-9 col-md-8 col mb-md-0 mb-4">
                 <div class="card invoice-preview-card" style="width: 210mm; height: 297mm;">
                     <div id="content-to-print" style="width: 210mm; height: 297mm;">
-                        <div class="card-body pb-1">
+                        <div class="card-body pb-1 pl-manual">
                             <div class="d-flex justify-content-between flex-xl-row flex-md-column flex-sm-row flex-column">
-                                <div class="mb-xl-0 pb-1">
+                                <div class="mb-xl-0 pb-1 col-8">
                                     <div class="row">
-                                        <div style="width: 200px" class="mb-2 col">
+                                        <div class="mb-2 col-6">
                                             <span class="app-brand-logo demo">
                                                 <img width="160px" src="{{ asset('backend/assets/svg/logo.png') }}"
                                                     alt="" srcset="">
                                             </span>
 
                                         </div>
-                                    <div class="col">
+                                    <div class="col-6">
                                         <h1><b>INVOICE</b></h1>
                                     </div>
                                     </div>
+                                    <br>
                                     <div class="row" style="font-size: 12px">
-                                        <div class="col-md-6 vertical-line line">
+                                        <div class="col-md-12">
                                             <p class="mb-1"><b>C.ON Group Ltd</b></p>
                                             <p class="mb-1">12 King Arthur Road, Waltham Cross, London, EN8 8EH</p>
                                             <p class="mb-1">info@concargo.co.uk</p>
                                             <p class="mb-0">+44 7503 288 488</p>
                                         </div>
-                                        <div class="col-md-6">
+                                        {{-- <div class="col-md-6">
                                             <p class="mb-1"><b>C.ON Cargo Ltd</b></p>
                                             <p class="mb-1">184/B, Moratuwa Road, Piliyandala, <br>Sri Lanka</p>
                                             <p class="mb-1">sl@concargo.co.uk</p>
                                             <p class="mb-0">+94 766 99 66 52</p>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
-                                <div style="font-size: 12px">
-                                    <h6 class="fw-medium">INVOICE #{{ $invoice->invoice_id }}</h6>
-                                    <div class="mb-1">
+                                <div class="col-3" style="font-size: 12px">
+                                    <h6 class="fw-medium m-0"><b>INVOICE #{{ $invoice->invoice_id }}</b></h6>
+                                    <div>
                                         <span>Date Issue:</span>
                                         <span>{{ $invoice->date }}</span>
                                     </div>
@@ -67,33 +68,33 @@
                             </div>
                         </div>
                         <hr class="my-0" />
-                        <div class="card-body" style="font-size: 12px">
+                        <div class="card-body pl-manual" style="font-size: 12px">
                             <div class="row">
                                 <div class="col-md-6 vertical-line line">
-                                    <h6 class="pb-1">Sender Details:</h6>
-                                    <p class="mb-1"><b>Name:</b> {{ $invoice->sender->firstname }}
+                                    <h6 class="pb-0"><b>Sender Details:</b></h6>
+                                    <p class="mb-1"><b class="black">Name:</b> {{ $invoice->sender->firstname }}
                                         {{ $invoice->sender->lastname }}</p>
-                                    <p class="mb-1"><b>Address:</b> {{ $invoice->sender->address }}</p>
-                                    <p class="mb-1"><b>Post Code:</b> {{ $invoice->sender->postcode }}</p>
-                                    <p class="mb-1"><b>Email:</b> {{ $invoice->sender->email }}</p>
-                                    <p class="mb-1"><b>Contact No:</b> {{ $invoice->sender->contact }}</p>
-                                    <p class="mb-1"><b>Country:</b> {{ $invoice->sender->country }}</p>
+                                    <p class="mb-1"><b class="black">Address:</b> <br> {{ $invoice->sender->address }}-{{ $invoice->sender->country }}</p>
+                                    <p class="mb-1"><b class="black">Post Code:</b> {{ $invoice->sender->postcode }}</p>
+                                    <p class="mb-1"><b class="black">Email:</b> {{ $invoice->sender->email }}</p>
+                                    <p class="mb-1"><b class="black">Contact No:</b> {{ $invoice->sender->contact }}</p>
+                                    {{-- <p class="mb-1"><b>Country:</b> {{ $invoice->sender->country }}</p> --}}
                                 </div>
                                 <div class="col-md-6">
-                                    <h6 class="pb-1">Consignee Details:</h6>
-                                    <p class="mb-1"><b>Name:</b> {{ $invoice->receiver->firstname }}
+                                    <h6 class="pb-0"><b>Consignee Details:</b></h6>
+                                    <p class="mb-1"><b class="black">Name:</b> {{ $invoice->receiver->firstname }}
                                         {{ $invoice->sender->lastname }}</p>
-                                    <p class="mb-1"><b>Address:</b> {{ $invoice->receiver->address }}</p>
-                                    <p class="mb-1"><b>Post Code:</b> {{ $invoice->receiver->postcode }}</p>
-                                    <p class="mb-1"><b>Email:</b> {{ $invoice->receiver->email }}</p>
-                                    <p class="mb-1"><b>Contact No:</b> {{ $invoice->receiver->contact }}</p>
-                                    <p class="mb-1"><b>Country:</b> {{ $invoice->receiver->country }}</p>
+                                    <p class="mb-1"><b class="black">Address:</b><br> {{ $invoice->receiver->address }}-{{ $invoice->receiver->country }}</p>
+                                    <p class="mb-1"><b class="black">Post Code:</b> {{ $invoice->receiver->postcode }}</p>
+                                    <p class="mb-1"><b class="black">Email:</b> {{ $invoice->receiver->email }}</p>
+                                    <p class="mb-1"><b class="black">Contact No:</b> {{ $invoice->receiver->contact }}</p>
+                                    {{-- <p class="mb-1"><b>Country:</b> {{ $invoice->receiver->country }}</p> --}}
                                 </div>
                             </div>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-borderless mb-5"
-                                style="margin: 0 !important; font-size: 12px; line-height: 0.3">
+                                style="margin: 0 !important; font-size: 12px; line-height: 1">
                                 <thead class="border-top">
                                     <tr>
                                         <th>No</th>
@@ -115,31 +116,34 @@
                                             <td>£ {{ $item->price }}</td>
 
                                         </tr>
+
                                     @endforeach
                                     <tr>
                                         <td></td>
-                                        <td>Collection & Delivary</td>
+                                        <td class="pt-1">Collection & Delivary</td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td>£ {{ $invoice->collection_fee }}</td>
+                                        <td class="pt-1">£ {{ $invoice->collection_fee }}</td>
                                     </tr>
 
                                     <tr>
                                         <td></td>
-                                        <td>Other</td>
+                                        <td class="pt-0">Other</td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td>£ {{ $invoice->handling_fee }}</td>
+                                        <td class="pt-0">£ {{ $invoice->handling_fee }}</td>
                                     </tr>
 
 
                                 </tbody>
                             </table>
                         </div>
-                        <hr>
-                        <div class="card-body" style="padding-top: 0px; padding-bottom: 0px">
+
+                        <div class="position">
+                            <hr>
+                        <div class="card-body pl-manual" style="padding-top: 0px; padding-bottom: 0px">
 
                             <div class="row">
                                 <div class="col-md-6 mb-md-0 mb-3" style="font-size: 12px">
@@ -184,7 +188,7 @@
                             </div>
                         </div>
                         <hr class="my-0" />
-                        <div class="card-body">
+                        <div class="card-body pl-manual">
                             <div class="row">
                                 <div class="col-12">
                                     <span class="fw-medium text-heading">Note:</span>
@@ -194,7 +198,7 @@
                         </div>
                         <hr class="my-0" />
 
-                        <div class="card-body">
+                        <div class="card-body pl-manual pb-0">
                             <div class="row">
                                 <div class="col-3">
                                     <h6 class="pb-0">DON'T SEND</h6>
@@ -218,15 +222,17 @@
                         </div>
 
                         <hr class="my-0" />
-                        <div class="card-body" style="font-size: 12px;">
+                        <div class="card-body pt-2" style="font-size: 12px;">
                             <div class="row">
                                 <div class="col-12 justify-center text-center">
                                     <p class="m-0">C.ON Group Ltd - 12, King Arthur Road, Waltham Cross, London, EN8 8EH
                                         &nbsp; <span class="mdi mdi-phone-classic"> 01992416763</span></p>
-                                    <p>Company Reg No. 15130909 | VAT No. 451 2523 24</p>
+                                    <p class="m-0">Company Reg No. 15130909 | VAT No. 451 2523 24</p>
+                                    <p>www.concargo.co.uk</p>
                                 </div>
                             </div>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>
