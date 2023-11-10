@@ -84,23 +84,27 @@
                     <div class="col">
                         <h5 class="card-title">Tracking Table</h5>
                     </div>
-                    <div class="col d-flex" style="justify-content: end">
+                    <form action="{{ route('filter.invoices') }}" method="GET">
+                    <div class="col d-flex">
+
                         <div class="col-md-3 col-3">
                             <div class="form-floating form-floating-outline">
-                              <input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date" />
+                              <input type="text" class="form-control" value="{{ old('start_date') }}" placeholder="YYYY-MM-DD" id="flatpickr-date" name="start_date" required />
                               <label for="flatpickr-date">From</label>
                             </div>
                           </div>
 
                           <div class="col-md-3 col-3 ml-20">
                             <div class="form-floating form-floating-outline">
-                              <input type="text" class="form-control" placeholder="YYYY-MM-DD" id="flatpickr-date2" />
+                              <input type="text" class="form-control" placeholder="YYYY-MM-DD" value="{{ old('end_date') }}" id="flatpickr-date2" name="end_date" required />
                               <label for="flatpickr-date">To</label>
                             </div>
                           </div>
 
-                          <button type="button" class="btn btn-lg btn-warning ml-20">Filter</button>
+                          <button type="submit" class="btn btn-lg btn-warning ml-20">Filter</button>
+
                     </div>
+                </form>
                 </div>
             </div>
             <div class="card-datatable table-responsive">
@@ -111,17 +115,19 @@
                             <th>Date</th>
                             <th>Sender Details</th>
                             <th>Status</th>
-                            <th>Actions</th>
+                            <th>Amount</th>
                         </tr>
                     </thead>
-                    @foreach ($invoices as $item)
+                    @foreach ($invoices as $invoice)
                         <tr>
-                            <td>{{ $item->invoice_id }}</td>
-                            <td>{{ $item->date }}</td>
-                            <td><b>{{ $item->sender->firstname }}&nbsp;{{ $item->sender->lastname }}
-                                </b><br>{{ $item->sender->address }}</td>
-                            <td>£{{ $item->total_fee }}</td>
-                            <td>
+                            <td>{{ $invoice->id }}</td>
+                            <td>{{ $invoice->date }}</td>
+                            <td><b>{{ $invoice->firstname }} &nbsp;{{ $invoice->firstname }}
+                            </b> <br>{{$invoice->address}}</td>
+                            <td>{{ $invoice->stop_id ?? 'No Stop' }}</td>
+
+                            <td>£{{ $invoice->total_fee }}</td>
+                            {{-- <td>
 
                                 <div class="btn-group">
                                     <button
@@ -141,14 +147,7 @@
                                       <li><a class="dropdown-item" href="javascript:void(0);">Separated link</a></li>
                                     </ul>
                                   </div>
-
-                                {{-- <button type="button"
-                                    class="btn btn-icon btn-dark btn-fab demo waves-effect waves-light m-1 preview-btn"
-                                    data-bs-toggle="modal" title="View Invoice" data-invoice-id="{{ $item->id }}"
-                                    data-bs-target="#addNewAddress">
-                                    <i class="tf-icons mdi mdi-eye-outline"></i>
-                                </button> --}}
-                            </td>
+                            </td> --}}
                         </tr>
                     @endforeach
                     <tbody>

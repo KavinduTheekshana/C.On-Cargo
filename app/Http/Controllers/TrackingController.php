@@ -17,51 +17,21 @@ class TrackingController extends Controller
         return view('backend.tracking.tracking', compact('invoices'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function filter(Request $request)
     {
-        //
+        $startDate = $request->start_date;
+        $endDate = $request->end_date;
+
+        // dd($startDate, $endDate);
+        $invoices = Invoice::leftJoin('trackings', 'trackings.invoice_id', '=', 'invoices.id')
+        ->leftJoin('customers', 'invoices.sender_id', '=', 'customers.id')
+        ->whereBetween('invoices.date', [$startDate, $endDate])
+        ->select('invoices.*', 'trackings.*', 'customers.*')
+        ->get();
+
+                            // dd($invoices);
+
+        return view('backend.tracking.tracking', compact('invoices'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Tracking $tracking)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Tracking $tracking)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Tracking $tracking)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Tracking $tracking)
-    {
-        //
-    }
 }
