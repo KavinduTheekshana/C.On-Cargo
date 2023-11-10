@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LabelController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TrackingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -69,8 +70,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/sendpdf', [InvoiceController::class, 'sendPdf']);
     Route::get('/invoice/download/{invoice_id}', [InvoiceController::class, 'downloadPdf'])->name('invoice.download');
     Route::get('/invoices/{invoice}/details', [InvoiceController::class, 'getInvoiceDetails'])->name('invoice.details');
-    // Route::get('/invoices/{invoice}/details', 'InvoiceController@getInvoiceDetails')->name('invoice.details');
 
+
+    // Tracking
+    Route::get('/tracking', [TrackingController::class, 'index'])->name('tracking');
 
 
 
@@ -97,4 +100,4 @@ require __DIR__ . '/auth.php';
 // Route::get('/invoice/download/{invoice_id}', 'InvoiceController@downloadPdf');
 // Route::get('/customer/delete/{id}', [CustomerController::class, 'delete'])->name('customer.delete');
 // Route::get('/label/{invoice_id}', [InvoiceController::class, 'label'])->name('invoice.show');
-Route::get('/get-invoice-details/{customer_id}', [CustomerController::class, 'getCustomerInvoices'])->name('customer.invoices');
+// Route::get('/get-invoice-details/{customer_id}', [CustomerController::class, 'getCustomerInvoices'])->name('customer.invoices');

@@ -11,7 +11,7 @@ class Invoice extends Model
     use HasFactory,SoftDeletes;
 
     protected $fillable = [
-        'invoice_id', 'date', 'job_number', 'customer_id', 'sender_id', 
+        'invoice_id', 'date', 'job_number', 'customer_id', 'sender_id',
         'receiver_id', 'collection_fee', 'handling_fee', 'total_fee', 'note'
     ];
 
@@ -29,4 +29,8 @@ class Invoice extends Model
     {
         return $this->belongsTo(Customer::class, 'receiver_id');
     }
+    public function tracking()
+{
+    return $this->hasOne(Tracking::class);
+}
 }

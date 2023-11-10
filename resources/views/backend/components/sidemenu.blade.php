@@ -4,13 +4,13 @@
         <img width="120px" src="{{ asset('frontend/assets/img/logo/logo.svg')}}" alt="" />
       </a>
 
- 
+
     </div>
 
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1">
-        
+
       <!-- Apps & Pages -->
       <li class="menu-header fw-medium mt-4">
         <span class="menu-header-text">Navigation Menu</span>
@@ -61,10 +61,17 @@
               <div data-i18n="Label Preview">Label Preview</div>
             </a>
           </li>
-         
+
         </ul>
       </li>
-
-    
+      <li class="menu-header fw-medium mt-4">
+        <span class="menu-header-text">Tracking</span>
+      </li>
+      <li class="menu-item {{ request()->is('tracking') ? 'active' : '' }}">
+        <a href="{{ route('tracking') }}" class="menu-link">
+          <i class="menu-icon tf-icons mdi mdi-map-marker-path"></i>
+          <div data-i18n="Tracking">Tracking</div>
+        </a>
+      </li>
     </ul>
   </aside>

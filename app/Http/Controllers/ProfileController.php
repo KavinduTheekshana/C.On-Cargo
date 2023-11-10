@@ -16,7 +16,7 @@ class ProfileController extends Controller
      */
     public function view()
     {
-       
+
     }
 
     public function edit(Request $request): View
