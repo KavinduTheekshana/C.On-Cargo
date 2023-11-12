@@ -9,6 +9,10 @@
   // --------------------------------------------------------------------
   const flatpickrDate = document.querySelector('#flatpickr-date'),
   flatpickrDate2 = document.querySelector('#flatpickr-date2'),
+  flatpickrDate3 = document.querySelector('#fromDateModule'),
+  flatpickrDate4 = document.querySelector('#toDateModule'),
+  flatpickrDate5 = document.querySelector('#departed_at'),
+  flatpickrDate6 = document.querySelector('#arrived_at'),
     flatpickrTime = document.querySelector('#flatpickr-time'),
     flatpickrDateTime = document.querySelector('#flatpickr-datetime'),
     flatpickrMulti = document.querySelector('#flatpickr-multi'),
@@ -25,6 +29,26 @@
   }
   if (flatpickrDate2) {
     flatpickrDate2.flatpickr({
+      monthSelectorType: 'static'
+    });
+  }
+  if (flatpickrDate3) {
+    flatpickrDate3.flatpickr({
+      monthSelectorType: 'static'
+    });
+  }
+  if (flatpickrDate4) {
+    flatpickrDate4.flatpickr({
+      monthSelectorType: 'static'
+    });
+  }
+  if (flatpickrDate5) {
+    flatpickrDate5.flatpickr({
+      monthSelectorType: 'static'
+    });
+  }
+  if (flatpickrDate6) {
+    flatpickrDate6.flatpickr({
       monthSelectorType: 'static'
     });
   }

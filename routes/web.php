@@ -75,6 +75,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Tracking
     Route::get('/tracking', [TrackingController::class, 'index'])->name('tracking');
     Route::get('/filter-invoices', [TrackingController::class, 'filter'])->name('filter.invoices');
+    // Route::post('/track-invoice', [TrackingController::class, 'trackInvoice'])->name('track.invoice');
 
 
 
@@ -102,4 +103,5 @@ require __DIR__ . '/auth.php';
 // Route::get('/invoice/download/{invoice_id}', 'InvoiceController@downloadPdf');
 // Route::get('/customer/delete/{id}', [CustomerController::class, 'delete'])->name('customer.delete');
 // Route::get('/label/{invoice_id}', [InvoiceController::class, 'label'])->name('invoice.show');
+Route::post('/track-invoice', [TrackingController::class, 'trackInvoice'])->name('track.invoice');
 // Route::get('/get-invoice-details/{customer_id}', [CustomerController::class, 'getCustomerInvoices'])->name('customer.invoices');

@@ -84,275 +84,152 @@
                     <div class="col">
                         <h5 class="card-title">Tracking Table</h5>
                     </div>
-                    <form action="{{ route('filter.invoices') }}" method="GET">
-                    <div class="col d-flex">
+                    <form id="filterForm" class="mb-3">
+                        <div class="col d-flex">
 
-                        <div class="col-md-3 col-3">
+
                             <div class="form-floating form-floating-outline">
-                              <input type="text" class="form-control" value="{{ old('start_date') }}" placeholder="YYYY-MM-DD" id="flatpickr-date" name="start_date" required />
-                              <label for="flatpickr-date">From</label>
+                                <input type="text" class="form-control" value="{{ old('start_date') }}"
+                                    placeholder="YYYY-MM-DD" id="flatpickr-date" name="start_date" required />
+                                <label for="flatpickr-date">From</label>
                             </div>
-                          </div>
 
-                          <div class="col-md-3 col-3 ml-20">
-                            <div class="form-floating form-floating-outline">
-                              <input type="text" class="form-control" placeholder="YYYY-MM-DD" value="{{ old('end_date') }}" id="flatpickr-date2" name="end_date" required />
-                              <label for="flatpickr-date">To</label>
+
+
+                            <div class="form-floating form-floating-outline" style="margin-left: 20px !important;">
+                                <input type="text" class="form-control" placeholder="YYYY-MM-DD"
+                                    value="{{ old('end_date') }}" id="flatpickr-date2" name="end_date" required />
+                                <label for="flatpickr-date">To</label>
                             </div>
-                          </div>
 
-                          <button type="submit" class="btn btn-lg btn-warning ml-20">Filter</button>
 
-                    </div>
-                </form>
+                            <button type="submit" class="btn btn-lg btn-warning ml-20">Filter</button>
+                            <button id="btn_update" type="button" data-bs-toggle="modal" data-bs-target="#referAndEarn"
+                                class="btn btn-lg btn-dark ml-20">Update Tracking Group</button>
+
+                        </div>
+                    </form>
+
                 </div>
             </div>
+
+            {{-- modal  --}}
+            <div class="modal fade" id="referAndEarn" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-simple modal-refer-and-earn">
+                    <div class="modal-content p-3 p-md-5">
+                        <div class="modal-body pt-3 pt-md-0 px-0 pb-md-0">
+
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <div class="text-center mb-4">
+                                <h3 class="mb-2">Update Tracking Information</h3>
+                            </div>
+
+                            <div id="responseMessage" class="alert d-none" role="alert">
+                            </div>
+                            <br>
+
+                            <form id="editTrackingForm" class="row g-4" onsubmit="return false">
+                                @csrf
+                                <div class="col-12 col-md-6">
+                                    <div class="form-floating form-floating-outline">
+                                        <input type="text" id="fromDateModule" placeholder="YYYY-MM-DD"
+                                            name="fromDateModule" class="form-control" />
+                                        <label for="fromDateModule">From Date</label>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="form-floating form-floating-outline">
+                                        <input type="text" id="toDateModule" placeholder="YYYY-MM-DD"
+                                            name="toDateModule" class="form-control" />
+                                        <label for="toDateModule">To Date</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating form-floating-outline">
+                                        <select id="stopid" name="stopid" class="form-select"
+                                            aria-label="Default select example">
+                                            <option value="1">Dispatched</option>
+                                            <option value="2">In transit</option>
+                                            <option value="3">Out for delivery</option>
+                                            <option value="4">Estimated delivary</option>
+                                        </select>
+                                        <label for="stopid">Status</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <div class="form-floating form-floating-outline">
+                                        <input type="text" id="departed_at" placeholder="YYYY-MM-DD"
+                                            name="departed_at" class="form-control" />
+                                        <label for="departed_at">Departed At</label>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="form-floating form-floating-outline">
+                                        <input type="text" id="arrived_at" placeholder="YYYY-MM-DD" name="arrived_at"
+                                            class="form-control" />
+                                        <label for="arrived_at">Arrived At</label>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="col-12 text-center">
+                                    <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
+                                    <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal"
+                                        aria-label="Close">
+                                        Cancel
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- modal  --}}
             <div class="card-datatable table-responsive">
                 <table id="invoice" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Date</th>
+                            <th>Invoice ID</th>
+                            <th>Invoice Date</th>
                             <th>Sender Details</th>
                             <th>Status</th>
                             <th>Amount</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
-                    @foreach ($invoices as $invoice)
-                        <tr>
-                            <td>{{ $invoice->id }}</td>
-                            <td>{{ $invoice->date }}</td>
-                            <td><b>{{ $invoice->firstname }} &nbsp;{{ $invoice->firstname }}
-                            </b> <br>{{$invoice->address}}</td>
-                            <td>{{ $invoice->stop_id ?? 'No Stop' }}</td>
 
-                            <td>£{{ $invoice->total_fee }}</td>
-                            {{-- <td>
-
-                                <div class="btn-group">
-                                    <button
-                                      type="button"
-                                      class="btn btn-info dropdown-toggle"
-                                      data-bs-toggle="dropdown"
-                                      aria-expanded="false">
-                                      Change Tracking
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                      <li><a class="dropdown-item" href="javascript:void(0);">Action</a></li>
-                                      <li><a class="dropdown-item" href="javascript:void(0);">Another action</a></li>
-                                      <li><a class="dropdown-item" href="javascript:void(0);">Something else here</a></li>
-                                      <li>
-                                        <hr class="dropdown-divider" />
-                                      </li>
-                                      <li><a class="dropdown-item" href="javascript:void(0);">Separated link</a></li>
-                                    </ul>
-                                  </div>
-                            </td> --}}
-                        </tr>
-                    @endforeach
-                    <tbody>
+                    <tbody id="invoiceBody">
 
                     </tbody>
                 </table>
             </div>
+
+            {{-- modal view button --}}
+            <div class="modal fade" id="addNewAddress" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-simple modal-add-new-address">
+                    <div class="modal-content p-3 p-md-5">
+                        <div class="modal-body p-md-0">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            {{-- Invoice  --}}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- modal view button --}}
         </div>
     </div>
     <!-- / Content -->
-
-
-    {{-- Modal  --}}
-    <div class="modal fade" id="addNewAddress" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-simple modal-add-new-address">
-            <div class="modal-content p-3 p-md-5">
-                <div class="modal-body p-md-0">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    {{-- Invoice  --}}
-                    <div id="content-to-print">
-                        <div class="card-body pb-1">
-                            <div class="d-flex justify-content-between flex-xl-row flex-md-column flex-sm-row flex-column">
-                                <div class="mb-xl-0 pb-1">
-                                    <div class="row">
-                                        <div style="width: 200px" class="mb-2 col">
-                                            <span class="app-brand-logo demo">
-                                                <img width="160px" src="{{ asset('backend/assets/svg/logo.png') }}"
-                                                    alt="" srcset="">
-                                            </span>
-
-                                        </div>
-                                        <div class="col">
-                                            <h1><b>INVOICE</b></h1>
-                                        </div>
-                                    </div>
-                                    <div class="row" style="font-size: 12px">
-                                        <div class="col-md-6 vertical-line line">
-                                            <p class="mb-1"><b>C.ON Group Ltd</b></p>
-                                            <p class="mb-1">12 King Arthur Road, Waltham Cross, London, EN8 8EH</p>
-                                            <p class="mb-1">info@concargo.co.uk</p>
-                                            <p class="mb-0">+44 7503 288 488</p>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p class="mb-1"><b>C.ON Cargo Ltd</b></p>
-                                            <p class="mb-1">184/B, Moratuwa Road, Piliyandala, <br>Sri Lanka</p>
-                                            <p class="mb-1">sl@concargo.co.uk</p>
-                                            <p class="mb-0">+94 766 99 66 52</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div style="font-size: 12px">
-                                    <h6 class="fw-medium">INVOICE #<span id="modalInvoiceId"></span></h6>
-                                    <div class="mb-1">
-                                        <span>Date Issue:</span>
-                                        <span id="modalInvoiceDate"></span>
-                                    </div>
-                                    <div>
-                                        <span>Job Number:</span>
-                                        <span id="modalJobNumber"></span>
-                                    </div>
-                                    <div>
-                                        <span>Customer ID:</span>
-                                        <span id="modalCustomerId"></span>
-                                    </div>
-
-
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="my-0" />
-                        <div class="card-body mt-2 mb-2" style="font-size: 12px">
-                            <div class="row">
-                                <div class="col-md-6 vertical-line line">
-                                    <h6 class="pb-1">Sender Details:</h6>
-                                    <p class="mb-1"><b>Name:</b> <span id="modalSenderFirstName"></span>&nbsp;<span
-                                            id="modalSenderLastName"></span></p>
-                                    <p class="mb-1"><b>Address:</b> <span id="modalSenderAddress"></span></p>
-                                    <p class="mb-1"><b>Post Code:</b> <span id="modalSenderPostCode"></span></p>
-                                    <p class="mb-1"><b>Email:</b> <span id="modalSenderEmail"></span></p>
-                                    <p class="mb-1"><b>Contact No:</b> <span id="modalSenderContact"></span></p>
-                                    <p class="mb-1"><b>Country:</b> <span id="modalSenderCountry"></span></p>
-                                </div>
-                                <div class="col-md-6">
-                                    <h6 class="pb-1">Consignee Details:</h6>
-                                    <p class="mb-1"><b>Name:</b> <span id="modalReceiverFirstName"></span>&nbsp;<span
-                                            id="modalReceiverLastName"></span></p>
-                                    <p class="mb-1"><b>Address:</b> <span id="modalReceiverAddress"></span></p>
-                                    <p class="mb-1"><b>Post Code:</b> <span id="modaReceiverPostCode"></span></p>
-                                    <p class="mb-1"><b>Email:</b> <span id="modalReceiverEmail"></span></p>
-                                    <p class="mb-1"><b>Contact No:</b> <span id="modalReceiverContact"></span></p>
-                                    <p class="mb-1"><b>Country:</b> <span id="modalReceiverCountry"></span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="table-responsive">
-                            <table id="modalItemsTable" class="table table-borderless mb-5"
-                                style="margin: 0 !important; font-size: 12px;">
-                                <thead class="border-top">
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Dimensions (CM)</th>
-                                        <th>Unit Price (£)</th>
-                                        <th>Volume Weight</th>
-                                        <th>Weight (kg)</th>
-                                        <th>Amount (£)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-
-
-
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td></td>
-                                        <td>Collection & Delivary</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td><span id="modalCollectionFee"></span></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td></td>
-                                        <td>Other</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td><span id="modalHandlingFee"></span></td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                        <hr>
-                        <div class="card-body" style="padding-top: 0px; padding-bottom: 0px">
-
-                            <div class="row">
-                                <div class="col-md-6 mb-md-0 mb-3" style="font-size: 12px">
-                                    <h6>Bank Details</h6>
-                                    <div class="row">
-                                        <div class="col">
-                                            <p class="mb-0"><b>Bank:</b> HSBC</p>
-                                            <p><b>A/C Name:</b> C.On Cargo Ltd</p>
-                                        </div>
-                                        <div class="col">
-                                            <p class="mb-0"><b>Sort Code:</b> 40-20-23</p>
-                                            <p><b>A/C Name:</b> 22349345</p>
-                                        </div>
-                                    </div>
-                                    <ul>
-                                        <li>Insuarance Policy Maximum Cover £50</li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-6 d-flex justify-content-md-end mt-2">
-                                    <div class="invoice-calculations">
-
-
-                                        <div class="d-flex justify-content-between mb-2">
-                                            <div class="row">
-                                                <div class="col d-flex justify-content-end align-items-end">
-                                                    <div class="content">
-                                                        <h3 class="w-px-150 total-text">Total:</h3>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col">
-                                                    <h3 id="modalTotal" class="w-px-150 total-text"></h3>
-                                                </div>
-                                            </div>
-
-
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="my-0" />
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-12">
-                                    <span class="fw-medium text-heading">Note:</span>
-                                    <span id="modalNote"></span>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-                    </div>
-                    {{-- Invoice  --}}
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 @push('vendorsjs')
-<script src="{{ asset('backend/assets/vendor/libs/select2/select2.js') }}"></script>
-<script src="{{ asset('backend/assets/vendor/libs/flatpickr/flatpickr.js') }}"></script>
-<script src="{{ asset('backend/assets/vendor/libs/cleavejs/cleave.js') }}"></script>
-<script src="{{ asset('backend/assets/vendor/libs/cleavejs/cleave-phone.js') }}"></script>
-<script src="{{ asset('backend/assets/vendor/libs/jquery-repeater/jquery-repeater.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor/libs/select2/select2.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor/libs/flatpickr/flatpickr.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor/libs/cleavejs/cleave.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor/libs/cleavejs/cleave-phone.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor/libs/jquery-repeater/jquery-repeater.js') }}"></script>
 @endpush
 
 
@@ -364,108 +241,149 @@
     <script>
         // datatable
         $(document).ready(function() {
-            $('#invoice').DataTable({
+            $('#invoice').DataTable({});
+        });
+
+
+
+        $(document).ready(function() {
+            $('#editTrackingForm').submit(function(e) {
+                e.preventDefault(); // Prevent the default form submit
+
+                $.ajax({
+                    url: "{{ route('track.invoice') }}", // Laravel route
+                    type: "POST",
+                    data: $(this).serialize(), // Serialize form data
+                    success: function(response) {
+                        // Handle success (you might want to redirect, display a message, etc.)
+                        console.log(response.message);
+                        if (response.message == "1") {
+                            $('#responseMessage')
+                                .html(
+                                    "Please provide both departure and arrival times for new tracking records."
+                                )
+                                .removeClass('alert-success d-none') // Set the message text
+                                .addClass(
+                                    'alert-danger') // Add class for styling success messages
+                                .show(); // Make the message visible
+                        } else {
+                            $('#responseMessage')
+                                .html(
+                                    "Tracking data processed successfully for invoices within date range"
+                                )
+                                .removeClass('alert-danger d-none') // Set the message text
+                                .addClass(
+                                    'alert-success') // Add class for styling success messages
+                                .show(); // Make the message visible
+                        }
+
+                        fetchAndDisplayInvoices();
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle errors
+                        console.error("Error:", error);
+                    }
+                });
             });
         });
 
-        // Sweet Alert
-        function openSweetAlert($id) {
-            console.log($id);
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
 
-                    fetch(`/invoice-delete/${$id}`, {
-                            method: 'GET',
-                            headers: {
-                                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                            },
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.message === 'Invoice deleted successfully') {
-                                Swal.fire('Deleted!', 'The Invoice has been deleted.', 'success');
-                                // Reload the current page after a short delay
-                                setTimeout(() => {
-                                    location.reload();
-                                }, 1000); // 1000 milliseconds = 1 second
-                            } else {
-                                Swal.fire('Error', 'Something went wrong!', 'error');
-                            }
-                        });
-
-
-                }
-            })
-        }
-
-        //invoice details modal
-        $('.preview-btn').on('click', function() {
-            var invoiceId = $(this).data('invoice-id'); // Make sure to set this data attribute on each button
+        function fetchAndDisplayInvoices() {
+            var fromdate = $('#flatpickr-date').val();
+            var todate = $('#flatpickr-date2').val();
 
             $.ajax({
-                url: '/invoices/' + invoiceId + '/details',
+                url: '{{ route('filter.invoices') }}',
                 type: 'GET',
-                success: function(response) {
-                    // Assuming response is the invoice object with an items array
-                    $('#modalInvoiceId').text(response.invoice_id);
-                    $('#modalInvoiceDate').text(response.date);
-                    $('#modalJobNumber').text(response.job_number);
-                    $('#modalCustomerId').text(response.customer_id);
-                    $('#modalCollectionFee').text(response.collection_fee);
-                    $('#modalHandlingFee').text(response.handling_fee);
-                    $('#modalTotal').text(response.total_fee);
-                    $('#modalNote').text(response.note);
-                    // sender details
-                    $('#modalSenderFirstName').text(response.sender.firstname);
-                    $('#modalSenderLastName').text(response.sender.lastname);
-                    $('#modalSenderEmail').text(response.sender.email);
-                    $('#modalSenderContact').text(response.sender.contact);
-                    $('#modalSenderAddress').text(response.sender.address);
-                    $('#modalSenderPostCode').text(response.sender.postcode);
-                    $('#modalSenderCountry').text(response.sender.country);
-                    // receiver details
-                    $('#modalReceiverFirstName').text(response.receiver.firstname);
-                    $('#modalReceiverLastName').text(response.receiver.lastname);
-                    $('#modalReceiverEmail').text(response.receiver.email);
-                    $('#modalReceiverContact').text(response.receiver.contact);
-                    $('#modalReceiverAddress').text(response.receiver.address);
-                    $('#modaReceiverPostCode').text(response.receiver.postcode);
-                    $('#modalReceiverCountry').text(response.receiver.country);
-                    // Populate more invoice fields
-
-                    // Clear previous items
-                    $('#modalItemsTable tbody').empty();
-
-                    // Populate items table
-                    response.items.forEach(function(item, index) {
-                        var iteration = index + 1;
-                        var row = '<tr>' +
-                            '<td>' + iteration + '</td>' +
-                            '<td>' + item.width + 'x' + item.height + 'x' + item.length +
-                            '</td>' +
-                            '<td>' + item.unit_price + '</td>' +
-                            '<td>' + item.volume_weight + '</td>' +
-                            '<td>' + item.weight + '</td>' +
-                            '<td>' + item.price + '</td>'
-                        '</tr>';
-                        $('#modalItemsTable tbody').append(row);
-                    });
-
-                    // Show the modal
-                    $('#invoicePreviewModal').modal('show');
+                data: {
+                    start_date: fromdate,
+                    end_date: todate
                 },
-                error: function(error) {
-                    console.log(error);
+                success: function(response) {
+                    $('#invoiceBody').empty(); // Clear existing rows
+                    response.invoices.forEach(function(invoice) {
+                        let status = getStatusBadge(invoice);
+                        let row = `<tr>
+                <td>${invoice.invoice_id}</td>
+                <td>${invoice.invoice_date}</td>
+                <td><b>${invoice.sender_first_name} ${invoice.sender_last_name}</b><br>${invoice.sender_address}</td>
+                <td>${status}</td>
+                <td>£${invoice.invoice_amount}</td>
+            </tr>`;
+                        $('#invoiceBody').append(row);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
                 }
             });
+        }
+
+        $(document).ready(function() {
+            $('#filterForm').on('submit', function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: '{{ route('filter.invoices') }}',
+                    type: 'GET',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        $('#invoiceBody').empty(); // Clear existing rows
+                        response.invoices.forEach(function(invoice) {
+                            let status = getStatusBadge(invoice);
+                            let row = `<tr>
+                            <td>${invoice.invoice_id}</td>
+                            <td>${invoice.invoice_date}</td>
+                            <td><b>${invoice.sender_first_name} ${invoice.sender_last_name}</b><br>${invoice.sender_address}</td>
+                            <td>${status}</td>
+                            <td>£${invoice.invoice_amount}</td>
+                            <td>
+                                <button type="button"
+                                    class="btn btn-icon btn-dark btn-fab demo waves-effect waves-light m-1 preview-btn"
+                                    data-bs-toggle="modal" title="View Invoice" data-invoice-id="${invoice.id}"
+                                    data-bs-target="#addNewAddress">
+                                    <i class="tf-icons mdi mdi-eye-outline"></i>
+                                </button>
+                    </td>
+                        </tr>`;
+                            $('#invoiceBody').append(row);
+                        });
+                        $('#btn_update').removeAttr('disabled');
+                        var fromdate = $('#flatpickr-date').val();
+                        var todate = $('#flatpickr-date2').val();
+                        $('#fromDateModule').val(fromdate);
+                        $('#toDateModule').val(todate);
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle errors
+                        console.error(error);
+                    }
+                });
+            });
         });
+
+        function getStatusBadge(invoice) {
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                const options = {
+                    day: '2-digit',
+                    month: 'long',
+                    year: 'numeric'
+                }; // Example format: '12 November 2023'
+                return date.toLocaleDateString('en-US', options);
+            }
+            if (invoice.tracking_id == 1) {
+                const formattedDate = formatDate(invoice.tracking_departed_at);
+                return `<span class="badge bg-info">Dispatched <br> ${formattedDate}</span>`;
+            } else if (invoice.tracking_id == 2) {
+                return `<span class="badge bg-primary">In Transit</span>`;
+            } else if (invoice.tracking_id == 3) {
+                return `<span class="badge bg-warning">Out for delivery</span>`;
+            } else if (invoice.tracking_id == 4) {
+                const formattedDate = formatDate(invoice.tracking_arrived_at);
+                return `<span class="badge bg-success">Estimate delivery <br> ${formattedDate}</span>`;
+            } else if (invoice.tracking_id == null) {
+                return `<span class="badge bg-dark">Not Assigned Yet</span>`;
+            }
+        }
     </script>
 @endpush
