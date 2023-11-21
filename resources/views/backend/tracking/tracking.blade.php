@@ -220,13 +220,10 @@
                                     <div id="fleet1" class="accordion-collapse collapse show" data-bs-parent="#fleet">
                                         <div class="accordion-body pt-3 pb-0">
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <h6 class="mb-1">Delivery Process</h6>
-                                                <p class="mb-1">88%</p>
+                                                <h4 class="mb-1">Delivery Process</h4>
+
                                             </div>
-                                            <div class="progress rounded-pill" style="height: 5px">
-                                                <div class="progress-bar" role="progressbar" style="width: 88%"
-                                                    aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
+
                                             <ul class="timeline ps-3 mt-4 timeline-font">
                                                 <li class="timeline-item ps-4 border-left-dashed">
                                                     <span id="iconDispatched"
@@ -239,7 +236,7 @@
                                                                 class="text-uppercase me-0">Dispatched</small>
                                                         </div>
                                                         {{-- <h6 class="mb-1">Veronica Herman</h6> --}}
-                                                        <p class="mb-0" id="modalInvoiceDispatched"></p>
+                                                        <p class="mb-0 small" id="modalInvoiceDispatched"></p>
                                                     </div>
                                                 </li>
                                                 <li class="timeline-item ps-4 border-left-dashed">
@@ -281,7 +278,7 @@
                                                                 Delivery</small>
                                                         </div>
                                                         {{-- <h6 class="mb-1">Veronica Herman</h6> --}}
-                                                        <p class="mb-0" id="modalInvoiceArrivel"></p>
+                                                        <p class="mb-0 small" id="modalInvoiceArrivel"></p>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -486,65 +483,88 @@
 
         //tracking details modal
         $(document).ready(function() {
-
-
-            $(document).on('click', '.preview-btn', function(e) {
+            $(document).on('click', '.preview-btn', function() {
                 var invoiceId = $(this).data('invoice-id'); // Retrieve the invoice ID
 
                 $.ajax({
                     url: '/tracking/' + invoiceId + '/details',
                     type: 'GET',
                     success: function(response) {
-                        var iconDispatched = $('#iconDispatched');
-                        var textDispatched = $('#textDispatched');
-
-                        var iconTransit = $('#iconTransit');
-                        var textTransit = $('#textTransit');
-
-                        var iconDelivary = $('#iconDelivary');
-                        var textDelivary = $('#textDelivary');
-
-                        var iconArrivel = $('#iconArrivel');
-                        var textArrivel = $('#textArrivel');
-
-
-                        iconDispatched.removeClass('text-success text-primary');
-
-
-                        console.log(response);
-                        // Assuming response contains the invoice details
-                        // Update modal content here
-                        $('#modalInvoiceId').text(response.invoice_id);
-                        $('#modalInvoiceDate').text(response.date);
-                        $('#modalInvoiceJobNumber').text(response.job_number);
-                        $('#modalInvoiceCustomerId').text(response.customer_id);
-                        $('#modalInvoiceSenderDetails').html(response.sender.firstname + " " +
-                            response.sender.lastname + "<br>" + response.sender.address +
-                            "<br>" + response.sender.postcode + "<br>" + response.sender
-                            .country + "<br>" + response.sender.email + "<br>" + response
-                            .sender.contact);
-                        $('#modalInvoiceReceiverDetails').html(response.receiver.firstname +
-                            " " + response.receiver.lastname + "<br>" + response.receiver
-                            .address + "<br>" + response.receiver.postcode + "<br>" +
-                            response.receiver.country + "<br>" + response.receiver.email +
-                            "<br>" + response.receiver.contact);
-
-                        if (response.tracking.stop_id === 1) {
-                            iconDispatched.addClass('text-success');
-                            textDispatched.addClass('text-success');
-                        } else {
-                            statusElement.addClass('class-for-inactive');
-                        }
-                        // ... populate other modal fields ...
-
-                        // Open the modal
-                        $('#yourModalId').modal('show');
+                        updateTrackingIconsAndTexts(response.tracking.stop_id);
+                        updateModalContent(response);
+                        updateFormattedDates(response.tracking);
                     },
                     error: function(error) {
-                        console.log(error);
+                        console.error(error);
                     }
                 });
             });
+
+            function updateTrackingIconsAndTexts(stopId) {
+                var trackingStages = ['Dispatched', 'Transit', 'Delivary', 'Arrivel'];
+
+                trackingStages.forEach(function(stage, index) {
+                    var icon = $('#icon' + stage);
+                    var text = $('#text' + stage);
+
+                    if (index < stopId) {
+                        icon.addClass('text-success').removeClass('text-primary');
+                        text.addClass('text-success').removeClass('text-primary');
+                    } else {
+                        icon.removeClass('text-success text-primary');
+                        text.removeClass('text-success text-primary');
+                    }
+                });
+
+                // Update modalInvoiceDispatched
+                if (stopId >= 1) {
+                    $('#modalInvoiceDispatched').addClass('text-success').removeClass('text-primary');
+                } else {
+                    $('#modalInvoiceDispatched').removeClass('text-success text-primary');
+                }
+
+                // Update modalInvoiceArrivel
+                if (stopId === 4) {
+                    $('#modalInvoiceArrivel').addClass('text-success').removeClass('text-primary');
+                } else {
+                    $('#modalInvoiceArrivel').removeClass('text-success text-primary');
+                }
+            }
+
+
+            function updateModalContent(response) {
+                $('#modalInvoiceId').text(response.invoice_id);
+                $('#modalInvoiceDate').text(response.date);
+                $('#modalInvoiceJobNumber').text(response.job_number);
+                $('#modalInvoiceCustomerId').text(response.customer_id);
+
+                var senderDetails = formatContactDetails(response.sender);
+                $('#modalInvoiceSenderDetails').html(senderDetails);
+
+                var receiverDetails = formatContactDetails(response.receiver);
+                $('#modalInvoiceReceiverDetails').html(receiverDetails);
+            }
+
+            function formatContactDetails(contact) {
+                return contact.firstname + " " + contact.lastname + "<br>" +
+                    contact.address + "<br>" + contact.postcode + "<br>" +
+                    contact.country + "<br>" + contact.email + "<br>" + contact.contact;
+            }
+
+            function updateFormattedDates(tracking) {
+                $('#modalInvoiceDispatched').text(formatDate(tracking.departed_at));
+                $('#modalInvoiceArrivel').text(formatDate(tracking.arrived_at));
+            }
+
+            function formatDate(dateStr) {
+                var date = new Date(dateStr);
+                var day = date.getDate();
+                var monthName = date.toLocaleString('default', {
+                    month: 'long'
+                });
+                var year = date.getFullYear();
+                return `${day} ${monthName}, ${year}`;
+            }
         });
     </script>
 @endpush
