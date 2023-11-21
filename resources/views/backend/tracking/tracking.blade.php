@@ -212,8 +212,96 @@
                 <div class="modal-dialog modal-lg modal-simple modal-add-new-address">
                     <div class="modal-content p-3 p-md-5">
                         <div class="modal-body p-md-0">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                             {{-- Invoice  --}}
+                            <div class="row">
+                                <div class="col-5">
+                                    <div id="fleet1" class="accordion-collapse collapse show" data-bs-parent="#fleet">
+                                        <div class="accordion-body pt-3 pb-0">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <h6 class="mb-1">Delivery Process</h6>
+                                                <p class="mb-1">88%</p>
+                                            </div>
+                                            <div class="progress rounded-pill" style="height: 5px">
+                                                <div class="progress-bar" role="progressbar" style="width: 88%"
+                                                    aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                            <ul class="timeline ps-3 mt-4 timeline-font">
+                                                <li class="timeline-item ps-4 border-left-dashed">
+                                                    <span id="iconDispatched"
+                                                        class="timeline-indicator-advanced border-0 shadow-none">
+                                                        <i class="mdi mdi-check-circle-outline"></i>
+                                                    </span>
+                                                    <div class="timeline-event ps-1 pb-2">
+                                                        <div class="timeline-header">
+                                                            <small id="textDispatched"
+                                                                class="text-uppercase me-0">Dispatched</small>
+                                                        </div>
+                                                        {{-- <h6 class="mb-1">Veronica Herman</h6> --}}
+                                                        <p class="mb-0" id="modalInvoiceDispatched"></p>
+                                                    </div>
+                                                </li>
+                                                <li class="timeline-item ps-4 border-left-dashed">
+                                                    <span id="iconTransit"
+                                                        class="timeline-indicator-advanced border-0 shadow-none">
+                                                        <i class="mdi mdi-check-circle-outline"></i>
+                                                    </span>
+                                                    <div class="timeline-event ps-1 pb-2">
+                                                        <div class="timeline-header">
+                                                            <small id="textTransit" class="text-uppercase">In
+                                                                Transit</small>
+                                                        </div>
+                                                        {{-- <h6 class="mb-1">Veronica Herman</h6>
+                                                        <p class="mb-0">Sep 03, 8:02 AM</p> --}}
+                                                    </div>
+                                                </li>
+                                                <li class="timeline-item ps-4 border-left-dashed">
+                                                    <span id="iconDelivary"
+                                                        class="timeline-indicator-advanced border-0 shadow-none">
+                                                        <i class="mdi mdi-check-circle-outline"></i>
+                                                    </span>
+                                                    <div class="timeline-event ps-1 pb-2">
+                                                        <div class="timeline-header">
+                                                            <small id="textDelivary" class="text-uppercase">out for
+                                                                delivery</small>
+                                                        </div>
+                                                        {{-- <h6 class="mb-1">Veronica Herman</h6>
+                                                        <p class="mb-0">Sep 03, 8:02 AM</p> --}}
+                                                    </div>
+                                                </li>
+                                                <li class="timeline-item ps-4 border-transparent">
+                                                    <span id="iconArrivel"
+                                                        class="timeline-indicator-advanced text-primary border-0 shadow-none">
+                                                        <i class="mdi mdi-map-marker-outline"></i>
+                                                    </span>
+                                                    <div class="timeline-event ps-1 pb-2">
+                                                        <div class="timeline-header">
+                                                            <small id="textArrivel" class="text-uppercase">Estimeted
+                                                                Delivery</small>
+                                                        </div>
+                                                        {{-- <h6 class="mb-1">Veronica Herman</h6> --}}
+                                                        <p class="mb-0" id="modalInvoiceArrivel"></p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-7">
+                                    <div class="pl-12-custom">
+                                        <h6>Invoice ID : <span id="modalInvoiceId"></span></h6>
+                                        <h6>Invoice Date : <span id="modalInvoiceDate"></span></h6>
+                                        <h6>Job Number : <span id="modalInvoiceJobNumber"></span></h6>
+                                        <h6>Cuatomer ID : <span id="modalInvoiceCustomerId"></span></h6>
+                                        <h6 class="m-0">Sender Details :</h6>
+                                        <p id="modalInvoiceSenderDetails"></p>
+                                        <h6 class="m-0">Receiver Details :</h6>
+                                        <p id="modalInvoiceReceiverDetails"></p>
+
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
@@ -309,6 +397,14 @@
                 <td><b>${invoice.sender_first_name} ${invoice.sender_last_name}</b><br>${invoice.sender_address}</td>
                 <td>${status}</td>
                 <td>£${invoice.invoice_amount}</td>
+                <td>
+                                <button type="button"
+                                    class="btn btn-icon btn-dark btn-fab demo waves-effect waves-light m-1 preview-btn"
+                                    data-bs-toggle="modal" title="View Invoice" data-invoice-id="${invoice.id}"
+                                    data-bs-target="#addNewAddress">
+                                    <i class="tf-icons mdi mdi-eye-outline"></i>
+                                </button>
+                    </td>
             </tr>`;
                         $('#invoiceBody').append(row);
                     });
@@ -385,5 +481,70 @@
                 return `<span class="badge bg-dark">Not Assigned Yet</span>`;
             }
         }
+
+
+
+        //tracking details modal
+        $(document).ready(function() {
+
+
+            $(document).on('click', '.preview-btn', function(e) {
+                var invoiceId = $(this).data('invoice-id'); // Retrieve the invoice ID
+
+                $.ajax({
+                    url: '/tracking/' + invoiceId + '/details',
+                    type: 'GET',
+                    success: function(response) {
+                        var iconDispatched = $('#iconDispatched');
+                        var textDispatched = $('#textDispatched');
+
+                        var iconTransit = $('#iconTransit');
+                        var textTransit = $('#textTransit');
+
+                        var iconDelivary = $('#iconDelivary');
+                        var textDelivary = $('#textDelivary');
+
+                        var iconArrivel = $('#iconArrivel');
+                        var textArrivel = $('#textArrivel');
+
+
+                        iconDispatched.removeClass('text-success text-primary');
+
+
+                        console.log(response);
+                        // Assuming response contains the invoice details
+                        // Update modal content here
+                        $('#modalInvoiceId').text(response.invoice_id);
+                        $('#modalInvoiceDate').text(response.date);
+                        $('#modalInvoiceJobNumber').text(response.job_number);
+                        $('#modalInvoiceCustomerId').text(response.customer_id);
+                        $('#modalInvoiceSenderDetails').html(response.sender.firstname + " " +
+                            response.sender.lastname + "<br>" + response.sender.address +
+                            "<br>" + response.sender.postcode + "<br>" + response.sender
+                            .country + "<br>" + response.sender.email + "<br>" + response
+                            .sender.contact);
+                        $('#modalInvoiceReceiverDetails').html(response.receiver.firstname +
+                            " " + response.receiver.lastname + "<br>" + response.receiver
+                            .address + "<br>" + response.receiver.postcode + "<br>" +
+                            response.receiver.country + "<br>" + response.receiver.email +
+                            "<br>" + response.receiver.contact);
+
+                        if (response.tracking.stop_id === 1) {
+                            iconDispatched.addClass('text-success');
+                            textDispatched.addClass('text-success');
+                        } else {
+                            statusElement.addClass('class-for-inactive');
+                        }
+                        // ... populate other modal fields ...
+
+                        // Open the modal
+                        $('#yourModalId').modal('show');
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
     </script>
 @endpush

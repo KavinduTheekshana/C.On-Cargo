@@ -91,4 +91,10 @@ class TrackingController extends Controller
         return response()->json(['message' => '2']);
     }
 
+    public function getTrackingDetails($invoiceId)
+    {
+        $invoice = Invoice::with(['sender', 'receiver', 'items','tracking'])->find($invoiceId);
+        return response()->json($invoice);
+    }
+
 }

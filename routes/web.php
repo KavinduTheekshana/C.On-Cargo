@@ -75,6 +75,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Tracking
     Route::get('/tracking', [TrackingController::class, 'index'])->name('tracking');
     Route::get('/filter-invoices', [TrackingController::class, 'filter'])->name('filter.invoices');
+    Route::get('/tracking/{invoice}/details', [TrackingController::class, 'getTrackingDetails'])->name('tracking.details');
     // Route::post('/track-invoice', [TrackingController::class, 'trackInvoice'])->name('track.invoice');
 
 
