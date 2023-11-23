@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
     public function index()
     {
-        $customers = Customer::all();
+        $customers = Customer::where('user_id', Auth::id())->get();
         return view('backend.customers.customers', compact('customers'));
     }
 
@@ -33,6 +34,7 @@ class CustomerController extends Controller
         $customer->address = $request->input('address');
         $customer->postcode = $request->input('postcode');
         $customer->country = $request->input('country');
+        $customer->user_id = Auth::id();
         $customer->save();
         return redirect()->back()->with('status', 'New Customer Added Sucessfully');
     }

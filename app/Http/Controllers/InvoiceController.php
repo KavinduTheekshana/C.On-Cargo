@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Mail\PdfMail;
+use Illuminate\Support\Facades\Auth;
 
 class InvoiceController extends Controller
 {
@@ -45,7 +46,9 @@ class InvoiceController extends Controller
 
     public function index()
     {
-        $invoices = Invoice::with(['sender', 'receiver'])->get();
+        $invoices = Invoice::with(['sender', 'receiver'])
+                       ->where('user_id', Auth::id())
+                       ->get();
         return view('backend.invoice.list', compact('invoices'));
     }
 
@@ -54,7 +57,9 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        $customers = Customer::where('status', 1)->get();
+        $customers = Customer::where('status', 1)
+        ->where('user_id', Auth::id())
+        ->get();
         $lastInvoiceId = Invoice::max('id');
         $nextInvoiceId = $lastInvoiceId + 1;
         $nextInvoiceNumber = str_pad($nextInvoiceId, 5, '0', STR_PAD_LEFT);
@@ -84,7 +89,7 @@ class InvoiceController extends Controller
             'invoice_id', 'date', 'job_number', 'customer_id', 'sender_id',
             'receiver_id', 'collection_fee', 'handling_fee', 'total_fee', 'note'
         ]);
-
+        $invoiceData['user_id'] = Auth::id();
         $invoice = Invoice::create($invoiceData);
 
         foreach ($request->items as $itemData) {
@@ -94,9 +99,7 @@ class InvoiceController extends Controller
             return redirect()->back()->with('status', 'Invoice created successfully.');
         } elseif ($request->input('action') == 'preview') {
             return view('backend.invoice.preview', compact('invoice'))->with('status', 'Invoice created successfully.');
-            // return redirect()->route('backend.invoice.preview', ['id' => $invoice->id])->with('status', 'Invoice created successfully.');
-            // return redirect()->back()->with('status', 'Invoice created successfully.');
-        }
+                }
     }
 
     public function delete($id)

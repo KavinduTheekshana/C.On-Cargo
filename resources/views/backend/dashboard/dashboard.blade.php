@@ -9,7 +9,7 @@
 
 
             <!-- Card Border Shadow -->
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-sm-6 col-lg-3 mb-4">
                     <div class="card card-border-shadow-primary h-100">
                         <div class="card-body">
@@ -83,9 +83,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!--/ Card Border Shadow -->
-            <div class="row">
+            {{-- <div class="row">
                 <!-- Vehicles overview -->
                 <div class="col-xxl-6 mb-4 order-5 order-xxl-0">
                     <div class="card h-100">
@@ -671,12 +671,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!--/ On route vehicles Table -->
         </div>
         <!-- / Content -->
 
-      
+
 @endsection
 
 @push('pagejs')

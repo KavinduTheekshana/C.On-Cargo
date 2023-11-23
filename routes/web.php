@@ -34,13 +34,35 @@ Route::get('contact', function () {
     return view('frontend.contact.index');
 })->name('contact');
 
+// Error Route
+Route::get('/error', function () {
+    return view('backend.error');
+})->name('error');
 
-// -------------------Back End---------------------------------------------
+// -------------------Back End Admins---------------------------------------------
+Route::middleware(['adminOnly'])->group(function () {
+    //Agents
+    Route::get('/agents', [AgentsController::class, 'index'])->name('agents');
+    Route::post('/save/agents', [AgentsController::class, 'save'])->name('agents.save');
+    Route::get('/agents/delete/{id}', [AgentsController::class, 'delete'])->name('agents.delete');
+    Route::get('/agents/active/{id}', [AgentsController::class, 'active'])->name('agents.active');
+    Route::get('/agents/diactive/{id}', [AgentsController::class, 'diactive'])->name('agents.diactive');
+
+    // Tracking
+    Route::get('/tracking', [TrackingController::class, 'index'])->name('tracking');
+    Route::get('/filter-invoices', [TrackingController::class, 'filter'])->name('filter.invoices');
+    Route::get('/tracking/{invoice}/details', [TrackingController::class, 'getTrackingDetails'])->name('tracking.details');
+    Route::post('/track-invoice', [TrackingController::class, 'trackInvoice'])->name('track.invoice');
+});
+
+// backend All Routes
 Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/dashboard', function () {
         return view('backend.dashboard.dashboard');
     })->name('dashboard');
+
+    Route::get('/userprofile', [ProfileController::class, 'userprofile'])->name('userprofile');
 
 
     //Customers
@@ -53,12 +75,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
 
-    //Agents
-    Route::get('/agents', [AgentsController::class, 'index'])->name('agents');
-    Route::post('/save/agents', [AgentsController::class, 'save'])->name('agents.save');
-    Route::get('/agents/delete/{id}', [AgentsController::class, 'delete'])->name('agents.delete');
-    Route::get('/agents/active/{id}', [AgentsController::class, 'active'])->name('agents.active');
-    Route::get('/agents/diactive/{id}', [AgentsController::class, 'diactive'])->name('agents.diactive');
+
 
     //Invoice
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice');
@@ -70,19 +87,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/sendpdf', [InvoiceController::class, 'sendPdf']);
     Route::get('/invoice/download/{invoice_id}', [InvoiceController::class, 'downloadPdf'])->name('invoice.download');
     Route::get('/invoices/{invoice}/details', [InvoiceController::class, 'getInvoiceDetails'])->name('invoice.details');
-
-
-    // Tracking
-    Route::get('/tracking', [TrackingController::class, 'index'])->name('tracking');
-    Route::get('/filter-invoices', [TrackingController::class, 'filter'])->name('filter.invoices');
-    Route::get('/tracking/{invoice}/details', [TrackingController::class, 'getTrackingDetails'])->name('tracking.details');
-    // Route::post('/track-invoice', [TrackingController::class, 'trackInvoice'])->name('track.invoice');
-
-
-
-
 });
-
+Route::post('/user/password/update', [ProfileController::class, 'updatePassword'])->name('user.password.update')->middleware('auth');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -104,5 +110,6 @@ require __DIR__ . '/auth.php';
 // Route::get('/invoice/download/{invoice_id}', 'InvoiceController@downloadPdf');
 // Route::get('/customer/delete/{id}', [CustomerController::class, 'delete'])->name('customer.delete');
 // Route::get('/label/{invoice_id}', [InvoiceController::class, 'label'])->name('invoice.show');
-Route::post('/track-invoice', [TrackingController::class, 'trackInvoice'])->name('track.invoice');
+
+
 // Route::get('/get-invoice-details/{customer_id}', [CustomerController::class, 'getCustomerInvoices'])->name('customer.invoices');

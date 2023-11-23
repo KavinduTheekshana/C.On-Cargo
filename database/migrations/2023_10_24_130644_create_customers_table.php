@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('postcode');
             $table->string('country');
+            $table->string('user_id');
             $table->softDeletes();
             $table->timestamps();
         });

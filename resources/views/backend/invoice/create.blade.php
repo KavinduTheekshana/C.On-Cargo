@@ -154,8 +154,7 @@
                                                             <div class="col">
                                                                 <p class="mb-2 repeater-title">Volume Weight</p>
                                                                 <input type="text" name="items[0][volume_weight]"
-                                                                    readonly
-                                                                    class="form-control invoice-volume-weight mb-2 d-bg"
+                                                                    class="form-control invoice-volume-weight mb-2"
                                                                     placeholder="00" />
                                                             </div>
                                                             <div class="col">
@@ -346,6 +345,13 @@
                                 </option>
                             @endforeach
                         </select>
+
+                        <hr>
+
+                        <button type="button" class="btn btn-danger w-100 btn-lg"
+                            data-bs-toggle="offcanvas" data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd"><span
+                                class="mdi mdi-plus"></span> &nbsp;Add Customer</button>
+
                     </div>
                 </div>
 
@@ -356,7 +362,88 @@
         </div>
 
         <!-- Offcanvas -->
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEnd" aria-labelledby="offcanvasEndLabel">
+            <div class="offcanvas-header">
+                <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Add Customers</h5>
+                <button id="btnClose" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                    aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body mx-0 flex-grow-0 h-100">
 
+                <form class="add-new-user pt-0" method="POST" action="{{ route('customer.save') }}"
+                    enctype="multipart/form-data">
+                    @csrf
+
+
+
+
+                    <div class="form-floating form-floating-outline mb-4">
+                        <input type="text" class="form-control" id="add-user-firstname" placeholder="John"
+                            name="firstname" aria-label="John" value="{{ old('firstname') }}" />
+                        <label for="add-user-firstname">First Name</label>
+                        @error('firstname')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-floating form-floating-outline mb-4">
+                        <input type="text" class="form-control" id="add-user-lastname" placeholder="Doe"
+                            name="lastname" aria-label="Doe" value="{{ old('lastname') }}" />
+                        <label for="add-user-lastname">Last Name</label>
+                        @error('lastname')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-floating form-floating-outline mb-4">
+                        <input type="text" id="add-user-email" class="form-control"
+                            placeholder="john.doe@example.com" aria-label="john.doe@example.com" name="email"
+                            value="{{ old('email') }}" />
+                        <label for="add-user-email">Email</label>
+                        @error('email')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-floating form-floating-outline mb-4">
+                        <input type="text" id="add-user-contact" class="form-control phone-mask"
+                            placeholder="+44 75 032 88 488" aria-label="john.doe@example.com" name="contact"
+                            value="{{ old('contact') }}" />
+                        <label for="add-user-contact">Contact</label>
+                        @error('contact')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-floating form-floating-outline mb-4">
+                        <input type="text" id="add-user-address" class="form-control"
+                            placeholder="12 King Arthur Ct,Waltham Cross" aria-label="jdoe1" name="address"
+                            value="{{ old('address') }}" />
+                        <label for="add-user-company">Address</label>
+                        @error('address')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-floating form-floating-outline mb-4">
+                        <input type="text" id="add-user-postcode" class="form-control" placeholder="EN8 8EH"
+                            aria-label="jdoe1" name="postcode" value="{{ old('postcode') }}" />
+                        <label for="add-user-company">Post Code</label>
+                        @error('postcode')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-floating form-floating-outline mb-4">
+                        <select name="country" id="country" class="select2 form-select">
+                            <option value="">Select</option>
+                            <option value="Sri Lanka">Sri Lanka</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                        </select>
+                        <label for="country">Country</label>
+                        @error('country')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
+
+                </form>
+            </div>
+        </div>
 
         <!-- /Offcanvas -->
     </div>
