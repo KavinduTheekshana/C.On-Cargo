@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('identity')->nullable();
             $table->string('email')->unique();
-            $table->string('role')->default(0);
+            $table->string('role')->default(2);
             $table->string('status')->default(1);
             $table->string('phone')->nullable();
             $table->string('location')->nullable();

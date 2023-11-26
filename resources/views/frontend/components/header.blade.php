@@ -7,7 +7,7 @@
                         <div class="logo logo-mt f-left">
                             <a href="/"><img width="200px" src="{{ asset('frontend/assets/img/logo/logo.svg')}}" alt="" /></a>
                         </div>
-                   
+
                     </div>
                 </div>
                 <div class="col-xl-8 col-lg-9">
@@ -25,14 +25,12 @@
                     <div class="main-menu text-right">
                         <nav id="mobile-menu">
                             <ul>
-                              
                                 <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="{{ route('/') }}">Home </a></li>
                                 <li class="{{ request()->is('about') ? 'active' : '' }}"><a href="{{ route('about') }}">About </a></li>
                                 <li class="{{ request()->is('services') ? 'active' : '' }}"><a href="{{ route('services') }}">Services </a></li>
                                 <li class="{{ request()->is('tracking') ? 'active' : '' }}"><a href="{{ route('/') }}">Tracking </a></li>
                                 <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ route('contact') }}">Contact </a></li>
-                              
-                            
+                                <li class="{{ request()->is('user/login') ? 'active' : '' }}"><a href="{{ route('user/login') }}">Login </a></li>
                             </ul>
                         </nav>
                     </div>

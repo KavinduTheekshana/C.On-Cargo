@@ -62,7 +62,7 @@
     <script src="{{ asset('backend/assets/vendor/js/helpers.js') }}"></script>
     <script src="{{ asset('backend/assets/vendor/js/template-customizer.js') }}"></script>
     <script src="{{ asset('backend/assets/js/config.js') }}"></script>
-    @vite('resources/js/app.js')
+
 </head>
 
 
@@ -89,7 +89,7 @@
             <img src="{{ asset('backend/assets/img/illustrations/misc-error-illustration.png') }}" alt="misc-error"
                 class="img-fluid zindex-1" width="190" />
             <div>
-                <a href="{{ route('logout') }}" class="btn btn-primary text-center my-4">Back to Login</a>
+                <a href="{{ route('logout') }}" class="btn btn-primary text-center my-4">Back to Home</a>
             </div>
         </div>
     </div>

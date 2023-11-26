@@ -92,7 +92,7 @@
                     <h4 class="mb-2">Welcome to C.ON Cargo! 👋</h4>
                     <p class="mb-4">Please sign-in to your account and start the adventure</p>
 
-                    <form id="formAuthentication" class="mb-3" ction="{{ route('login') }}" method="POST">
+                    <form id="formAuthentication" class="mb-3" action="{{ route('login') }}" method="POST">
                         @csrf
                         <div class="form-floating form-floating-outline mb-3">
                             <input type="email" name="email" :value="old('email')" required autofocus

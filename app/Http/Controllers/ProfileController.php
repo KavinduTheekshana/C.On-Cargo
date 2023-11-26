@@ -22,6 +22,24 @@ class ProfileController extends Controller
         return view('backend.profile.profile', compact('user'));
     }
 
+    public function regularuser(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            return redirect()->intended('user/dashboard');
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
+    }
+
     public function updatePassword(Request $request)
     {
         $user = Auth::user();

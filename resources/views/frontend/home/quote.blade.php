@@ -1,4 +1,4 @@
-<div class="appiontment-area appiontment-padding pt-200 pb-130"
+<div id="quoteSection" class="appiontment-area appiontment-padding pt-200 pb-130"
     style="background-image:url({{ asset('frontend/assets/img/bg/bg-06.jpg') }})">
     <div class="container-fluid">
         <div class="row">

@@ -78,6 +78,16 @@
                 <div data-i18n="Tracking">Tracking</div>
             </a>
         </li>
+
+        <li class="menu-header fw-medium mt-4">
+            <span class="menu-header-text">Customizations</span>
+        </li>
+        <li class="menu-item {{ request()->is('tracking') ? 'active' : '' }}">
+            <a href="{{ route('tracking') }}" class="menu-link">
+                <i class="menu-icon tf-icons mdi mdi-cog"></i>
+                <div data-i18n="Settings">Settings</div>
+            </a>
+        </li>
         @endif
     </ul>
 </aside>

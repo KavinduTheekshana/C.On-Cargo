@@ -17,10 +17,10 @@
     font-size: 16px;
     text-transform: capitalize;
     border-radius: 0;
-    font-weight: 600; 
+    font-weight: 600;
     font-family: $poppins;
     transition: .3s;
-} 
+}
 .appiontment-form input:focus{border: 2px solid $theme-color;}
 .appiontment-form input::-moz-placeholder, .appiontment-form input::placeholder {
     color: $black;
@@ -39,13 +39,16 @@
     text-align: center;
     right: 28px;
     color: $theme-color;
-    top: 27px; 
+    top: 27px;
 }
 .email-icon::after {
 	content: "\f095";
 }
+.password-icon::after {
+	content: "\f084";
+}
 .pro-filter {
-    position: relative; 
+    position: relative;
 }
 .pro-filter select {
     background: $white;
@@ -59,7 +62,7 @@
     text-transform: capitalize;
     font-weight: 600;
     appearance: none;
-    -moz-appearance: none; 
+    -moz-appearance: none;
     font-family: $poppins;
 }
 .pro-filter::before {
@@ -71,7 +74,7 @@
     text-align: center;
     right: 28px;
     color: $theme-color;
-    top: 27px;  
+    top: 27px;
 }
 // appiontment-02
 .appiontment-02-area {
@@ -94,10 +97,10 @@
 }
 .appiontment-tab {
     border-bottom: 2px solid #e5e5e5;
-    padding-bottom: 16px; 
+    padding-bottom: 16px;
     & ul{
         & li{
-            position: relative; 
+            position: relative;
             & a{
                 transition: 0.3s;
                 margin: 0;
@@ -121,7 +124,7 @@
                     width: 100%;
                     bottom: -17px;
                     transition: .3s;
-                    opacity: 0; 
+                    opacity: 0;
                 }
                 &:hover::before{
                     opacity: 1;
@@ -133,7 +136,7 @@
                 &.active{
                     color: $theme-color;
                 }
-                
+
             }
         }
     }

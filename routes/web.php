@@ -33,6 +33,20 @@ Route::get('services', function () {
 Route::get('contact', function () {
     return view('frontend.contact.index');
 })->name('contact');
+Route::get('user/login', function () {
+    return view('frontend.login.login');
+})->name('user/login');
+Route::get('user/register', function () {
+    return view('frontend.login.register');
+})->name('user/register');
+Route::post('regularuser', [ProfileController::class, 'regularuser'])->name('regularuser');
+
+Route::middleware(['userOnly'])->group(function () {
+    Route::get('user/dashboard', function () {
+        return view('frontend.login.dashboard');
+    })->name('user/dashboard');
+});
+
 
 // Error Route
 Route::get('/error', function () {
@@ -55,15 +69,15 @@ Route::middleware(['adminOnly'])->group(function () {
     Route::post('/track-invoice', [TrackingController::class, 'trackInvoice'])->name('track.invoice');
 });
 
-// backend All Routes
-Route::middleware(['auth', 'verified'])->group(function () {
+
+Route::middleware('adminOrAgent')->group(function () {
+    // Dashboard Routes
 
     Route::get('/dashboard', function () {
         return view('backend.dashboard.dashboard');
     })->name('dashboard');
 
     Route::get('/userprofile', [ProfileController::class, 'userprofile'])->name('userprofile');
-
 
     //Customers
     Route::get('/customers', [CustomerController::class, 'index'])->name('customers');
@@ -72,10 +86,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/customer/active/{id}', [CustomerController::class, 'active'])->name('customer.active');
     Route::get('/customer/diactive/{id}', [CustomerController::class, 'diactive'])->name('customer.diactive');
     Route::get('/get-invoice-details/{customer_id}', [CustomerController::class, 'getCustomerInvoices'])->name('customer.invoices');
-
-
-
-
 
     //Invoice
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice');
@@ -87,18 +97,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/sendpdf', [InvoiceController::class, 'sendPdf']);
     Route::get('/invoice/download/{invoice_id}', [InvoiceController::class, 'downloadPdf'])->name('invoice.download');
     Route::get('/invoices/{invoice}/details', [InvoiceController::class, 'getInvoiceDetails'])->name('invoice.details');
+    Route::post('/user/password/update', [ProfileController::class, 'updatePassword'])->name('user.password.update');
 });
-Route::post('/user/password/update', [ProfileController::class, 'updatePassword'])->name('user.password.update')->middleware('auth');
+
+
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     // Route::get('/redirect', [HomeController::class, 'index']);
-
 });
+
 Route::get('/logout', function () {
     auth()->logout();
-    return redirect('/login');
+    return redirect('/');
 })->name('logout');
 require __DIR__ . '/auth.php';
 

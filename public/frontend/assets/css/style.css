@@ -36,3 +36,12 @@ input[type=number] {
   height: 100% !important;
   object-fit: cover !important;
 }
+.pl-28{
+  padding-left: 10rem !important;
+  padding-right: 10rem !important;
+}
+.center-align-content{
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+}
