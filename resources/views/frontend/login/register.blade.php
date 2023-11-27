@@ -46,7 +46,7 @@
 
                                     <div class="col-lg-12 col-md-12">
                                         <div class="mb-20">
-                                            <button style="border-radius: 0px; width: 100%" class="btn red-btn" type="submit">Register <i class="far fa-paper-plane"></i></button>
+                                            <button class="btn red-btn squre-btn" type="submit">Register <i class="far fa-paper-plane"></i></button>
                                         </div>
                                     </div>
                                     <p>If you are already member? <a style="color: brown" href="{{ route('user/login') }}">Signin Now</a></p>

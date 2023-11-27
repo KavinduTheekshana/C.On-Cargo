@@ -45,3 +45,31 @@ input[type=number] {
   justify-content: center;
   align-items: center;
 }
+.squre-btn{
+  border-radius: 0px !important;
+  width: 100% !important;
+  /* color: #fff !important; */
+  margin-bottom: 15px !important;
+}
+.squre-shadow{
+  -webkit-box-shadow: 2px 4px 12px 0px rgba(0,0,0,0.46);
+box-shadow: 2px 4px 12px 0px rgba(0,0,0,0.46);
+}
+.nav-item .active{
+  background-image: -webkit-linear-gradient(-51deg, #eb120a 0%, #b51f38 99%);
+  color: #fff !important;
+
+}
+.btn:hover{
+  transform: translateY(0px) !important;
+  /* color: -webkit-linear-gradient(-51deg, #eb120a 0%, #b51f38 99%); */
+  color: #2d2d2d !important;
+}
+.delete-btn{
+  cursor: pointer;
+  position: absolute !important;
+  right: 18px !important;
+  top: 15px !important;
+  font-size: 20px !important;
+  color: #b51f38 !important;
+}

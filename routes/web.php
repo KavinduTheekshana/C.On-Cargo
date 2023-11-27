@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\AgentsController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LabelController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TrackingController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +36,9 @@ Route::get('contact', function () {
     return view('frontend.contact.index');
 })->name('contact');
 Route::get('user/login', function () {
+    if (Auth::check()) {
+        return redirect('user/dashboard');
+    }
     return view('frontend.login.login');
 })->name('user/login');
 Route::get('user/register', function () {
@@ -42,11 +47,14 @@ Route::get('user/register', function () {
 Route::post('regularuser', [ProfileController::class, 'regularuser'])->name('regularuser');
 
 Route::middleware(['userOnly'])->group(function () {
-    Route::get('user/dashboard', function () {
-        return view('frontend.login.dashboard');
-    })->name('user/dashboard');
-});
+    // Route::get('user/dashboard', function () {
+    //     return view('frontend.login.dashboard');
+    // })->name('user/dashboard');
+    Route::get('user/dashboard', [DashboardController::class, 'index'])->name('user/dashboard');
+    Route::post('user/save/customers', [CustomerController::class, 'saveaddress'])->name('user.customer.save');
 
+});
+Route::get('/address/delete/{id}', [CustomerController::class, 'delete'])->name('address.delete');
 
 // Error Route
 Route::get('/error', function () {

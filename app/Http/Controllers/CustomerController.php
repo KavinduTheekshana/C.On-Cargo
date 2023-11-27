@@ -38,6 +38,32 @@ class CustomerController extends Controller
         $customer->save();
         return redirect()->back()->with('status', 'New Customer Added Sucessfully');
     }
+
+    public function saveaddress(Request $request)
+    {
+        $this->validate($request, [
+            'firstname' => ['required', 'string', 'max:255'],
+            'lastname' => ['required', 'string', 'max:255'],
+            'email' => ['email'],
+            'contact' => ['required'],
+            'address' => ['required'],
+            'postcode' => ['required'],
+            'country' => ['required'],
+        ]);
+        $customer = new Customer();
+        $customer->firstname = $request->input('firstname');
+        $customer->lastname = $request->input('lastname');
+        $customer->email = $request->input('email');
+        $customer->contact = $request->input('contact');
+        $customer->address = $request->input('address');
+        $customer->postcode = $request->input('postcode');
+        $customer->country = $request->input('country');
+        $customer->user_id = Auth::id();
+        $customer->save();
+        return response()->json(['success' => true]);
+    }
+
+
     public function active($id)
     {
         $customer = Customer::find($id);

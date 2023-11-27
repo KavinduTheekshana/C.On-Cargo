@@ -30,7 +30,19 @@
                                 <li class="{{ request()->is('services') ? 'active' : '' }}"><a href="{{ route('services') }}">Services </a></li>
                                 <li class="{{ request()->is('tracking') ? 'active' : '' }}"><a href="{{ route('/') }}">Tracking </a></li>
                                 <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ route('contact') }}">Contact </a></li>
+                                @auth
+                                @if (Auth::user()->role == 2)
+                                    <!-- Dashboard Button for Regular Users -->
+                                    <li class="{{ request()->is('user/dashboard') ? 'active' : '' }}"><a href="{{ route('user/dashboard') }}">Dashboard </a></li>
+                                @endif
+                            @endauth
+
+                            @guest
+                                <!-- Login Button for Guests -->
                                 <li class="{{ request()->is('user/login') ? 'active' : '' }}"><a href="{{ route('user/login') }}">Login </a></li>
+                            @endguest
+
+
                             </ul>
                         </nav>
                     </div>
