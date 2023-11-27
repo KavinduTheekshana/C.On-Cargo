@@ -60,10 +60,10 @@ box-shadow: 2px 4px 12px 0px rgba(0,0,0,0.46);
   color: #fff !important;
 
 }
-.btn:hover{
-  transform: translateY(0px) !important;
+.white-btn:hover{
+  /* transform: translateY(0px) !important; */
   /* color: -webkit-linear-gradient(-51deg, #eb120a 0%, #b51f38 99%); */
-  color: #2d2d2d !important;
+  color: #b51f38;
 }
 .delete-btn{
   cursor: pointer;

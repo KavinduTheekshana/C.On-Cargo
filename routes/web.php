@@ -32,18 +32,25 @@ Route::get('about', function () {
 Route::get('services', function () {
     return view('frontend.services.index');
 })->name('services');
+
 Route::get('contact', function () {
     return view('frontend.contact.index');
 })->name('contact');
+
 Route::get('user/login', function () {
     if (Auth::check()) {
         return redirect('user/dashboard');
     }
     return view('frontend.login.login');
 })->name('user/login');
+
 Route::get('user/register', function () {
+    if (Auth::check()) {
+        return redirect('user/dashboard');
+    }
     return view('frontend.login.register');
 })->name('user/register');
+
 Route::post('regularuser', [ProfileController::class, 'regularuser'])->name('regularuser');
 
 Route::middleware(['userOnly'])->group(function () {
@@ -52,7 +59,6 @@ Route::middleware(['userOnly'])->group(function () {
     // })->name('user/dashboard');
     Route::get('user/dashboard', [DashboardController::class, 'index'])->name('user/dashboard');
     Route::post('user/save/customers', [CustomerController::class, 'saveaddress'])->name('user.customer.save');
-
 });
 Route::get('/address/delete/{id}', [CustomerController::class, 'delete'])->name('address.delete');
 

@@ -103,7 +103,8 @@
                 //wherehouse to door
                 if (delivary_type == "77N9WRz7") {
                     if (kg >= 30) {
-                        alertFunction("Wrong Input","You can Deliver Less than 30 Kilograms. Please enter the correct value","warning");
+                        alertFunction("Wrong Input",
+                            "You can Deliver Less than 30 Kilograms. Please enter the correct value", "warning");
                     } else {
                         collection_fee = 0;
                         chargeable_weight = kg * 4;
@@ -113,7 +114,7 @@
                         } else {
                             total = chargeable_diamention + delivary_fee + collection_fee;
                         }
-                        alertFunction("Your Estimate is Ready","Your Estimate Charge is: £"+total.toFixed(2),"success");
+                        alertFunction("Your Estimate is Ready", "Your Estimate Charge is: £" + total.toFixed(2), "success");
 
                     }
 
@@ -129,7 +130,7 @@
                         } else {
                             total = chargeable_diamention + delivary_fee + collection_fee;
                         }
-                        alertFunction("Your Estimate is Ready","Your Estimate Charge is: £"+total.toFixed(2),"success");
+                        alertFunction("Your Estimate is Ready", "Your Estimate Charge is: £" + total.toFixed(2), "success");
                     } else if (kg < 31) {
                         collection_fee = 10;
                         chargeable_weight = kg * 4;
@@ -140,10 +141,11 @@
                         } else {
                             total = chargeable_diamention + delivary_fee + collection_fee;
                         }
-                        alertFunction("Your Estimate is Ready","Your Estimate Charge is: £"+total.toFixed(2),"success");
+                        alertFunction("Your Estimate is Ready", "Your Estimate Charge is: £" + total.toFixed(2), "success");
                         // alert("Your Estimate Charge is: £" + total.toFixed(2));
                     } else {
-                        alertFunction("Wrong Input","You can Deliver Less than 30 Kilograms. Please enter the correct value","warning");
+                        alertFunction("Wrong Input",
+                            "You can Deliver Less than 30 Kilograms. Please enter the correct value", "warning");
                     }
                 } else {
                     alert('Wrong Delivary Type');
@@ -158,11 +160,19 @@
         }
 
         function alertFunction(title, message, icon) {
-            Swal.fire(
-                title,
-                message,
-                icon
-            )
+            Swal.fire({
+                title: title,
+                text: message,
+                icon: icon,
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Place an Order"
+            }).then(result => {
+                if (result.isConfirmed) {
+                    window.location.href = "/user/login";
+                }
+            });
         }
     </script>
 @endpush

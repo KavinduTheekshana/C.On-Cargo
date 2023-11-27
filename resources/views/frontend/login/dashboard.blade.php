@@ -36,30 +36,31 @@
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div id="home" class="container tab-pane active">
-                                <button class="btn squre-btn white-btn squre-shadow" data-toggle="modal"
-                                    data-target="#exampleModalCenter"> <i class=" far fa-solid fa-plus"></i> &nbsp; Add New
-                                    Address</button>
-                                <hr>
-                                @foreach ($address as $item)
-                                    <div class="card mb-10 ">
-                                        <div class="card-body">
-                                            <a onclick="openSweetAlert({{ $item->id }})" class="delete-btn"><i class="fas fa-solid fa-trash"></i></a>
-                                            <h5 class="card-title">{{ $item->firstname }} {{ $item->lastname }}</h5>
-                                            <p class="card-text m-0"><b>Address: </b>{{ $item->address }}</p>
-                                            <p class="card-text m-0"><b>Post Code: </b>{{ $item->postcode }}</p>
-                                            <p class="card-text m-0"><b>Country: </b>{{ $item->country }}</p>
-                                            <p class="card-text m-0"><b>Email: </b>{{ $item->email }}</p>
-                                            <p class="card-text m-0"><b>Contact: </b>{{ $item->contact }}</p>
-                                        </div>
-                                    </div>
-                                @endforeach
+
                             </div>
                             <div id="menu1" class="container tab-pane fade">
                                 <h3>Menu 1</h3>
                                 <p>Menu 1 content goes here.</p>
                             </div>
                             <div id="menu2" class="container tab-pane fade">
-
+                                <button class="btn squre-btn white-btn squre-shadow" data-toggle="modal"
+                                data-target="#exampleModalCenter"> <i class=" far fa-solid fa-plus"></i> &nbsp; Add New
+                                Address</button>
+                            <hr>
+                            @foreach ($address as $item)
+                                <div class="card mb-10 ">
+                                    <div class="card-body">
+                                        <a onclick="openSweetAlert({{ $item->id }})" class="delete-btn"><i
+                                                class="fas fa-solid fa-trash"></i></a>
+                                        <h5 class="card-title">{{ $item->firstname }} {{ $item->lastname }}</h5>
+                                        <p class="card-text m-0"><b>Address: </b>{{ $item->address }}</p>
+                                        <p class="card-text m-0"><b>Post Code: </b>{{ $item->postcode }}</p>
+                                        <p class="card-text m-0"><b>Country: </b>{{ $item->country }}</p>
+                                        <p class="card-text m-0"><b>Email: </b>{{ $item->email }}</p>
+                                        <p class="card-text m-0"><b>Contact: </b>{{ $item->contact }}</p>
+                                    </div>
+                                </div>
+                            @endforeach
                             </div>
                         </div>
                     </div>
@@ -154,9 +155,17 @@
                     type: "POST",
                     data: $(this).serialize(), // Serialize form data
                     success: function(response) {
-                        console.log(response);
-                        location.reload();
-                        alert('Customer added successfully!');
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Customer added successfully!',
+                            icon: 'success',
+                            confirmButtonText: 'Ok'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location
+                            .reload(); // Reload the page when the user clicks 'Ok'
+                            }
+                        });
                     },
                     error: function(xhr, status, error) {
                         // Handle errors
@@ -166,8 +175,8 @@
             });
         });
 
-          // Sweet Alert
-          function openSweetAlert($id) {
+        // Sweet Alert
+        function openSweetAlert($id) {
             console.log($id);
             Swal.fire({
                 title: 'Are you sure?',
