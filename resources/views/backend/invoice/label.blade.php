@@ -25,7 +25,7 @@
 
                                                 <div style="width: 170px" class="mb-2 mt-1">
                                                     <span class="app-brand-logo demo">
-                                                        <img width="170px" src="{{ asset('backend/assets/svg/logo.png') }}"
+                                                        <img width="170px" src="{{ asset('backend/assets/svg/logoname.png') }}"
                                                             alt="" srcset="">
                                                     </span>
                                                 </div>

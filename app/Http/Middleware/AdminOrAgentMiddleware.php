@@ -10,7 +10,10 @@ class AdminOrAgentMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && auth()->user()->role == 0 || auth()->user()->role == 1) {
+        $user = auth()->user();
+
+        // Check if there is an authenticated user and if they have the required role
+        if ($user && ($user->role == 0 || $user->role == 1)) {
             return $next($request);
         }
 

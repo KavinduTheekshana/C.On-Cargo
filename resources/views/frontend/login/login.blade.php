@@ -21,22 +21,29 @@
                                     <div class="col-lg-12 col-md-12">
                                         <div class="mb-20">
                                             <input type="email" name="email" placeholder="Email Adsress">
-
+                                            @error('email')
+                                            <p class="text-danger text-left">{{ $message }}</p>
+                                        @enderror
                                         </div>
                                     </div>
 
                                     <div class="col-lg-12 col-md-12">
-                                        <div class="mb-20">
+                                        <div class="mb-2">
                                             <input type="password" name="password" placeholder="Password">
+                                            @error('password')
+                                            <p class="text-danger text-left">{{ $message }}</p>
+                                        @enderror
                                         </div>
                                     </div>
-                                    <a href="http://">Forgot your Passwords</a>
-                                    <div class="col-lg-12 col-md-12">
+                                    <div class="col-lg-12 col-md-12 text-left">
+                                    <a class="text-dark" href="{{ route('user/forgot-password') }}">Forgot your Password</a>
+                                </div>
+                                    <div class="col-lg-12 col-md-12 mt-20-btn">
                                         <div class="mb-20">
                                             <button class="btn red-btn squre-btn" type="submit">Login <i class="far fa-paper-plane"></i></button>
                                         </div>
                                     </div>
-                                    <p>Not a member? <a style="color: brown" href="{{ route('user/register') }}">Signup Now</a></p>
+                                    <p>Not a member? <a class="text-dark" href="{{ route('user/register') }}">Signup Now</a></p>
 
 
 

@@ -94,3 +94,12 @@ box-shadow: 2px 4px 12px 0px rgba(0,0,0,0.46);
 .pwd-req ul li{
   list-style-type: disc !important;
 }
+.mt-20-btn{
+  margin-top: 20px !important;
+}
+.color-brown{
+  color: #b51f38 !important;
+}
+input {
+  text-transform: none !important;
+}

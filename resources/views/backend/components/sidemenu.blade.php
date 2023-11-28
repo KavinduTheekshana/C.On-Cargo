@@ -29,6 +29,12 @@
                     <div data-i18n="Agents">Agents</div>
                 </a>
             </li>
+            <li class="menu-item {{ request()->is('tracking') ? 'active' : '' }}">
+                <a href="{{ route('tracking') }}" class="menu-link">
+                    <i class="menu-icon tf-icons mdi mdi-book-account-outline"></i>
+                    <div data-i18n="Bookings">Bookings</div>
+                </a>
+            </li>
         @endif
 
         <li class="menu-item {{ request()->is('customers') ? 'active' : '' }}">
@@ -88,6 +94,7 @@
                 <div data-i18n="Settings">Settings</div>
             </a>
         </li>
+
         @endif
     </ul>
 </aside>

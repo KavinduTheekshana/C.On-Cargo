@@ -52,6 +52,13 @@ Route::get('user/register', function () {
     return view('frontend.login.register');
 })->name('user/register');
 
+Route::get('user/forgot-password', function () {
+    if (Auth::check()) {
+        return redirect('user/dashboard');
+    }
+    return view('frontend.login.forgot-password');
+})->name('user/forgot-password');
+
 Route::post('regularuser', [ProfileController::class, 'regularuser'])->name('regularuser');
 
 Route::middleware(['userOnly'])->group(function () {
