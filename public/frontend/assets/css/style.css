@@ -36,10 +36,22 @@ input[type=number] {
   height: 100% !important;
   object-fit: cover !important;
 }
-.pl-28{
+.pl-28 {
   padding-left: 10rem !important;
   padding-right: 10rem !important;
 }
+
+/* Media query for mobile devices */
+@media (max-width: 768px) { /* Adjust the max-width as needed */
+  .pl-28 {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+  }
+  .tab-content{
+    margin-top: 25px !important;
+  }
+}
+
 .center-align-content{
   /* display: flex; */
   justify-content: center;

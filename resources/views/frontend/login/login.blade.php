@@ -30,7 +30,7 @@
                                             <input type="password" name="password" placeholder="Password">
                                         </div>
                                     </div>
-
+                                    <a href="http://">Forgot your Passwords</a>
                                     <div class="col-lg-12 col-md-12">
                                         <div class="mb-20">
                                             <button class="btn red-btn squre-btn" type="submit">Login <i class="far fa-paper-plane"></i></button>
