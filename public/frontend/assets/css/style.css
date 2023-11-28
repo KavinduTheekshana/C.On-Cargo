@@ -73,3 +73,12 @@ box-shadow: 2px 4px 12px 0px rgba(0,0,0,0.46);
   font-size: 20px !important;
   color: #b51f38 !important;
 }
+.pwd-req{
+  margin-left: 33px !important;
+}
+.pwd-req ul {
+  margin-left: 43px !important;
+}
+.pwd-req ul li{
+  list-style-type: disc !important;
+}

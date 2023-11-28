@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AgentsController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
@@ -59,8 +60,12 @@ Route::middleware(['userOnly'])->group(function () {
     // })->name('user/dashboard');
     Route::get('user/dashboard', [DashboardController::class, 'index'])->name('user/dashboard');
     Route::post('user/save/customers', [CustomerController::class, 'saveaddress'])->name('user.customer.save');
+    Route::post('user/booking/store', [BookingController::class, 'store'])->name('user.booking.store');
+    Route::get('/address/delete/{id}', [CustomerController::class, 'delete'])->name('address.delete');
+    Route::get('/booking/delete/{id}', [BookingController::class, 'delete'])->name('booking.delete');
+    Route::post('/regularuser/password/update', [ProfileController::class, 'updatePassword'])->name('regularuser.password.update');
 });
-Route::get('/address/delete/{id}', [CustomerController::class, 'delete'])->name('address.delete');
+
 
 // Error Route
 Route::get('/error', function () {
