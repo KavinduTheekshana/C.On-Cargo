@@ -45,7 +45,17 @@ return [
             'timeout' => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN'),
         ],
-
+        // 'password_reset' => [
+        //     'transport' => 'smtp',
+        //     'url' => env('MAIL_URL'),
+        //     'host' => env('PASSWORD_RESET_MAIL_HOST', 'smtp.mailgun.org'),
+        //     'port' => env('PASSWORD_RESET_MAIL_PORT', 587),
+        //     'encryption' => env('PASSWORD_RESET_MAIL_ENCRYPTION', 'tls'),
+        //     'username' => env('PASSWORD_RESET_MAIL_USERNAME'),
+        //     'password' => env('PASSWORD_RESET_MAIL_PASSWORD'),
+        //     'timeout' => null,
+        //     'local_domain' => env('MAIL_EHLO_DOMAIN'),
+        // ],
         'ses' => [
             'transport' => 'ses',
         ],

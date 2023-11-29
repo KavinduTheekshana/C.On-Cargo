@@ -18,6 +18,19 @@
                                 <div class="text-center center-align-content">
                                     <h1 class="text-center">Login Form</h1>
                                     <p class="login-intro mb-30">Welcome back! Please enter your details to continue.</p>
+
+                                    @if (session('status'))
+                                        <div class="mb-4">
+                                            <div class="col">
+                                            <div class="alert alert-success" role="alert">
+                                                {{ session('status') }}
+                                              </div>
+                                            </div>
+
+                                        </div>
+                                    @endif
+
+
                                     <div class="col-lg-12 col-md-12">
                                         <div class="mb-20">
                                             <input type="email" name="email" placeholder="Email Adsress">
@@ -36,7 +49,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12 text-left">
-                                    <a class="text-dark" href="{{ route('user/forgot-password') }}">Forgot your Password</a>
+                                    <a class="text-dark" href="{{ route('user/forgot-password') }}">Forgot your password</a>
                                 </div>
                                     <div class="col-lg-12 col-md-12 mt-20-btn">
                                         <div class="mb-20">

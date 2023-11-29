@@ -99,6 +99,9 @@
                                 autocomplete="username" class="form-control" id="email" name="email-username"
                                 placeholder="Enter your email or username" />
                             <label for="email">Email or Username</label>
+                            @error('email')
+                            <p class="text-danger text-left">{{ $message }}</p>
+                        @enderror
                         </div>
                         <div class="mb-3">
                             <div class="form-password-toggle">
@@ -108,6 +111,9 @@
                                             placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                             aria-describedby="password" required autocomplete="current-password"/>
                                         <label for="password">Password</label>
+                                        @error('password')
+                                        <p class="text-danger text-left">{{ $message }}</p>
+                                    @enderror
                                     </div>
                                     <span class="input-group-text cursor-pointer"><i
                                             class="mdi mdi-eye-off-outline"></i></span>
