@@ -112,7 +112,7 @@ class InvoiceController extends Controller
 
     public function preview($id)
     {
-        $invoice = Invoice::with(['sender', 'receiver', 'items'])->find($id);
+        $invoice = Invoice::with(['customer', 'sender', 'receiver', 'items'])->find($id);
         return view('backend.invoice.preview', compact('invoice'));
     }
 

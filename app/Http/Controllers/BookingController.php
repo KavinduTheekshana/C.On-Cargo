@@ -3,11 +3,58 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\Customer;
+use App\Models\Invoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
+
+    public function index()
+    {
+        $bookings = Booking::all();
+        return view('backend.bookings.bookings', compact('bookings'));
+    }
+
+    public function create($id)
+    {
+        $booking = Booking::find($id);
+        $sender = Customer::find($booking->sender_id);
+        $reciever = Customer::find($booking->receiver_id);
+        // $customers = Customer::all();
+        // $customers = Customer::where('status', 1);
+        $customers = Customer::where('status', 1)
+        ->where('user_id', Auth::id())
+        ->get();
+        $lastInvoiceId = Invoice::max('id');
+        $nextInvoiceId = $lastInvoiceId + 1;
+        $nextInvoiceNumber = str_pad($nextInvoiceId, 5, '0', STR_PAD_LEFT);
+        return view('backend.invoice.createbooking', compact('booking', 'nextInvoiceNumber', 'customers', 'sender'));
+    }
+
+    public function deleteadmin($id)
+    {
+        $booking = Booking::find($id);
+        $booking->delete();
+        return response()->json(['message' => 'Booking deleted successfully']);
+    }
+    public function active($id)
+    {
+        $booking = Booking::find($id);
+        $booking->status = '1';
+        $booking->save();
+        return redirect()->back()->with('status', 'Booking Activated Sucessfully');
+    }
+    public function diactive($id)
+    {
+        $booking = Booking::find($id);
+        $booking->status = '0';
+        $booking->save();
+        return redirect()->back()->with('status', 'Booking Diactivated Sucessfully');
+    }
+
+
     public function store(Request $request)
     {
         // Validate the request data

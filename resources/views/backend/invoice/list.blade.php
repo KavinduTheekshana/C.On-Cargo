@@ -93,7 +93,7 @@
                             <th>Date</th>
                             <th>Job Number</th>
                             <th>Customer ID</th>
-                            <th>Sender Details</th>
+                            <th>Customer Details</th>
                             {{-- <th>Receiver Details</th> --}}
                             <th>Amount</th>
                             <th>Actions</th>
@@ -104,9 +104,9 @@
                             <td>{{ $item->invoice_id }}</td>
                             <td>{{ $item->date }}</td>
                             <td>{{ $item->job_number }}</td>
-                            <td>{{ $item->customer_id }}</td>
-                            <td><b>{{ $item->sender->firstname }}&nbsp;{{ $item->sender->lastname }}
-                                </b><br>{{ $item->sender->address }}</td>
+                            <td>C{{ $item->customer_id }}</td>
+                            <td><b>{{ $item->customer->firstname }}&nbsp;{{ $item->customer->lastname }}
+                                </b><br>{{ $item->customer->address }}</td>
                             {{-- <td><b>{{$item->receiver->firstname}}&nbsp;{{$item->receiver->lastname}} </b><br>{{$item->receiver->address}}</td> --}}
                             <td>£{{ $item->total_fee }}</td>
                             <td>
@@ -158,7 +158,7 @@
                     <div id="content-to-print">
                         <div class="card-body pb-1">
                             <div class="d-flex justify-content-between flex-xl-row flex-md-column flex-sm-row flex-column">
-                                <div class="mb-xl-0 pb-1">
+                                <div class="mb-xl-0 pb-1 w-100">
                                     <div class="row">
                                         <div style="width: 200px" class="mb-2 col">
                                             <span class="app-brand-logo demo">
@@ -170,39 +170,42 @@
                                         <div class="col">
                                             <h1><b>INVOICE</b></h1>
                                         </div>
+
+                                        <div class="col" style="font-size: 12px">
+                                            <h6 class="fw-medium">INVOICE #<span id="modalInvoiceId"></span></h6>
+                                            <div class="mb-1">
+                                                <span>Date Issue:</span>
+                                                <span id="modalInvoiceDate"></span>
+                                            </div>
+                                            <div>
+                                                <span>Job Number:</span>
+                                                <span id="modalJobNumber"></span>
+                                            </div>
+                                            <div>
+                                                <span>Customer ID:</span>
+                                                <span id="modalCustomerId"></span>
+                                            </div>
+
+
+                                        </div>
                                     </div>
+                                    <hr>
                                     <div class="row" style="font-size: 12px">
-                                        <div class="col-md-6 vertical-line line">
+                                        <div class="col-md-12">
                                             <p class="mb-1"><b>C.ON Group Ltd</b></p>
                                             <p class="mb-1">12 King Arthur Road, Waltham Cross, London, EN8 8EH</p>
                                             <p class="mb-1">info@concargo.co.uk</p>
                                             <p class="mb-0">+44 7503 288 488</p>
                                         </div>
-                                        <div class="col-md-6">
+                                        {{-- <div class="col-md-6">
                                             <p class="mb-1"><b>C.ON Cargo Ltd</b></p>
                                             <p class="mb-1">184/B, Moratuwa Road, Piliyandala, <br>Sri Lanka</p>
                                             <p class="mb-1">sl@concargo.co.uk</p>
                                             <p class="mb-0">+94 766 99 66 52</p>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
-                                <div style="font-size: 12px">
-                                    <h6 class="fw-medium">INVOICE #<span id="modalInvoiceId"></span></h6>
-                                    <div class="mb-1">
-                                        <span>Date Issue:</span>
-                                        <span id="modalInvoiceDate"></span>
-                                    </div>
-                                    <div>
-                                        <span>Job Number:</span>
-                                        <span id="modalJobNumber"></span>
-                                    </div>
-                                    <div>
-                                        <span>Customer ID:</span>
-                                        <span id="modalCustomerId"></span>
-                                    </div>
 
-
-                                </div>
                             </div>
                         </div>
                         <hr class="my-0" />
@@ -279,7 +282,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <p class="mb-0"><b>Bank:</b> HSBC</p>
-                                            <p><b>A/C Name:</b> C.On Cargo Ltd</p>
+                                            <p><b>A/C Name:</b> C.ON Cargo Ltd</p>
                                         </div>
                                         <div class="col">
                                             <p class="mb-0"><b>Sort Code:</b> 40-20-23</p>

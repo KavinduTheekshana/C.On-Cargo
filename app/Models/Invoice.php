@@ -29,6 +29,10 @@ class Invoice extends Model
     {
         return $this->belongsTo(Customer::class, 'receiver_id');
     }
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id');
+    }
     public function tracking()
 {
     return $this->hasOne(Tracking::class);

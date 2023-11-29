@@ -62,9 +62,6 @@ Route::get('user/forgot-password', function () {
 Route::post('regularuser', [ProfileController::class, 'regularuser'])->name('regularuser');
 
 Route::middleware(['userOnly'])->group(function () {
-    // Route::get('user/dashboard', function () {
-    //     return view('frontend.login.dashboard');
-    // })->name('user/dashboard');
     Route::get('user/dashboard', [DashboardController::class, 'index'])->name('user/dashboard');
     Route::post('user/save/customers', [CustomerController::class, 'saveaddress'])->name('user.customer.save');
     Route::post('user/booking/store', [BookingController::class, 'store'])->name('user.booking.store');
@@ -93,6 +90,13 @@ Route::middleware(['adminOnly'])->group(function () {
     Route::get('/filter-invoices', [TrackingController::class, 'filter'])->name('filter.invoices');
     Route::get('/tracking/{invoice}/details', [TrackingController::class, 'getTrackingDetails'])->name('tracking.details');
     Route::post('/track-invoice', [TrackingController::class, 'trackInvoice'])->name('track.invoice');
+
+     // Bookings
+     Route::get('/bookings', [BookingController::class, 'index'])->name('bookings');
+     Route::get('/booking/create/{id}', [BookingController::class, 'create'])->name('booking.create');
+     Route::get('/booking/delete/admin/{id}', [BookingController::class, 'deleteadmin'])->name('booking.delete.admin');
+     Route::get('/booking/diactive/{id}', [BookingController::class, 'diactive'])->name('booking.diactive');
+    Route::get('/booking/active/{id}', [BookingController::class, 'active'])->name('booking.active');
 });
 
 

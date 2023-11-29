@@ -57,7 +57,7 @@
                                     </div>
                                     <div>
                                         <span>Customer ID:</span>
-                                        <span>{{ $invoice->customer_id }}</span>
+                                        <span>C{{ $invoice->customer_id }}</span>
                                     </div>
 
                                     <div>
@@ -74,7 +74,7 @@
                                     <h6 class="pb-0"><b>Sender Details:</b></h6>
                                     <p class="mb-1"><b class="black">Name:</b> {{ $invoice->sender->firstname }}
                                         {{ $invoice->sender->lastname }}</p>
-                                    <p class="mb-1"><b class="black">Address:</b> <br> {{ $invoice->sender->address }}-{{ $invoice->sender->country }}</p>
+                                    <p class="mb-1"><b class="black">Address:</b> {{ $invoice->sender->address }}-{{ $invoice->sender->country }}</p>
                                     <p class="mb-1"><b class="black">Post Code:</b> {{ $invoice->sender->postcode }}</p>
                                     <p class="mb-1"><b class="black">Email:</b> {{ $invoice->sender->email }}</p>
                                     <p class="mb-1"><b class="black">Contact No:</b> {{ $invoice->sender->contact }}</p>
@@ -84,7 +84,7 @@
                                     <h6 class="pb-0"><b>Consignee Details:</b></h6>
                                     <p class="mb-1"><b class="black">Name:</b> {{ $invoice->receiver->firstname }}
                                         {{ $invoice->sender->lastname }}</p>
-                                    <p class="mb-1"><b class="black">Address:</b><br> {{ $invoice->receiver->address }}-{{ $invoice->receiver->country }}</p>
+                                    <p class="mb-1"><b class="black">Address:</b> {{ $invoice->receiver->address }}-{{ $invoice->receiver->country }}</p>
                                     <p class="mb-1"><b class="black">Post Code:</b> {{ $invoice->receiver->postcode }}</p>
                                     <p class="mb-1"><b class="black">Email:</b> {{ $invoice->receiver->email }}</p>
                                     <p class="mb-1"><b class="black">Contact No:</b> {{ $invoice->receiver->contact }}</p>
@@ -151,7 +151,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <p class="mb-0"><b>Bank:</b> HSBC</p>
-                                            <p><b>A/C Name:</b> C.On Cargo Ltd</p>
+                                            <p><b>A/C Name:</b> C.ON Cargo Ltd</p>
                                         </div>
                                         <div class="col">
                                             <p class="mb-0"><b>Sort Code:</b> 40-20-23</p>
@@ -304,7 +304,7 @@
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
                         <input type="text" class="form-control" id="invoice-to"
-                            value="{{ $invoice->sender->email }}" placeholder="company@email.com" />
+                            value="{{ $invoice->customer->email }}" placeholder="company@email.com" />
                         <label for="invoice-to">To</label>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">

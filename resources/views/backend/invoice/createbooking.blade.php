@@ -103,8 +103,15 @@
                                 <div class="row w-100">
                                     <div class="col-6 vertical-line line pr-100">
                                         <h6 class="pb-2">Sender Details:</h6>
-                                        <input type="hidden" id="sender_id" name="sender_id">
-                                        <p id="senderDetails" class="mb-1"></p>
+                                        <input type="hidden" id="sender_id" name="sender_id" value="{{$sender->id}}">
+                                        <p id="senderDetails" class="mb-1">
+                                            <b>Name: </b> {{$sender->firstname}} {{$sender->lastname}} <br>
+                                            <b>Address: </b> {{$sender->address}} <br>
+                                            <b>Postcode: </b> {{$sender->postcode}} <br>
+                                            <b>Email: </b> {{$sender->email}} <br>
+                                            <b>Contact: </b> {{$sender->contact}} <br>
+                                            <b>Country: </b> {{$sender->country}} <br>
+                                        </p>
                                     </div>
                                     <div class="col-6 pr-100">
                                         <h6 class="pb-2">Consignee Details:</h6>
@@ -134,17 +141,17 @@
                                                             <div class="col">
                                                                 <input type="number" name="items[0][width]"
                                                                     class="form-control width-input"
-                                                                    placeholder="Width" />
+                                                                    placeholder="Width" value="{{$booking->width}}" />
                                                             </div>
                                                             <div class="col">
                                                                 <input type="number" name="items[0][height]"
                                                                     class="form-control height-input"
-                                                                    placeholder="Height" />
+                                                                    placeholder="Height" value="{{$booking->height}}" />
                                                             </div>
                                                             <div class="col">
                                                                 <input type="number" name="items[0][length]"
                                                                     class="form-control length-input"
-                                                                    placeholder="Length" />
+                                                                    placeholder="Length" value="{{$booking->length}}" />
                                                             </div>
                                                         </div>
 
@@ -166,7 +173,7 @@
                                                             <div class="col">
                                                                 <p class="mb-2 repeater-title">Weight (KG)</p>
                                                                 <input type="number" name="items[0][weight]"
-                                                                    class="form-control weight-input" placeholder="0" />
+                                                                    class="form-control weight-input" placeholder="0" value="{{$booking->weight}}" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -570,3 +577,4 @@
         }
     </script>
 @endpush
+
