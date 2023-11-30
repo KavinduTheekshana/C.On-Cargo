@@ -46,9 +46,16 @@ class InvoiceController extends Controller
 
     public function index()
     {
-        $invoices = Invoice::with(['sender', 'receiver'])
+        if (Auth::user()->role == '0') {
+            $invoices = Invoice::with(['sender', 'receiver'])
+                       ->get();
+        } else {
+            $invoices = Invoice::with(['sender', 'receiver'])
                        ->where('user_id', Auth::id())
                        ->get();
+        }
+
+
         return view('backend.invoice.list', compact('invoices'));
     }
 

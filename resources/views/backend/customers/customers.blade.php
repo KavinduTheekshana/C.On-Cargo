@@ -96,7 +96,7 @@
                 </div>
             </div>
             <div class="card-datatable table-responsive">
-                <table id="customer" class="table table-striped table-bordered" style="width:100%">
+                <table id="customerTable" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -161,6 +161,13 @@
                                                 <i class="tf-icons mdi mdi-lock-open-variant-outline"></i>
                                             </a>
                                         @endif
+
+                                        <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEnd2"
+                                            aria-controls="offcanvasEnd" data-customer-id="{{ $customer->id }}"
+                                            title="Edit Customer" data-toggle="tooltip"
+                                            class="btn btn-icon btn-info btn-fab demo waves-effect waves-light m-1 updatebtn">
+                                            <i class="tf-icons mdi mdi-file-edit-outline"></i>
+                                        </button>
 
                                         <button type="button" onclick="openSweetAlert({{ $customer->id }})"
                                             class="btn btn-icon btn-danger btn-fab demo waves-effect waves-light m-1">
@@ -259,6 +266,87 @@
                     </form>
                 </div>
             </div>
+
+            {{-- Update Customer  --}}
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEnd2" aria-labelledby="offcanvasEndLabel">
+                <div class="offcanvas-header">
+                    <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Update Customers</h5>
+                    <button id="btnClose" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body mx-0 flex-grow-0 h-100">
+
+                    <form class="add-new-user pt-0" method="POST" action="{{ route('customer.update') }}"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" id="id" name="customer_id" value="">
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input type="text" class="form-control" id="add-customer-firstname" placeholder="John"
+                                name="customer_firstname" aria-label="John" value="{{ old('firstname') }}" />
+                            <label for="add-customer-firstname">First Name</label>
+                            @error('firstname')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input type="text" class="form-control" id="add-customer-lastname" placeholder="Doe"
+                                name="customer_lastname" aria-label="Doe" value="{{ old('lastname') }}" />
+                            <label for="add-customer-lastname">Last Name</label>
+                            @error('lastname')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input type="text" id="add-customer-email" class="form-control"
+                                placeholder="john.doe@example.com" aria-label="john.doe@example.com" name="customer_email"
+                                value="{{ old('email') }}" />
+                            <label for="add-customer-email">Email</label>
+                            @error('email')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input type="text" id="add-customer-contact" class="form-control phone-mask"
+                                placeholder="+44 75 032 88 488" aria-label="john.doe@example.com" name="customer_contact"
+                                value="{{ old('contact') }}" />
+                            <label for="add-customer-contact">Contact</label>
+                            @error('contact')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input type="text" id="add-customer-address" class="form-control"
+                                placeholder="12 King Arthur Ct,Waltham Cross" aria-label="jdoe1" name="customer_address"
+                                value="{{ old('address') }}" />
+                            <label for="add-customer-company">Address</label>
+                            @error('address')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            <input type="text" id="add-customer-postcode" class="form-control" placeholder="EN8 8EH"
+                                aria-label="jdoe1" name="customer_postcode" value="{{ old('postcode') }}" />
+                            <label for="add-customer-company">Post Code</label>
+                            @error('postcode')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            <select name="customer_country" id="customer_country" class="select form-select">
+                                <option value="">Select</option>
+                                <option value="Sri Lanka">Sri Lanka</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                            </select>
+                            <label for="customer_country">Country</label>
+                            @error('customer_country')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Update</button>
+
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
     <!-- / Content -->
@@ -296,22 +384,15 @@
 @push('scripts')
     <script>
         // datatable
-        // $(document).ready(function() {
-        //     $('#customer').DataTable({
-        //         "columnDefs": [{
-        //                 "width": "20px",
-        //                 "targets": 0
-        //             }, {
-        //                 "width": "30%",
-        //                 "targets": 1
-        //             },
-        //             {
-        //                 "width": "50%",
-        //                 "targets": 2
-        //             }
-        //         ]
-        //     });
-        // });
+
+
+        $(document).ready(function() {
+            $('#customerTable').DataTable({
+                "order": [
+                    [0, "desc"]
+                ]
+            });
+        });
 
         // Sweet Alert
         function openSweetAlert($id) {
@@ -373,6 +454,43 @@
                 ]
             });
 
+            // Edit Customer in Off canves
+            document.querySelectorAll('.updatebtn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const customerId = this.getAttribute('data-customer-id');
+
+                    // AJAX request using jQuery
+                    $.ajax({
+                        url: '/customers/details/' + customerId,
+                        type: 'GET',
+                        success: function(response) {
+                            // Populate the offcanvas with customer data
+
+                            populateOffcanvas(response);
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle the error
+                            console.error("Error occurred: " + status + ", " + error);
+                            // Optionally, display an error message to the user
+                            alert("An error occurred. Please try again.");
+                        }
+                    });
+                });
+            });
+
+
+            function populateOffcanvas(customerData) {
+                $('#id').val(customerData.id);
+                $('#add-customer-firstname').val(customerData.firstname);
+                $('#add-customer-lastname').val(customerData.lastname);
+                $('#add-customer-email').val(customerData.email);
+                $('#add-customer-contact').val(customerData.contact);
+                $('#add-customer-address').val(customerData.address);
+                $('#add-customer-postcode').val(customerData.postcode);
+                $('#customer_country').val(customerData.country);
+            }
+
+
             // Event delegation for dynamically loaded content
             $('#customer').on('click', '.view-invoices', function() {
                 var customerId = $(this).data('customerid');
@@ -394,7 +512,7 @@
                         // Handle any errors
                         $('#invoiceDetails').html(
                             '<p>There was an error loading the invoices. Please try again later.</p>'
-                            );
+                        );
                     }
                 });
             });

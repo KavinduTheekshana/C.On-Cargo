@@ -15,6 +15,11 @@ class CustomerController extends Controller
         return view('backend.customers.customers', compact('customers'));
     }
 
+    public function getDetails($id) {
+        $customer = Customer::find($id);
+        return response()->json($customer);
+    }
+
     public function save(Request $request)
     {
         $this->validate($request, [
@@ -37,6 +42,39 @@ class CustomerController extends Controller
         $customer->user_id = Auth::id();
         $customer->save();
         return redirect()->back()->with('status', 'New Customer Added Sucessfully');
+    }
+
+    public function update(Request $request)
+    {
+        $validatedData = $request->validate([
+            'customer_firstname' => 'required|max:255',
+            'customer_lastname' => 'required|max:255',
+            'customer_email' => 'required|email',
+            'customer_contact' => 'required',
+            'customer_address' => 'required',
+            'customer_postcode' => 'required',
+            'customer_country' => 'required',
+        ]);
+
+        // Assuming you have a Customer model and the customer ID is passed as a hidden field
+        $customer = Customer::find($request->input('customer_id'));
+        if (!$customer) {
+            // Handle the case where the customer is not found
+            return redirect()->back()->withErrors(['msg' => 'Customer not found.']);
+        }
+
+        $customer->firstname = $validatedData['customer_firstname'];
+        $customer->lastname = $validatedData['customer_lastname'];
+        $customer->email = $validatedData['customer_email'];
+        $customer->contact = $validatedData['customer_contact'];
+        $customer->address = $validatedData['customer_address'];
+        $customer->postcode = $validatedData['customer_postcode'];
+        $customer->country = $validatedData['customer_country'];
+
+        $customer->save();
+
+        // Redirect to a specified route after successful update
+        return redirect()->back()->with('status', 'Customer updated successfully.');
     }
 
     public function saveaddress(Request $request)

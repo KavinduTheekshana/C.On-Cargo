@@ -164,10 +164,17 @@
                                             </a>
                                         @endif
 
+                                        <a href="{{ route('agents.active', ['id' => $agent->id]) }}" type="button"
+                                            class="btn btn-icon btn-dark btn-fab demo waves-effect waves-light m-1">
+                                            <i class="tf-icons mdi mdi-form-textbox-password"></i>
+                                        </a>
+
                                         <button type="button" onclick="openSweetAlert({{ $agent->id }})"
                                             class="btn btn-icon btn-danger btn-fab demo waves-effect waves-light m-1">
                                             <i class="tf-icons mdi mdi-trash-can-outline"></i>
                                         </button>
+
+
 
                                     </div>
 

@@ -90,9 +90,10 @@
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>I/Number</th>
                             <th>Date</th>
                             <th>Job Number</th>
-                            <th>Customer ID</th>
+
                             <th>Customer Details</th>
                             {{-- <th>Receiver Details</th> --}}
                             <th>Amount</th>
@@ -101,40 +102,48 @@
                     </thead>
                     @foreach ($invoices as $item)
                         <tr>
+                            <td>{{ $item->id }}</td>
                             <td>{{ $item->invoice_id }}</td>
                             <td>{{ $item->date }}</td>
                             <td>{{ $item->job_number }}</td>
-                            <td>C{{ $item->customer_id }}</td>
-                            <td><b>{{ $item->customer->firstname }}&nbsp;{{ $item->customer->lastname }}
-                                </b><br>{{ $item->customer->address }}</td>
+
+                            <td><span class="text-dark">C{{ $item->customer_id }}. </span>
+                                <b>{{ $item->customer->firstname }}&nbsp;{{ $item->customer->lastname }}
+                                </b><br>{{ $item->customer->address }}<br>{{ $item->customer->email }}</td>
                             {{-- <td><b>{{$item->receiver->firstname}}&nbsp;{{$item->receiver->lastname}} </b><br>{{$item->receiver->address}}</td> --}}
                             <td>£{{ $item->total_fee }}</td>
                             <td>
 
                                 <button type="button"
                                     class="btn btn-icon btn-dark btn-fab demo waves-effect waves-light m-1 preview-btn"
-                                    data-bs-toggle="modal" title="View Invoice" data-invoice-id="{{ $item->id }}"
-                                    data-bs-target="#addNewAddress">
+                                    data-bs-toggle="modal" title="Preview Invoice" data-invoice-id="{{ $item->id }}"
+                                    data-bs-target="#addNewAddress" data-toggle="tooltip">
                                     <i class="tf-icons mdi mdi-eye-outline"></i>
                                 </button>
 
-                                <a type="button" href="{{ route('invoice.preview', ['id' => $item->id]) }}"
-                                    title="Invoice"
+                                <button type="button" href="{{ route('invoice.preview', ['id' => $item->id]) }}"
+                                    title="Invoice" data-toggle="tooltip"
                                     class="btn btn-icon btn-primary btn-fab demo waves-effect waves-light m-1">
                                     <i class="tf-icons mdi mdi-file-document-outline"></i>
-                                </a>
+                                </button>
 
                                 <a type="button" href="{{ route('invoice.label.preview', ['id' => $item->id]) }}"
-                                    title="label"
+                                    title="Label" data-toggle="tooltip"
                                     class="btn btn-icon btn-warning btn-fab demo waves-effect waves-light m-1">
                                     <i class="tf-icons mdi mdi-receipt-text-check-outline"></i>
                                 </a>
 
+                                {{-- <a type="button" href="{{ route('invoice.label.preview', ['id' => $item->id]) }}"
+                                    title="Edit Invoice" data-toggle="tooltip" class="btn btn-icon btn-info btn-fab demo waves-effect waves-light m-1">
+                                    <i class="tf-icons mdi mdi-file-edit-outline"></i>
+                                </a> --}}
 
-                                <button type="button" onclick="openSweetAlert({{ $item->id }})" title="Delete"
-                                    class="btn btn-icon btn-danger btn-fab demo waves-effect waves-light m-1">
-                                    <i class="tf-icons mdi mdi-trash-can-outline"></i>
-                                </button>
+                                @if (auth()->user() && auth()->user()->role == 0)
+                                    <button type="button" onclick="openSweetAlert({{ $item->id }})" title="Delete" data-toggle="tooltip"
+                                        class="btn btn-icon btn-danger btn-fab demo waves-effect waves-light m-1">
+                                        <i class="tf-icons mdi mdi-trash-can-outline"></i>
+                                    </button>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
@@ -358,6 +367,11 @@
                 ]
             });
         });
+
+        // tooltip
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
 
         // Sweet Alert
         function openSweetAlert($id) {

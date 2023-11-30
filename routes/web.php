@@ -98,8 +98,6 @@ Route::middleware(['adminOnly'])->group(function () {
      Route::get('/booking/diactive/{id}', [BookingController::class, 'diactive'])->name('booking.diactive');
     Route::get('/booking/active/{id}', [BookingController::class, 'active'])->name('booking.active');
 });
-
-
 Route::middleware('adminOrAgent')->group(function () {
     // Dashboard Routes
 
@@ -111,7 +109,9 @@ Route::middleware('adminOrAgent')->group(function () {
 
     //Customers
     Route::get('/customers', [CustomerController::class, 'index'])->name('customers');
+    Route::get('/customers/details/{id}', [CustomerController::class, 'getDetails'])->name('customers.details');
     Route::post('/save/customers', [CustomerController::class, 'save'])->name('customer.save');
+    Route::post('/update/customers', [CustomerController::class, 'update'])->name('customer.update');
     Route::get('/customer/delete/{id}', [CustomerController::class, 'delete'])->name('customer.delete');
     Route::get('/customer/active/{id}', [CustomerController::class, 'active'])->name('customer.active');
     Route::get('/customer/diactive/{id}', [CustomerController::class, 'diactive'])->name('customer.diactive');
