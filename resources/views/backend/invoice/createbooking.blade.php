@@ -11,6 +11,8 @@
         <div class="row invoice-add">
             <!-- Invoice Add-->
 
+
+
             <div class="col-lg-9 col-12 mb-lg-0 mb-4">
                 <form action="{{ route('invoices.store') }}" method="POST">
                     @csrf
@@ -103,20 +105,37 @@
                                 <div class="row w-100">
                                     <div class="col-6 vertical-line line pr-100">
                                         <h6 class="pb-2">Sender Details:</h6>
-                                        <input type="hidden" id="sender_id" name="sender_id" value="{{$sender->id}}">
+                                        <input type="hidden" id="sender_id" name="sender_id" value="{{ $sender->id }}">
                                         <p id="senderDetails" class="mb-1">
-                                            <b>Name: </b> {{$sender->firstname}} {{$sender->lastname}} <br>
-                                            <b>Address: </b> {{$sender->address}} <br>
-                                            <b>Postcode: </b> {{$sender->postcode}} <br>
-                                            <b>Email: </b> {{$sender->email}} <br>
-                                            <b>Contact: </b> {{$sender->contact}} <br>
-                                            <b>Country: </b> {{$sender->country}} <br>
+                                            <b>Name: </b> {{ $sender->firstname }} {{ $sender->lastname }} <br>
+                                            <b>Address: </b> {{ $sender->address }} <br>
+                                            <b>Postcode: </b> {{ $sender->postcode }} <br>
+                                            <b>Email: </b> {{ $sender->email }} <br>
+                                            <b>Contact: </b> {{ $sender->contact }} <br>
+                                            <b>Country: </b> {{ $sender->country }} <br>
                                         </p>
+                                        <br>
+                                        <a href="{{ route('copy.customer', ['customer_id' => $sender->id]) }}"
+                                            type="button" class="btn btn-sm btn-warning" data-repeater-create>
+                                            <i class="mdi mdi-plus me-1"></i> Add as a Customer
+                                        </a>
                                     </div>
                                     <div class="col-6 pr-100">
                                         <h6 class="pb-2">Consignee Details:</h6>
                                         <input type="hidden" id="receiver_id" name="receiver_id">
-                                        <p id="receiverDetails" class="mb-1"></p>
+                                        <p id="receiverDetails" class="mb-1" <b>Name: </b> {{ $receiver->firstname }}
+                                            {{ $receiver->lastname }} <br>
+                                            <b>Address: </b> {{ $receiver->address }} <br>
+                                            <b>Postcode: </b> {{ $receiver->postcode }} <br>
+                                            <b>Email: </b> {{ $receiver->email }} <br>
+                                            <b>Contact: </b> {{ $receiver->contact }} <br>
+                                            <b>Country: </b> {{ $receiver->country }} <br>
+                                        </p>
+                                        <br>
+                                        <a href="{{ route('copy.customer', ['customer_id' => $receiver->id]) }}"
+                                            type="button" class="btn btn-sm btn-warning" data-repeater-create>
+                                            <i class="mdi mdi-plus me-1"></i> Add as a Customer
+                                        </a>
                                     </div>
                                 </div>
 
@@ -140,18 +159,18 @@
                                                         <div class="row mb-3">
                                                             <div class="col">
                                                                 <input type="number" name="items[0][width]"
-                                                                    class="form-control width-input"
-                                                                    placeholder="Width" value="{{$booking->width}}" />
+                                                                    class="form-control width-input" placeholder="Width"
+                                                                    value="{{ $booking->width }}" />
                                                             </div>
                                                             <div class="col">
                                                                 <input type="number" name="items[0][height]"
-                                                                    class="form-control height-input"
-                                                                    placeholder="Height" value="{{$booking->height}}" />
+                                                                    class="form-control height-input" placeholder="Height"
+                                                                    value="{{ $booking->height }}" />
                                                             </div>
                                                             <div class="col">
                                                                 <input type="number" name="items[0][length]"
-                                                                    class="form-control length-input"
-                                                                    placeholder="Length" value="{{$booking->length}}" />
+                                                                    class="form-control length-input" placeholder="Length"
+                                                                    value="{{ $booking->length }}" />
                                                             </div>
                                                         </div>
 
@@ -162,7 +181,7 @@
                                                                 <p class="mb-2 repeater-title">Volume Weight</p>
                                                                 <input type="text" name="items[0][volume_weight]"
                                                                     class="form-control invoice-volume-weight mb-2 d-bg"
-                                                                    placeholder="00" readonly/>
+                                                                    placeholder="00" readonly />
                                                             </div>
                                                             <div class="col">
                                                                 <p class="mb-2 repeater-title">Unit Price (£)</p>
@@ -173,7 +192,8 @@
                                                             <div class="col">
                                                                 <p class="mb-2 repeater-title">Weight (KG)</p>
                                                                 <input type="number" name="items[0][weight]"
-                                                                    class="form-control weight-input" placeholder="0" value="{{$booking->weight}}" />
+                                                                    class="form-control weight-input" placeholder="0"
+                                                                    value="{{ $booking->weight }}" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -315,7 +335,8 @@
                         <select id="selectCustomer" class="select2 form-select form-select-lg" data-allow-clear="true">
                             <option value="" data-address="">Select a Customer</option>
                             @foreach ($customers as $customer)
-                                <option value="{{ $customer->id }}" data-id="{{ $customer->id }}">{{ $customer->firstname }}
+                                <option value="{{ $customer->id }}" data-id="{{ $customer->id }}">
+                                    {{ $customer->firstname }}
                                     {{ $customer->lastname }} - {{ $customer->address }}
                                 </option>
                             @endforeach
@@ -355,14 +376,15 @@
 
                         <hr>
 
-                        <button type="button" class="btn btn-danger w-100 btn-lg"
-                            data-bs-toggle="offcanvas" data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd"><span
+                        <button type="button" class="btn btn-danger w-100 btn-lg" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd"><span
                                 class="mdi mdi-plus"></span> &nbsp;Add Customer</button>
 
                     </div>
                 </div>
 
                 @include('backend.components.alert')
+
 
             </div>
             <!-- /Invoice Actions -->
@@ -577,4 +599,3 @@
         }
     </script>
 @endpush
-

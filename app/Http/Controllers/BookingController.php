@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Customer;
 use App\Models\Invoice;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,16 +22,48 @@ class BookingController extends Controller
     {
         $booking = Booking::find($id);
         $sender = Customer::find($booking->sender_id);
-        $reciever = Customer::find($booking->receiver_id);
+        $receiver = Customer::find($booking->receiver_id);
         // $customers = Customer::all();
         // $customers = Customer::where('status', 1);
         $customers = Customer::where('status', 1)
-        ->where('user_id', Auth::id())
-        ->get();
+            ->where('user_id', Auth::id())
+            ->get();
         $lastInvoiceId = Invoice::max('id');
         $nextInvoiceId = $lastInvoiceId + 1;
         $nextInvoiceNumber = str_pad($nextInvoiceId, 5, '0', STR_PAD_LEFT);
-        return view('backend.invoice.createbooking', compact('booking', 'nextInvoiceNumber', 'customers', 'sender'));
+        return view('backend.invoice.createbooking', compact('booking', 'nextInvoiceNumber', 'customers', 'sender', 'receiver'));
+    }
+
+    public function copyCustomer($customer_id)
+    {
+        $originalRecord = Customer::find($customer_id);
+
+
+        try {
+            if ($originalRecord) {
+                // Replicate the original record
+                $newRecord = $originalRecord->replicate();
+
+                // Change a specific value. Replace 'attributeName' with the actual field name
+                // and 'newValue' with the new value you want to set.
+                $newRecord->user_id = Auth::id();
+
+                // Save the new record
+                $newRecord->save();
+
+                return back()->with('status', 'Customer copied successfully.');
+            } else {
+                return back()->with('error', 'Record not found.');
+            }
+        } catch (QueryException $e) {
+            // Check if it's a duplicate entry error
+            if ($e->getCode() == 23000) {
+                return back()->with('error', 'This email is already used for this user.');
+            }
+
+            // Handle other possible errors
+            return back()->with('error', 'An error occurred while creating the customer.');
+        }
     }
 
     public function deleteadmin($id)
@@ -95,7 +128,7 @@ class BookingController extends Controller
 
 
 
-        if ($customer->status==1) {
+        if ($customer->status == 1) {
             return response()->json(['message' => 'Booking cannot be deleted because order is approved.']);
         } else {
             $customer->delete();

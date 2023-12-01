@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Invoice;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,33 +16,44 @@ class CustomerController extends Controller
         return view('backend.customers.customers', compact('customers'));
     }
 
-    public function getDetails($id) {
+    public function getDetails($id)
+    {
         $customer = Customer::find($id);
         return response()->json($customer);
     }
 
     public function save(Request $request)
     {
-        $this->validate($request, [
-            'firstname' => ['required', 'string', 'max:255'],
-            'lastname' => ['required', 'string', 'max:255'],
-            'email' => ['email'],
-            'contact' => ['required'],
-            'address' => ['required'],
-            'postcode' => ['required'],
-            'country' => ['required'],
-        ]);
-        $customer = new Customer();
-        $customer->firstname = $request->input('firstname');
-        $customer->lastname = $request->input('lastname');
-        $customer->email = $request->input('email');
-        $customer->contact = $request->input('contact');
-        $customer->address = $request->input('address');
-        $customer->postcode = $request->input('postcode');
-        $customer->country = $request->input('country');
-        $customer->user_id = Auth::id();
-        $customer->save();
-        return redirect()->back()->with('status', 'New Customer Added Sucessfully');
+        try {
+            $this->validate($request, [
+                'firstname' => ['required', 'string', 'max:255'],
+                'lastname' => ['required', 'string', 'max:255'],
+                'email' => ['email'],
+                'contact' => ['required'],
+                'address' => ['required'],
+                'postcode' => ['required'],
+                'country' => ['required'],
+            ]);
+            $customer = new Customer();
+            $customer->firstname = $request->input('firstname');
+            $customer->lastname = $request->input('lastname');
+            $customer->email = $request->input('email');
+            $customer->contact = $request->input('contact');
+            $customer->address = $request->input('address');
+            $customer->postcode = $request->input('postcode');
+            $customer->country = $request->input('country');
+            $customer->user_id = Auth::id();
+            $customer->save();
+            return redirect()->back()->with('status', 'New Customer Added Sucessfully');
+        } catch (QueryException $e) {
+            // Check if it's a duplicate entry error
+            if ($e->getCode() == 23000) {
+                return back()->with('error', 'This email is already used for this user.');
+            }
+
+            // Handle other possible errors
+            return back()->with('error', 'An error occurred while creating the customer.');
+        }
     }
 
     public function update(Request $request)
@@ -79,26 +91,41 @@ class CustomerController extends Controller
 
     public function saveaddress(Request $request)
     {
-        $this->validate($request, [
-            'firstname' => ['required', 'string', 'max:255'],
-            'lastname' => ['required', 'string', 'max:255'],
-            'email' => ['email'],
-            'contact' => ['required'],
-            'address' => ['required'],
-            'postcode' => ['required'],
-            'country' => ['required'],
-        ]);
-        $customer = new Customer();
-        $customer->firstname = $request->input('firstname');
-        $customer->lastname = $request->input('lastname');
-        $customer->email = $request->input('email');
-        $customer->contact = $request->input('contact');
-        $customer->address = $request->input('address');
-        $customer->postcode = $request->input('postcode');
-        $customer->country = $request->input('country');
-        $customer->user_id = Auth::id();
-        $customer->save();
-        return response()->json(['success' => true]);
+        try {
+            $this->validate($request, [
+                'firstname' => ['required', 'string', 'max:255'],
+                'lastname' => ['required', 'string', 'max:255'],
+                'email' => ['email'],
+                'contact' => ['required'],
+                'address' => ['required'],
+                'postcode' => ['required'],
+                'country' => ['required'],
+            ]);
+            $customer = new Customer();
+            $customer->firstname = $request->input('firstname');
+            $customer->lastname = $request->input('lastname');
+            $customer->email = $request->input('email');
+            $customer->contact = $request->input('contact');
+            $customer->address = $request->input('address');
+            $customer->postcode = $request->input('postcode');
+            $customer->country = $request->input('country');
+            $customer->user_id = Auth::id();
+            $customer->save();
+            return response()->json(['success' => true]);
+        } catch (QueryException $e) {
+            // Check if it's a duplicate entry error
+            if ($e->getCode() == 23000) {
+                return response()->json([
+                    'error' => 'This email is already used for this user.'
+                ], 400); // 400 is the HTTP status code for a bad request
+            }
+
+            // Handle other possible errors
+            return response()->json([
+                'error' => 'An error occurred while creating the customer.'
+            ], 400); // 400 is the HTTP status code for a bad request
+        }
+
     }
 
 
@@ -135,9 +162,9 @@ class CustomerController extends Controller
     public function getCustomerInvoices($customer_id)
     {
         $invoices = Invoice::with(['sender', 'receiver'])
-        ->where('customer_id', $customer_id)
-        ->get();
-    //   dd($invoices);
-      return view('backend.customers.invoice_details', compact('invoices'))->render();
+            ->where('customer_id', $customer_id)
+            ->get();
+        //   dd($invoices);
+        return view('backend.customers.invoice_details', compact('invoices'))->render();
     }
 }

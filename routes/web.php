@@ -97,6 +97,7 @@ Route::middleware(['adminOnly'])->group(function () {
      Route::get('/booking/delete/admin/{id}', [BookingController::class, 'deleteadmin'])->name('booking.delete.admin');
      Route::get('/booking/diactive/{id}', [BookingController::class, 'diactive'])->name('booking.diactive');
     Route::get('/booking/active/{id}', [BookingController::class, 'active'])->name('booking.active');
+    Route::get('/copy-customer/{customer_id}', [BookingController::class, 'copyCustomer'])->name('copy.customer');
 });
 Route::middleware('adminOrAgent')->group(function () {
     // Dashboard Routes
