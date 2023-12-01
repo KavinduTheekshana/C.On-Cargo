@@ -3,13 +3,13 @@
 @section('content')
     <main>
         <!-- breadcrumb-area-start -->
-        @section('page_img', asset('frontend/assets/img/bg/bg-10-2-8.jpg'))
+        @section('page_img', asset('frontend/assets/img/bg/javygo-ZdySMOIicMo-unsplash13.jpg'))
         @section('page_name', 'Services')
         @include('frontend.components.breadcrumb')
         <!-- breadcrumb-area-end -->
 
 
-   
+
    <!-- skills-area-start -->
    @include('frontend.services.explore')
 <!-- skills-area-end -->

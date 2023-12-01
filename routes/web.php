@@ -122,6 +122,7 @@ Route::middleware('adminOrAgent')->group(function () {
     Route::get('/invoice/create', [InvoiceController::class, 'create'])->name('invoice.create');
     Route::post('/store', [InvoiceController::class, 'store'])->name('invoices.store');
     Route::get('/invoice/preview/{id}', [InvoiceController::class, 'preview'])->name('invoice.preview');
+    Route::get('/invoice/edit/{id}', [InvoiceController::class, 'edit'])->name('invoice.edit');
     Route::get('/invoice/label/{id}', [InvoiceController::class, 'label'])->name('invoice.label.preview');
     Route::get('/invoice/delete/{id}', [InvoiceController::class, 'delete'])->name('invoice.delete');
     Route::post('/sendpdf', [InvoiceController::class, 'sendPdf']);

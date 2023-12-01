@@ -110,7 +110,6 @@
                             <td><span class="text-dark">C{{ $item->customer_id }}. </span>
                                 <b>{{ $item->customer->firstname }}&nbsp;{{ $item->customer->lastname }}
                                 </b><br>{{ $item->customer->address }}<br>{{ $item->customer->email }}</td>
-                            {{-- <td><b>{{$item->receiver->firstname}}&nbsp;{{$item->receiver->lastname}} </b><br>{{$item->receiver->address}}</td> --}}
                             <td>£{{ $item->total_fee }}</td>
                             <td>
 
@@ -133,10 +132,10 @@
                                     <i class="tf-icons mdi mdi-receipt-text-check-outline"></i>
                                 </a>
 
-                                {{-- <a type="button" href="{{ route('invoice.label.preview', ['id' => $item->id]) }}"
+                                <a type="button" href="{{ route('invoice.edit', ['id' => $item->id]) }}"
                                     title="Edit Invoice" data-toggle="tooltip" class="btn btn-icon btn-info btn-fab demo waves-effect waves-light m-1">
                                     <i class="tf-icons mdi mdi-file-edit-outline"></i>
-                                </a> --}}
+                                </a>
 
                                 @if (auth()->user() && auth()->user()->role == 0)
                                     <button type="button" onclick="openSweetAlert({{ $item->id }})" title="Delete" data-toggle="tooltip"

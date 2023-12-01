@@ -7,15 +7,15 @@
                     <div class="section-title pos-rel mb-30" data-animscroll="fade-up" data-animscroll-delay="500">
                         <h1>03</h1>
                         <span class="line">Request A Quote</span>
-                        <h2>Booking For Product Transformation</h2>
+                        <h2>Quote & Booking</h2>
                     </div>
-                    <form class="appiontment-form" id="quote-form" onsubmit="handleFormSubmission(event);"
-                        style="border: 4px solid #fff; padding: 30px" data-animscroll="fade-up"
+                    <form class="appiontment-form quote-form" id="quote-form" onsubmit="handleFormSubmission(event);"
+                         data-animscroll="fade-up"
                         data-animscroll-delay="500">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 mb-20">
                                 <label>&nbsp;Select Destination</label>
-                                <div class="pro-filter">
+                                <div>
                                     <select id="destination">
                                         <option value="poH6ALuy">Sri Lanka To UK</option>
                                         <option value="aUMkQFy1">UK to Sri Lanka</option>
@@ -24,7 +24,7 @@
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <label>&nbsp;Select Delivary Method</label>
-                                <div class="pro-filter">
+                                <div>
                                     <select id="delivary_type">
                                         <option selected>Choose...</option>
                                         <option value="77N9WRz7">Wherehouse To Door</option>
@@ -40,7 +40,7 @@
 
                         <div id="item_type_div" class="row d-none">
                             <div class="col-lg-12 col-md-12 mb-20">
-                                <div class="pro-filter">
+                                <div>
                                     <select id="item_type" disabled>
                                         <option value="NPlEADea">Personal</option>
                                         <option value="hujJdAKz">Commercial</option>

@@ -3,7 +3,7 @@
 @section('content')
     <main>
         <!-- breadcrumb-area-start -->
-        @section('page_img', asset('frontend/assets/img/bg/bg-10.jpg'))
+        @section('page_img', asset('frontend/assets/img/bg/icons8-team-yTwXpLO5HAA-unsplash2.jpg'))
         @section('page_name', 'Register')
         @include('frontend.components.authbreadcrumb')
         <!-- breadcrumb-area-end -->

@@ -33,7 +33,7 @@
                                             <div>
                                                 <div>
                                                     {!! DNS1D::getBarcodeHtml("$invoice->invoice_id", 'C128', 1.5, 50) !!}
-                                                    <p class="barcode-text"> C.ON Cargo {{ $invoice->invoice_id }}</p>
+                                                    <p class="barcode-text"> C.ON {{ $invoice->invoice_id }}</p>
                                                 </div>
                                             </div>
                                         </div>

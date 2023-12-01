@@ -1,5 +1,7 @@
 <div class="features-02-area pos-rel grey-bg">
-    <div data-animscroll="fade-right" data-animscroll-delay="500" class="features-bg-img" style="background-image:url({{ asset('frontend/assets/img/bg/curierredtop.jpg') }})">
+    <div data-animscroll="fade-right" data-animscroll-delay="500" class="features-bg-img"
+        style="background-image:url({{ asset('frontend/assets/img/bg/business_woman_smiling.jpeg') }});-webkit-transform: scaleX(-1);
+    transform: scaleX(-1);">
 
     </div>
     <div data-animscroll="fade-left" class="container-fluid">
@@ -40,7 +42,7 @@
                             </ul>
                         </div>
                         <div class="about-button mt-30">
-                            <a class="btn" href="about.html">Learn more <i class="far fa-paper-plane"></i></a>
+                            <a class="btn" href="{{route('about')}}">Learn more <i class="far fa-paper-plane"></i></a>
                         </div>
                     </div>
                 </div>

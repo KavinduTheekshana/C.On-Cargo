@@ -3,7 +3,7 @@
 @section('content')
     <main>
         <!-- breadcrumb-area-start -->
-        @section('page_img', asset('frontend/assets/img/bg/bg-10-2-6.jpg'))
+        @section('page_img', asset('frontend/assets/img/bg/icons8-team-yTwXpLO5HAA-unsplash2.jpg'))
         @section('page_name', 'About Us')
         @include('frontend.components.breadcrumb')
         <!-- breadcrumb-area-end -->
@@ -13,8 +13,8 @@
             @include('frontend.about.about')
             <!-- about-me-area-end -->
 
-         
-        
+
+
             <!-- video-area-start -->
             @include('frontend.about.video')
             <!-- video-area-end -->

@@ -54,8 +54,6 @@ class InvoiceController extends Controller
                        ->where('user_id', Auth::id())
                        ->get();
         }
-
-
         return view('backend.invoice.list', compact('invoices'));
     }
 
