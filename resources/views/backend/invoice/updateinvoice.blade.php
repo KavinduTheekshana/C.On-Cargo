@@ -14,8 +14,10 @@
 
 
             <div class="col-lg-9 col-12 mb-lg-0 mb-4">
-                <form action="{{ route('invoices.store') }}" method="POST">
+                <form action="{{ route('invoices.update') }}" method="POST">
                     @csrf
+                    <input type="hidden" name="id" value="{{$invoice->id}}">
+                    <input type="hidden" name="user_id" value="{{$invoice->user_id}}">
                     <div class="card invoice-preview-card">
                         <div class="card-body">
                             <div class="row mx-0">
@@ -63,15 +65,15 @@
                                                 <span class="input-group-text">#</span>
                                                 <input type="text" class="form-control d-bg" readonly name="invoice_id"
                                                     id="invoiceId"
-                                                    value="{{ strtoupper(Auth::user()->identity) }}-{{ $nextInvoiceNumber }}" />
+                                                    value="{{ $invoice->invoice_id }}" />
                                             </div>
                                         </dd>
                                         <dt class="col-sm-6 mb-2 d-md-flex align-items-center justify-content-end">
                                             <span class="fw-normal">Date:</span>
                                         </dt>
                                         <dd class="col-sm-6">
-                                            <input type="text" class="form-control date-picker" name="date"
-                                                value="{{ old('date') }}" placeholder="YYYY-MM-DD" />
+                                            <input type="text" class="form-control date-picker" name="date"  value="{{$invoice->date}}"
+                                                 placeholder="YYYY-MM-DD" />
                                         </dd>
                                         <dt class="col-sm-6 mb-2 d-md-flex align-items-center justify-content-end">
                                             <span class="fw-normal">Job Number:</span>
@@ -79,7 +81,7 @@
                                         <dd class="col-sm-6">
                                             <div class="input-group input-group-merge ">
                                                 <span class="input-group-text">#</span>
-                                                <input type="text" name="job_number" value="{{ old('job_number') }}"
+                                                <input type="text" name="job_number" value="{{$invoice->job_number}}"
                                                     class="form-control" id="jobNumber" />
                                             </div>
                                         </dd>
@@ -90,7 +92,7 @@
                                             <div class="input-group input-group-merge disabled">
                                                 <span class="input-group-text">#</span>
                                                 <input type="text" class="form-control d-bg"
-                                                    value="{{ old('customer_id') }}" readonly name="customer_id"
+                                                    value="{{$invoice->customer_id}}" readonly name="customer_id"
                                                     id="customer_id" />
                                             </div>
                                         </dd>
@@ -151,26 +153,28 @@
                             <div class="source-item pt-1">
                                 <div class="repeater">
                                     <div class="mb-3" data-repeater-list="items">
+                                        @foreach ($items as $item)
                                         <div class="repeater-wrapper pt-0 pt-md-4" data-repeater-item>
                                             <div class="d-flex border rounded position-relative pe-0">
                                                 <div class="row w-100 p-3">
                                                     <div class="col-md-5 col-12 mb-md-0 mb-3">
+                                                        <input type="hidden" name="items[0][item_id]" value="{{ $item->id }}">
                                                         <p class="mb-2 repeater-title">Item (CM)</p>
                                                         <div class="row mb-3">
                                                             <div class="col">
                                                                 <input type="number" name="items[0][width]"
                                                                     class="form-control width-input" placeholder="Width"
-                                                                    value="{{ $booking->width }}" />
+                                                                    value="{{ $item->width }}" />
                                                             </div>
                                                             <div class="col">
                                                                 <input type="number" name="items[0][height]"
                                                                     class="form-control height-input" placeholder="Height"
-                                                                    value="{{ $booking->height }}" />
+                                                                    value="{{ $item->height }}" />
                                                             </div>
                                                             <div class="col">
                                                                 <input type="number" name="items[0][length]"
                                                                     class="form-control length-input" placeholder="Length"
-                                                                    value="{{ $booking->length }}" />
+                                                                    value="{{ $item->length }}" />
                                                             </div>
                                                         </div>
 
@@ -179,21 +183,21 @@
                                                         <div class="row">
                                                             <div class="col">
                                                                 <p class="mb-2 repeater-title">Volume Weight</p>
-                                                                <input type="text" name="items[0][volume_weight]"
+                                                                <input type="text" name="items[0][volume_weight]" value="{{ $item->volume_weight }}"
                                                                     class="form-control invoice-volume-weight mb-2 d-bg"
                                                                     placeholder="00" readonly />
                                                             </div>
                                                             <div class="col">
                                                                 <p class="mb-2 repeater-title">Unit Price (£)</p>
                                                                 <input type="text" name="items[0][unit_price]"
-                                                                    class="form-control price-input mb-2"
+                                                                    class="form-control price-input mb-2" value="{{ $item->unit_price }}"
                                                                     placeholder="00" />
                                                             </div>
                                                             <div class="col">
                                                                 <p class="mb-2 repeater-title">Weight (KG)</p>
                                                                 <input type="number" name="items[0][weight]"
                                                                     class="form-control weight-input" placeholder="0"
-                                                                    value="{{ $booking->weight }}" />
+                                                                    value="{{ $item->weight }}" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -201,7 +205,7 @@
                                                     <div class="col-md-1 col-12 pe-0">
                                                         <p class="mb-2 repeater-title">Price (£)</p>
                                                         <input type="text" name="items[0][price]"
-                                                            class="form-control total-display d-bg" readonly
+                                                            class="form-control total-display d-bg" readonly value="{{ $item->price }}"
                                                             placeholder="£0.00" />
                                                         {{-- <p class="mb-0 total-display">£0.00</p> --}}
                                                     </div>
@@ -214,15 +218,10 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @endforeach
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <button type="button" class="btn btn-sm btn-primary" data-repeater-create>
-                                            <i class="mdi mdi-plus me-1"></i> Add Item
-                                        </button>
-                                    </div>
-                                </div>
+
 
                                 <div class="row mt-3">
                                     <div class="col-md-12 col-12 mb-md-0 mb-3">
@@ -231,13 +230,13 @@
                                             <div class="col">
                                                 <p class="mb-2 repeater-title">Collection & Delivery</p>
                                                 <input type="number" name="collection_fee" class="form-control mb-2"
-                                                    value="{{ old('collection_fee', '0.00') }}" id="collection-input"
+                                                    value="{{$invoice->collection_fee}}" id="collection-input"
                                                     onkeyup="calculateTotal()" placeholder="0" />
                                             </div>
                                             <div class="col">
                                                 <p class="mb-2 repeater-title">Other</p>
                                                 <input type="number" name="handling_fee" class="form-control"
-                                                    value="{{ old('handling_fee', '0.00') }}" id="handling-input"
+                                                value="{{$invoice->handling_fee}}" id="handling-input"
                                                     onkeyup="calculateTotal()" placeholder="0" />
                                             </div>
                                         </div>
@@ -283,7 +282,7 @@
                                                 <div class="col">
                                                     <input type="text" name="total_fee" readonly
                                                         class="form-control d-bg total-font" id="fullamount"
-                                                        placeholder="£0.00" />
+                                                        placeholder="£0.00" value="{{$invoice->total_fee}}" />
                                                 </div>
                                             </div>
 
@@ -301,7 +300,7 @@
                                 <div class="col-12">
                                     <div class="mb-3">
                                         <label for="note" class="form-label fw-medium text-heading">Note:</label>
-                                        <textarea class="form-control" name="note" rows="2" id="note" placeholder="Invoice note"></textarea>
+                                        <textarea class="form-control" name="note" rows="2" id="note" placeholder="Invoice note">{{$invoice->note}}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -322,7 +321,7 @@
 
                         {{-- <button type="submit" name="action" value="preview" class="btn btn-lg btn-outline-secondary d-grid w-100 mb-3">Save & Preview</button> --}}
                         <button type="submit" name="action" value="save"
-                            class="btn btn-lg btn-primary d-grid w-100 mb-3">Save</button>
+                            class="btn btn-lg btn-primary d-grid w-100 mb-3">Update</button>
                         <button name="action" value="preview" class="btn btn-outline-secondary d-grid w-100">Save &
                             Preview</button>
                     </div>

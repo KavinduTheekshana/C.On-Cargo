@@ -121,7 +121,8 @@ Route::middleware('adminOrAgent')->group(function () {
     //Invoice
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice');
     Route::get('/invoice/create', [InvoiceController::class, 'create'])->name('invoice.create');
-    Route::post('/store', [InvoiceController::class, 'store'])->name('invoices.store');
+    Route::post('invoice/store', [InvoiceController::class, 'store'])->name('invoices.store');
+    Route::post('invoice/update', [InvoiceController::class, 'update'])->name('invoices.update');
     Route::get('/invoice/preview/{id}', [InvoiceController::class, 'preview'])->name('invoice.preview');
     Route::get('/invoice/edit/{id}', [InvoiceController::class, 'edit'])->name('invoice.edit');
     Route::get('/invoice/label/{id}', [InvoiceController::class, 'label'])->name('invoice.label.preview');

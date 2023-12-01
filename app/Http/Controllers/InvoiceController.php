@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Mail\PdfMail;
+use App\Models\Item;
 use Illuminate\Support\Facades\Auth;
 
 class InvoiceController extends Controller
@@ -36,7 +37,7 @@ class InvoiceController extends Controller
 
         // Use Laravel's Mailable feature to send the PDF as an attachment
         try {
-            Mail::to($recipientEmail)->send(new SendPdfMail($pdfData,$subjectLine,$emailMessage));
+            Mail::to($recipientEmail)->send(new SendPdfMail($pdfData, $subjectLine, $emailMessage));
             return response()->json(['message' => 'Invoice sent successfully']);
         } catch (\Exception $e) {
             // Handle the error
@@ -48,11 +49,11 @@ class InvoiceController extends Controller
     {
         if (Auth::user()->role == '0') {
             $invoices = Invoice::with(['sender', 'receiver'])
-                       ->get();
+                ->get();
         } else {
             $invoices = Invoice::with(['sender', 'receiver'])
-                       ->where('user_id', Auth::id())
-                       ->get();
+                ->where('user_id', Auth::id())
+                ->get();
         }
         return view('backend.invoice.list', compact('invoices'));
     }
@@ -63,8 +64,8 @@ class InvoiceController extends Controller
     public function create()
     {
         $customers = Customer::where('status', 1)
-        ->where('user_id', Auth::id())
-        ->get();
+            ->where('user_id', Auth::id())
+            ->get();
         $lastInvoiceId = Invoice::max('id');
         $nextInvoiceId = $lastInvoiceId + 1;
         $nextInvoiceNumber = str_pad($nextInvoiceId, 5, '0', STR_PAD_LEFT);
@@ -104,7 +105,64 @@ class InvoiceController extends Controller
             return redirect()->back()->with('status', 'Invoice created successfully.');
         } elseif ($request->input('action') == 'preview') {
             return view('backend.invoice.preview', compact('invoice'))->with('status', 'Invoice created successfully.');
-                }
+        }
+    }
+
+    public function update(Request $request)
+    {
+
+        $invoiceId = $request->input('id');
+        $invoice = Invoice::findOrFail($invoiceId);
+
+        // Validation
+        $this->validate($request, [
+            'id' => 'required',
+            'user_id' => 'required',
+            'invoice_id' => 'required|string|max:255',
+            'date' => 'required|date',
+            'job_number' => 'required|string|max:255',
+            'customer_id' => 'required|integer|exists:customers,id',
+            'sender_id' => 'required|integer|exists:customers,id',
+            'receiver_id' => 'required|integer|exists:customers,id',
+            'total_fee' => 'required|numeric',
+            'note' => 'nullable|string'
+        ]);
+
+        $invoice->update($request->only([
+            'date', 'job_number', 'customer_id', 'sender_id',
+            'receiver_id', 'total_fee', 'note'
+            // Include any other fields that are part of the Invoice model
+        ]));
+
+
+
+        foreach ($request->items as $itemData) {
+            // Assuming each item has an 'id' to identify whether it's an existing item
+            if (isset($itemData['item_id']) && $item = $invoice->items()->find($itemData['item_id'])) {
+                $item->update($itemData);
+            } else {
+                $invoice->items()->create($itemData);
+            }
+        }
+        // Redirect based on action
+        if ($request->input('action') == 'save') {
+            return redirect()->back()->with('status', 'Invoice updated successfully.');
+        } elseif ($request->input('action') == 'preview') {
+            return view('backend.invoice.preview', compact('invoice'))->with('status', 'Invoice updated successfully.');
+        }
+    }
+
+
+    public function edit($id)
+    {
+        $invoice = Invoice::find($id);
+        $sender = Customer::find($invoice->sender_id);
+        $receiver = Customer::find($invoice->receiver_id);
+        $items = Item::where('invoice_id', $invoice->id)->get();
+        $customers = Customer::where('status', 1)
+            ->where('user_id', Auth::id())
+            ->get();
+        return view('backend.invoice.updateinvoice', compact('invoice', 'customers', 'items', 'sender', 'receiver'));
     }
 
     public function delete($id)
@@ -136,14 +194,13 @@ class InvoiceController extends Controller
     public function downloadPdf($invoice_id)
     {
         $invoice = Invoice::find($invoice_id);
-
         // Handle the case where the invoice isn't found
         if (!$invoice) {
             abort(404);
         }
 
         $pdf = PDF::loadView('invoicedownload', compact('invoice'))
-        ->setPaper('A4', 'portrait');
+            ->setPaper('A4', 'portrait');
 
         // Return the PDF download
         return $pdf->download("invoice_{$invoice->id}.pdf");
