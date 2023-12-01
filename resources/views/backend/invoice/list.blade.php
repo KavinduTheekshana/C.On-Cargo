@@ -109,7 +109,8 @@
 
                             <td><span class="text-dark">C{{ $item->customer_id }}. </span>
                                 <b>{{ $item->customer->firstname }}&nbsp;{{ $item->customer->lastname }}
-                                </b><br>{{ $item->customer->address }}<br>{{ $item->customer->email }}</td>
+                                </b><br>{{ $item->customer->address }}<br>{{ $item->customer->email }}
+                            </td>
                             <td>£{{ $item->total_fee }}</td>
                             <td>
 
@@ -120,25 +121,27 @@
                                     <i class="tf-icons mdi mdi-eye-outline"></i>
                                 </button>
 
-                                <button type="button" href="{{ route('invoice.preview', ['id' => $item->id]) }}"
-                                    title="Invoice" data-toggle="tooltip"
+                                <a type="button" href="{{ route('invoice.preview', ['id' => $item->id]) }}"
+                                    title="Invoice" data-toggle="tooltip" target="_blank"
                                     class="btn btn-icon btn-primary btn-fab demo waves-effect waves-light m-1">
                                     <i class="tf-icons mdi mdi-file-document-outline"></i>
-                                </button>
+                                </a>
 
                                 <a type="button" href="{{ route('invoice.label.preview', ['id' => $item->id]) }}"
-                                    title="Label" data-toggle="tooltip"
+                                    title="Label" data-toggle="tooltip" target="_blank"
                                     class="btn btn-icon btn-warning btn-fab demo waves-effect waves-light m-1">
                                     <i class="tf-icons mdi mdi-receipt-text-check-outline"></i>
                                 </a>
 
                                 <a type="button" href="{{ route('invoice.edit', ['id' => $item->id]) }}"
-                                    title="Edit Invoice" data-toggle="tooltip" class="btn btn-icon btn-info btn-fab demo waves-effect waves-light m-1">
+                                    title="Edit Invoice" data-toggle="tooltip" target="_blank"
+                                    class="btn btn-icon btn-info btn-fab demo waves-effect waves-light m-1">
                                     <i class="tf-icons mdi mdi-file-edit-outline"></i>
                                 </a>
 
                                 @if (auth()->user() && auth()->user()->role == 0)
-                                    <button type="button" onclick="openSweetAlert({{ $item->id }})" title="Delete" data-toggle="tooltip"
+                                    <button type="button" onclick="openSweetAlert({{ $item->id }})" title="Delete"
+                                        data-toggle="tooltip"
                                         class="btn btn-icon btn-danger btn-fab demo waves-effect waves-light m-1">
                                         <i class="tf-icons mdi mdi-trash-can-outline"></i>
                                     </button>
