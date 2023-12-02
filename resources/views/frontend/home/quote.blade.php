@@ -116,7 +116,20 @@
                     data: formData,
                     success: function(result) {
                         console.log(result);
-                        alertFunction("Your Estimate is Ready", result, "success");
+                        if (result =="error_weight") {
+                            alertFunction("Error",
+                                "You can Deliver Less than 30 Kilograms. Please enter the correct value",
+                                "error");
+                        } else if (result == "error_method") {
+                            alertFunction("Error",
+                                "Wrong Delivery Method. Please select the correct delivery method",
+                                "error");
+                        } else if (result == "error_item") {
+                            alertFunction("Error", "Error In Item Type. Please Check!",
+                            "error");
+                        }else{
+                            alertFunction("Your Estimate is Ready", result, "success");
+                        }
                     },
                     error: function(xhr, status, error) {
                         alertFunction("Error",

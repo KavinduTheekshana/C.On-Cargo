@@ -54,10 +54,10 @@ class QuoteController extends Controller
                     $total = max($chargeableWeight, $chargeableDimension) + $sl2uk_delivery_and_collection_fee_more_than_12kg;
                     $result = "Your Estimate Charge is: £" . number_format($total, 2);
                 } else {
-                    $result = "You can Deliver Less than 30 Kilograms. Please enter the correct value";
+                    $result = "error_weight";
                 }
             } else {
-                $result = "Wrong Delivery Method. Please select the correct delivery method";
+                $result = "error_method";
             }
         } elseif ($destination == "uk2sl") {
 
@@ -74,7 +74,7 @@ class QuoteController extends Controller
                         $total = max($chargeableWeight, $chargeableDimension);
                         $result = "Your Estimate Charge is: £" . number_format($total, 2);
                     } else {
-                        $result = "You can Deliver Less than 30 Kilograms. Please enter the correct value";
+                        $result = "error_weight";
                     }
                 } else if ($itemType == "commercial") {
                     if ($kg >= 1 && $kg <= 5) {
@@ -88,10 +88,10 @@ class QuoteController extends Controller
                         $total = max($chargeableWeight, $chargeableDimension);
                         $result = "Your Estimate Charge is: £" . number_format($total, 2);
                     } else {
-                        $result = "You can Deliver Less than 30 Kilograms. Please enter the correct value";
+                        $result = "error_weight";
                     }
                 } else {
-                    $result = "Item Type Error";
+                    $result = "error_item";
                 }
             } else if ($deliveryType == "uk2sl_d2d_wp") {
                 if ($itemType == "personal") {
@@ -113,7 +113,7 @@ class QuoteController extends Controller
                         $total = max($chargeableWeight, $chargeableDimension) + $uk2sl_delivery_and_collection_fee_more_than_20kg_wp;
                         $result = "Your Estimate Charge is: £" . number_format($total, 2);
                     } else {
-                        $result = "You can Deliver Less than 30 Kilograms. Please enter the correct value";
+                        $result = "error_weight";
                     }
                 } else if ($itemType == "commercial") {
                     if ($kg >= 1 && $kg <= 5) {
@@ -134,10 +134,10 @@ class QuoteController extends Controller
                         $total = max($chargeableWeight, $chargeableDimension);
                         $result = "Your Estimate Charge is: £" . number_format($total, 2);
                     } else {
-                        $result = "You can Deliver Less than 30 Kilograms. Please enter the correct value";
+                        $result = "error_weight";
                     }
                 } else {
-                    $result = "Item Type Error";
+                    $result = "error_item";
                 }
             } else if ($deliveryType == "uk2sl_d2d_owp") {
                 if ($itemType == "personal") {
@@ -159,7 +159,7 @@ class QuoteController extends Controller
                         $total = max($chargeableWeight, $chargeableDimension) + $uk2sl_delivery_and_collection_fee_more_than_20kg_owp;
                         $result = "Your Estimate Charge is: £" . number_format($total, 2);
                     } else {
-                        $result = "You can Deliver Less than 30 Kilograms. Please enter the correct value";
+                        $result = "error_weight";
                     }
                 } else if ($itemType == "commercial") {
                     if ($kg >= 1 && $kg <= 5) {
@@ -180,16 +180,16 @@ class QuoteController extends Controller
                         $total = max($chargeableWeight, $chargeableDimension);
                         $result = "Your Estimate Charge is: £" . number_format($total, 2);
                     } else {
-                        $result = "You can Deliver Less than 30 Kilograms. Please enter the correct value";
+                        $result = "error_weight";
                     }
                 } else {
-                    $result = "Item Type Error";
+                    $result = "error_item";
                 }
-            } else if ($deliveryType == "none") {
-                $result = "Wrong Delivery Type";
+            } else {
+                $result = "erroe_method";
             }
         } else {
-            $result = "Your logic for other destinations goes here"; // Add your logic for other destinations
+            // $result = "Your logic for other destinations goes here"; // Add your logic for other destinations
         }
 
         return response()->json($result);
