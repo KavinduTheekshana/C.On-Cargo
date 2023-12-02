@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LabelController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\TrackingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -60,6 +61,8 @@ Route::get('user/forgot-password', function () {
 })->name('user/forgot-password');
 
 Route::post('regularuser', [ProfileController::class, 'regularuser'])->name('regularuser');
+Route::post('/quote/form', [QuoteController::class, 'handleFormSubmission'])->name('quote.form');
+
 
 Route::middleware(['userOnly'])->group(function () {
     Route::get('user/dashboard', [DashboardController::class, 'index'])->name('user/dashboard');

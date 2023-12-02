@@ -9,16 +9,17 @@
                         <span class="line">Request A Quote</span>
                         <h2>Quote & Booking</h2>
                     </div>
-                    <form class="appiontment-form quote-form" id="quote-form" onsubmit="handleFormSubmission(event);"
-                         data-animscroll="fade-up"
+                    <form class="appiontment-form quote-form" id="quote-form" action="" data-animscroll="fade-up"
                         data-animscroll-delay="500">
+                        @csrf
                         <div class="row">
                             <div class="col-lg-6 col-md-6 mb-20">
                                 <label>&nbsp;Select Destination</label>
                                 <div>
                                     <select id="destination">
-                                        <option value="poH6ALuy">Sri Lanka To UK</option>
-                                        <option value="aUMkQFy1">UK to Sri Lanka</option>
+                                        <option value="sl2uk">Sri Lanka To UK</option>
+                                        <option value="uk2sl">UK to Sri Lanka</option>
+                                        <option value="uk2ind">UK to India</option>
                                     </select>
                                 </div>
                             </div>
@@ -27,11 +28,12 @@
                                 <div>
                                     <select id="delivary_type">
                                         <option selected>Choose...</option>
-                                        <option value="77N9WRz7">Wherehouse To Door</option>
-                                        <option value="iwZgp3vP">Door To Door</option>
-                                        <option disabled value="IdEGUSEx">Wherehouse To Wherehouse</option>
-                                        <option disabled value="rEDFIeNT">Door To Door (W/Province)</option>
-                                        <option disabled value="EBUSilYW">Door To Door (Out Of W/Province)</option>
+                                        {{-- <option value="77N9WRz7">Wherehouse To Door</option> --}}
+                                        <option value="sl2uk_d2d">Door To Door</option>
+                                        <option disabled value="uk2sl_wh2wh">Wherehouse To Wherehouse</option>
+                                        <option disabled value="uk2sl_d2d_wp">Door To Door (W/Province)</option>
+                                        <option disabled value="uk2sl_d2d_owp">Door To Door (Out Of W/Province)
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -42,8 +44,8 @@
                             <div class="col-lg-12 col-md-12 mb-20">
                                 <div>
                                     <select id="item_type" disabled>
-                                        <option value="NPlEADea">Personal</option>
-                                        <option value="hujJdAKz">Commercial</option>
+                                        <option value="personal">Personal</option>
+                                        <option value="commercial">Commercial</option>
                                     </select>
                                 </div>
                             </div>
@@ -79,7 +81,7 @@
                             </div>
                             <div class="col-lg-12">
                                 <div class="app-button">
-                                    <button class="btn" type="submit">View Quotation <i
+                                    <button class="btn" onclick="submitForm()" type="submit">View Quotation <i
                                             class="far fa-paper-plane"></i></button>
                                 </div>
                             </div>
@@ -94,132 +96,167 @@
 
 @push('scripts')
     <script>
+        // submit form
+        $(document).ready(function() {
+            $('#quote-form').submit(function(event) {
+                event.preventDefault(); // Prevent the default form submission
 
-document.addEventListener('DOMContentLoaded', function() {
-    var destinationSelect = document.getElementById('destination');
-    var deliveryTypeSelect = document.getElementById('delivary_type');
-    var itemTypeDiv = document.getElementById('item_type_div');
-    var itemTypeSelect = document.getElementById('item_type');
+                var formData = {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    destination: $('#destination').val(),
+                    delivary_type: $('#delivary_type').val(),
+                    item_type: $('#item_type').val(),
+                    kg: $('#kg').val(),
+                    height: $('#height').val(),
+                    width: $('#width').val(),
+                    length: $('#length').val(),
+                };
 
-    destinationSelect.addEventListener('change', function() {
-        var selectedValue = this.value;
-// Reset to the default option "Choose..."
-deliveryTypeSelect.selectedIndex = 0;
-        // Check if the selected value is 'UK to Sri Lanka'
-        if (selectedValue === 'aUMkQFy1') {
-            // Toggle the disabled state of each option in delivery_type except the first one
-            for (var i = 1; i < deliveryTypeSelect.options.length; i++) {
-                var option = deliveryTypeSelect.options[i];
-                option.disabled = !option.disabled;
-            }
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('quote.form') }}',
+                    data: formData,
+                    success: function(result) {
+                        console.log(result);
+                        alertFunction("Your Estimate is Ready", result, "success");
+                    },
+                    error: function(xhr, status, error) {
+                        alertFunction("Error",
+                            "An error occurred while processing your request.", "error");
+                    }
+                });
+            });
+        });
 
-            // Show item_type_div and enable item_type select
-            itemTypeDiv.classList.remove('d-none');
-            itemTypeSelect.disabled = false;
-        } else {
-            // Reset delivery_type to its original state except the first one
-            for (var i = 1; i < deliveryTypeSelect.options.length; i++) {
-                var option = deliveryTypeSelect.options[i];
-                option.disabled = option.value === 'IdEGUSEx' ||
-                                  option.value === 'rEDFIeNT' ||
-                                  option.value === 'EBUSilYW';
-            }
-
-            // Hide item_type_div and disable item_type select
-            itemTypeDiv.classList.add('d-none');
-            itemTypeSelect.disabled = true;
+        function alertFunction(title, message, type) {
+            // Customize this function to display alerts as needed
+            alert(title + '\n\n' + message);
         }
-    });
-});
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var destinationSelect = document.getElementById('destination');
+            var deliveryTypeSelect = document.getElementById('delivary_type');
+            var itemTypeDiv = document.getElementById('item_type_div');
+            var itemTypeSelect = document.getElementById('item_type');
+
+            destinationSelect.addEventListener('change', function() {
+                var selectedValue = this.value;
+                // Reset to the default option "Choose..."
+                deliveryTypeSelect.selectedIndex = 0;
+                // Check if the selected value is 'UK to Sri Lanka'
+                if (selectedValue === 'uk2sl') {
+                    // Toggle the disabled state of each option in delivery_type except the first one
+                    for (var i = 1; i < deliveryTypeSelect.options.length; i++) {
+                        var option = deliveryTypeSelect.options[i];
+                        option.disabled = !option.disabled;
+                    }
+
+                    // Show item_type_div and enable item_type select
+                    itemTypeDiv.classList.remove('d-none');
+                    itemTypeSelect.disabled = false;
+                } else {
+                    // Reset delivery_type to its original state except the first one
+                    for (var i = 1; i < deliveryTypeSelect.options.length; i++) {
+                        var option = deliveryTypeSelect.options[i];
+                        option.disabled = option.value === 'uk2sl_wh2wh' ||
+                            option.value === 'uk2sl_wh2wh_wp' ||
+                            option.value === 'uk2sl_wh2wh_owp';
+                    }
+
+                    // Hide item_type_div and disable item_type select
+                    itemTypeDiv.classList.add('d-none');
+                    itemTypeSelect.disabled = true;
+                }
+            });
+        });
 
 
 
 
 
         // Function to handle the form submission
-        function handleFormSubmission(event) {
-            // Prevent the default form submission
-            event.preventDefault();
-            var destinationInput = document.getElementById('destination');
-            var delivary_typeInput = document.getElementById('delivary_type');
-            var kgInput = document.getElementById('kg');
-            var heightInput = document.getElementById('height');
-            var widthInput = document.getElementById('width');
-            var lengthInput = document.getElementById('length');
+        // function handleFormSubmission(event) {
+        //     // Prevent the default form submission
+        //     event.preventDefault();
+        //     var destinationInput = document.getElementById('destination');
+        //     var delivary_typeInput = document.getElementById('delivary_type');
+        //     var kgInput = document.getElementById('kg');
+        //     var heightInput = document.getElementById('height');
+        //     var widthInput = document.getElementById('width');
+        //     var lengthInput = document.getElementById('length');
 
-            var destination = destinationInput.value;
-            var delivary_type = delivary_typeInput.value;
-            var kg = kgInput.value;
-            var height = heightInput.value;
-            var width = widthInput.value;
-            var length = lengthInput.value;
+        //     var destination = destinationInput.value;
+        //     var delivary_type = delivary_typeInput.value;
+        //     var kg = kgInput.value;
+        //     var height = heightInput.value;
+        //     var width = widthInput.value;
+        //     var length = lengthInput.value;
 
-            var total = 0;
-            var delivary_fee = 0;
-            var collection_fee = 0;
-            var chargeable_weight = 0;
-            var chargeable_diamention = 0;
-            //srilanka to uk
-            if (destination == "poH6ALuy") {
-                delivary_fee = 10;
-                //wherehouse to door
-                if (delivary_type == "77N9WRz7") {
-                    if (kg >= 30) {
-                        alertFunction("Wrong Input",
-                            "You can Deliver Less than 30 Kilograms. Please enter the correct value", "warning");
-                    } else {
-                        collection_fee = 0;
-                        chargeable_weight = kg * 4;
-                        chargeable_diamention = ((height * width * length) / 5000) * 4;
-                        if (chargeable_weight > chargeable_diamention) {
-                            total = chargeable_weight + delivary_fee + collection_fee;
-                        } else {
-                            total = chargeable_diamention + delivary_fee + collection_fee;
-                        }
-                        alertFunction("Your Estimate is Ready", "Your Estimate Charge is: £" + total.toFixed(2), "success");
+        //     var total = 0;
+        //     var delivary_fee = 0;
+        //     var collection_fee = 0;
+        //     var chargeable_weight = 0;
+        //     var chargeable_diamention = 0;
+        //     var sl2uk1stkg = 22.00;
+        //     var sl2uk2ndkg = 30.00;
+        //     var sl2uk3rdkg = 34.00;
+        //     var sl2uk4thkg = 36.00;
+        //     var sl2uk5thkg = 38.00;
+        //     //srilanka to uk
+        //     if (destination == "sl2uk") {
+        //         delivary_fee = 10;
+        //          if (delivary_type == "sl2uk_d2d") {
+        //             if(kg <=1){
+        //                 alertFunction("Your Estimate is Ready", "Your Estimate Charge is: £" + sl2uk1stkg, "success");
+        //             }else if(kg <=2){
+        //                 alertFunction("Your Estimate is Ready", "Your Estimate Charge is: £" + sl2uk2ndkg, "success");
+        //             }
+        //             else if(kg <=3){
+        //                 alertFunction("Your Estimate is Ready", "Your Estimate Charge is: £" + sl2uk3rdkg, "success");
+        //             }
+        //             else if(kg <=4){
+        //                 alertFunction("Your Estimate is Ready", "Your Estimate Charge is: £" + sl2uk4thkg, "success");
+        //             }
+        //             else if(kg <=5){
+        //                 alertFunction("Your Estimate is Ready", "Your Estimate Charge is: £" + sl2uk5thkg, "success");
+        //             }else if (kg < 13) {
+        //                 collection_fee = 5;
+        //                 chargeable_weight = kg * 4;
+        //                 chargeable_diamention = ((height * width * length) / 5000) * 4;
 
-                    }
+        //                 if (chargeable_weight > chargeable_diamention) {
+        //                     total = chargeable_weight + delivary_fee + collection_fee;
+        //                 } else {
+        //                     total = chargeable_diamention + delivary_fee + collection_fee;
+        //                 }
+        //                 alertFunction("Your Estimate is Ready", "Your Estimate Charge is: £" + total.toFixed(2), "success");
+        //             } else if (kg < 31) {
+        //                 collection_fee = 10;
+        //                 chargeable_weight = kg * 4;
+        //                 chargeable_diamention = ((height * width * length) / 5000) * 4;
 
-                    //door to door
-                } else if (delivary_type == "iwZgp3vP") {
-                    if (kg < 13) {
-                        collection_fee = 5;
-                        chargeable_weight = kg * 4;
-                        chargeable_diamention = ((height * width * length) / 5000) * 4;
+        //                 if (chargeable_weight > chargeable_diamention) {
+        //                     total = chargeable_weight + delivary_fee + collection_fee;
+        //                 } else {
+        //                     total = chargeable_diamention + delivary_fee + collection_fee;
+        //                 }
+        //                 alertFunction("Your Estimate is Ready", "Your Estimate Charge is: £" + total.toFixed(2), "success");
+        //                 // alert("Your Estimate Charge is: £" + total.toFixed(2));
+        //             } else {
+        //                 alertFunction("Wrong Input",
+        //                     "You can Deliver Less than 30 Kilograms. Please enter the correct value", "warning");
+        //             }
+        //         } else {
+        //             alertFunction("Error", "Wrong Delivary Type", "warning");
+        //         }
 
-                        if (chargeable_weight > chargeable_diamention) {
-                            total = chargeable_weight + delivary_fee + collection_fee;
-                        } else {
-                            total = chargeable_diamention + delivary_fee + collection_fee;
-                        }
-                        alertFunction("Your Estimate is Ready", "Your Estimate Charge is: £" + total.toFixed(2), "success");
-                    } else if (kg < 31) {
-                        collection_fee = 10;
-                        chargeable_weight = kg * 4;
-                        chargeable_diamention = ((height * width * length) / 5000) * 4;
-
-                        if (chargeable_weight > chargeable_diamention) {
-                            total = chargeable_weight + delivary_fee + collection_fee;
-                        } else {
-                            total = chargeable_diamention + delivary_fee + collection_fee;
-                        }
-                        alertFunction("Your Estimate is Ready", "Your Estimate Charge is: £" + total.toFixed(2), "success");
-                        // alert("Your Estimate Charge is: £" + total.toFixed(2));
-                    } else {
-                        alertFunction("Wrong Input",
-                            "You can Deliver Less than 30 Kilograms. Please enter the correct value", "warning");
-                    }
-                } else {
-                    alertFunction("Error", "Wrong Delivary Type", "warning");
-                }
-
-                //Uk TO Sri Lanka
-            } else if (destination == "aUMkQFy1") {
-                alert('Email submitted');
-            } else {
-                alert('Email submitted');
-            };
-        }
+        //         //Uk TO Sri Lanka
+        //     } else if (destination == "uk2sl") {
+        //         alert('Email submitted');
+        //     } else {
+        //         alert('Email submitted');
+        //     };
+        // }
 
         // function handleFormSubmission(event) {
         //     // Prevent the default form submission
@@ -254,7 +291,7 @@ deliveryTypeSelect.selectedIndex = 0;
         //         return;
         //     }
 
-        //     if (destination === "poH6ALuy") {
+        //     if (destination === "sl2uk") {
         //         var total = calculateTotal(chargeableWeight, chargeableDimension, DELIVERY_FEE, collectionFee);
         //         alertFunction("Your Estimate is Ready", "Your Estimate Charge is: £" + total.toFixed(2), "success");
         //     } else {
@@ -270,7 +307,7 @@ deliveryTypeSelect.selectedIndex = 0;
         // function calculateCollectionFee(deliveryType, kg) {
         //     if (deliveryType === "77N9WRz7") {
         //         return 0;
-        //     } else if (deliveryType === "iwZgp3vP") {
+        //     } else if (deliveryType === "sl2uk_d2d") {
         //         return kg < 13 ? 5 : 10;
         //     } else {
         //         alert('Wrong Delivery Type');
