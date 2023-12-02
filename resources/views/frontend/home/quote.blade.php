@@ -26,14 +26,12 @@
                             <div class="col-lg-6 col-md-6">
                                 <label>&nbsp;Select Delivary Method</label>
                                 <div>
-                                    <select id="delivary_type">
+                                    <select id="delivery_type">
                                         <option selected>Choose...</option>
-                                        {{-- <option value="77N9WRz7">Wherehouse To Door</option> --}}
                                         <option value="sl2uk_d2d">Door To Door</option>
                                         <option disabled value="uk2sl_wh2wh">Wherehouse To Wherehouse</option>
                                         <option disabled value="uk2sl_d2d_wp">Door To Door (W/Province)</option>
-                                        <option disabled value="uk2sl_d2d_owp">Door To Door (Out Of W/Province)
-                                        </option>
+                                        <option disabled value="uk2sl_d2d_owp">Door To Door (Out Of W/Province)</option>
                                     </select>
                                 </div>
                             </div>
@@ -104,7 +102,7 @@
                 var formData = {
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     destination: $('#destination').val(),
-                    delivary_type: $('#delivary_type').val(),
+                    delivery_type: $('#delivery_type').val(),
                     item_type: $('#item_type').val(),
                     kg: $('#kg').val(),
                     height: $('#height').val(),
@@ -135,7 +133,7 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             var destinationSelect = document.getElementById('destination');
-            var deliveryTypeSelect = document.getElementById('delivary_type');
+            var deliveryTypeSelect = document.getElementById('delivery_type');
             var itemTypeDiv = document.getElementById('item_type_div');
             var itemTypeSelect = document.getElementById('item_type');
 
@@ -159,8 +157,8 @@
                     for (var i = 1; i < deliveryTypeSelect.options.length; i++) {
                         var option = deliveryTypeSelect.options[i];
                         option.disabled = option.value === 'uk2sl_wh2wh' ||
-                            option.value === 'uk2sl_wh2wh_wp' ||
-                            option.value === 'uk2sl_wh2wh_owp';
+                            option.value === 'uk2sl_d2d_wp' ||
+                            option.value === 'uk2sl_d2d_owp';
                     }
 
                     // Hide item_type_div and disable item_type select
