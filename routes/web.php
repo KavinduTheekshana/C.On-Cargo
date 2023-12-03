@@ -9,6 +9,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LabelController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuoteController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\TrackingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -105,7 +106,7 @@ Route::middleware(['adminOnly'])->group(function () {
     Route::get('/copy-customer/{customer_id}', [BookingController::class, 'copyCustomer'])->name('copy.customer');
 
     // settings
-    Route::get('/settings', [BookingController::class, 'index'])->name('settings');
+    Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
 });
     Route::middleware('adminOrAgent')->group(function () {
     // Dashboard Routes

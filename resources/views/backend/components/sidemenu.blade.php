@@ -116,7 +116,7 @@
             <li class="menu-header fw-medium mt-4">
                 <span class="menu-header-text">Customizations</span>
             </li>
-            <li class="menu-item {{ request()->is('tracking') ? 'active' : '' }}">
+            <li class="menu-item {{ request()->is('settings') ? 'active' : '' }}">
                 <a href="{{ route('settings') }}" class="menu-link">
                     <i class="menu-icon tf-icons mdi mdi-cog"></i>
                     <div data-i18n="Settings">Settings</div>
