@@ -83,10 +83,12 @@ Route::get('/error', function () {
 Route::middleware(['adminOnly'])->group(function () {
     //Agents
     Route::get('/agents', [AgentsController::class, 'index'])->name('agents');
+    Route::get('/agents/profile/{id}', [AgentsController::class, 'profile'])->name('agents.profile');
     Route::post('/save/agents', [AgentsController::class, 'save'])->name('agents.save');
     Route::get('/agents/delete/{id}', [AgentsController::class, 'delete'])->name('agents.delete');
     Route::get('/agents/active/{id}', [AgentsController::class, 'active'])->name('agents.active');
     Route::get('/agents/diactive/{id}', [AgentsController::class, 'diactive'])->name('agents.diactive');
+    Route::post('/agent/password/update', [AgentsController::class, 'updatePassword'])->name('agent.password.update');
 
     // Tracking
     Route::get('/tracking', [TrackingController::class, 'index'])->name('tracking');
@@ -94,21 +96,22 @@ Route::middleware(['adminOnly'])->group(function () {
     Route::get('/tracking/{invoice}/details', [TrackingController::class, 'getTrackingDetails'])->name('tracking.details');
     Route::post('/track-invoice', [TrackingController::class, 'trackInvoice'])->name('track.invoice');
 
-     // Bookings
-     Route::get('/bookings', [BookingController::class, 'index'])->name('bookings');
-     Route::get('/booking/create/{id}', [BookingController::class, 'create'])->name('booking.create');
-     Route::get('/booking/delete/admin/{id}', [BookingController::class, 'deleteadmin'])->name('booking.delete.admin');
-     Route::get('/booking/diactive/{id}', [BookingController::class, 'diactive'])->name('booking.diactive');
+    // Bookings
+    Route::get('/bookings', [BookingController::class, 'index'])->name('bookings');
+    Route::get('/booking/create/{id}', [BookingController::class, 'create'])->name('booking.create');
+    Route::get('/booking/delete/admin/{id}', [BookingController::class, 'deleteadmin'])->name('booking.delete.admin');
+    Route::get('/booking/diactive/{id}', [BookingController::class, 'diactive'])->name('booking.diactive');
     Route::get('/booking/active/{id}', [BookingController::class, 'active'])->name('booking.active');
     Route::get('/copy-customer/{customer_id}', [BookingController::class, 'copyCustomer'])->name('copy.customer');
+
+    // settings
+    Route::get('/settings', [BookingController::class, 'index'])->name('settings');
 });
-Route::middleware('adminOrAgent')->group(function () {
+    Route::middleware('adminOrAgent')->group(function () {
     // Dashboard Routes
+    Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 
-    Route::get('/dashboard', function () {
-        return view('backend.dashboard.dashboard');
-    })->name('dashboard');
-
+    // user Profile
     Route::get('/userprofile', [ProfileController::class, 'userprofile'])->name('userprofile');
 
     //Customers
@@ -120,6 +123,7 @@ Route::middleware('adminOrAgent')->group(function () {
     Route::get('/customer/active/{id}', [CustomerController::class, 'active'])->name('customer.active');
     Route::get('/customer/diactive/{id}', [CustomerController::class, 'diactive'])->name('customer.diactive');
     Route::get('/get-invoice-details/{customer_id}', [CustomerController::class, 'getCustomerInvoices'])->name('customer.invoices');
+    Route::get('/get-invoice-details-customer/{customer_id}', [CustomerController::class, 'getCustomerInvoicesDetails'])->name('customer.invoices.details');
 
     //Invoice
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice');

@@ -8,6 +8,7 @@ use App\Models\Invoice;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class BookingController extends Controller
 {
@@ -25,9 +26,12 @@ class BookingController extends Controller
         $receiver = Customer::find($booking->receiver_id);
         // $customers = Customer::all();
         // $customers = Customer::where('status', 1);
-        $customers = Customer::where('status', 1)
-            ->where('user_id', Auth::id())
-            ->get();
+        $customers = DB::table('customers')
+        ->join('users', 'customers.user_id', '=', 'users.id')
+        ->where('users.role', '!=', 1)
+        ->whereNull('customers.deleted_at') // Add this line to filter out soft-deleted records
+        ->select('customers.*')
+        ->get();
         $lastInvoiceId = Invoice::max('id');
         $nextInvoiceId = $lastInvoiceId + 1;
         $nextInvoiceNumber = str_pad($nextInvoiceId, 5, '0', STR_PAD_LEFT);

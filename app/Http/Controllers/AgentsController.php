@@ -44,6 +44,32 @@ class AgentsController extends Controller
         ]);
         return redirect()->back()->with('status', 'New Agent Added Sucessfully');
     }
+    public function profile($id)
+    {
+        $user = User::find($id);
+        return view('backend.agents.profile', compact('user'));
+    }
+
+    public function updatePassword(Request $request)
+    {
+        // Validate the input
+        $request->validate([
+            'user_id' => 'required', // Add validation for user_id if needed
+            'new_password' => 'required|string|min:8|confirmed',
+        ]);
+
+        // Retrieve the user
+        $user = User::findOrFail($request->user_id);
+
+
+
+        // Update the password
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return back()->with('success', 'Password updated successfully.');
+    }
+
 
     public function active($id)
     {

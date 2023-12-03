@@ -102,7 +102,7 @@ class InvoiceController extends Controller
             $invoice->items()->create($itemData);
         }
         if ($request->input('action') == 'save') {
-            return redirect()->back()->with('status', 'Invoice created successfully.');
+            return redirect()->route('invoice')->with('status', 'Invoice created successfully.');
         } elseif ($request->input('action') == 'preview') {
             return view('backend.invoice.preview', compact('invoice'))->with('status', 'Invoice created successfully.');
         }
@@ -176,6 +176,7 @@ class InvoiceController extends Controller
     public function preview($id)
     {
         $invoice = Invoice::with(['customer', 'sender', 'receiver', 'items'])->find($id);
+        // dd($invoice);
         return view('backend.invoice.preview', compact('invoice'));
     }
 

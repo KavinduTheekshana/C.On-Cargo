@@ -37,7 +37,7 @@
                 </ul>
             </li>
             <!-- / Style Switcher-->
-
+            @if (auth()->user() && auth()->user()->role == 0)
             <!-- Quick links  -->
             <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-1 me-xl-0">
                 <a class="nav-link btn btn-text-secondary rounded-pill btn-icon dropdown-toggle hide-arrow"
@@ -49,58 +49,56 @@
                     <div class="dropdown-menu-header border-bottom">
                         <div class="dropdown-header d-flex align-items-center py-3">
                             <h5 class="text-body mb-0 me-auto">Shortcuts</h5>
-                            <a href="javascript:void(0)" class="dropdown-shortcuts-add text-muted"
-                                data-bs-toggle="tooltip" data-bs-placement="top" title="Add shortcuts"><i
-                                    class="mdi mdi-view-grid-plus-outline mdi-24px"></i></a>
+
                         </div>
                     </div>
                     <div class="dropdown-shortcuts-list scrollable-container">
                         <div class="row row-bordered overflow-visible g-0">
                             <div class="dropdown-shortcuts-item col">
                                 <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                                    <i class="mdi mdi-calendar fs-4"></i>
+                                    <i class="menu-icon tf-icons mdi mdi-account-star"></i>
                                 </span>
-                                <a href="app-calendar.html" class="stretched-link">Calendar</a>
-                                <small class="text-muted mb-0">Appointments</small>
+                                <a href="{{ route('agents') }}" class="stretched-link">Agents</a>
+                                <small class="text-muted mb-0">Manage Agents</small>
                             </div>
                             <div class="dropdown-shortcuts-item col">
                                 <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                                    <i class="mdi mdi-file-document-outline fs-4"></i>
+                                    <i class="menu-icon tf-icons mdi mdi-book-account-outline"></i>
                                 </span>
-                                <a href="app-invoice-list.html" class="stretched-link">Invoice App</a>
-                                <small class="text-muted mb-0">Manage Accounts</small>
-                            </div>
-                        </div>
-                        <div class="row row-bordered overflow-visible g-0">
-                            <div class="dropdown-shortcuts-item col">
-                                <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                                    <i class="mdi mdi-account-outline fs-4"></i>
-                                </span>
-                                <a href="app-user-list.html" class="stretched-link">User App</a>
-                                <small class="text-muted mb-0">Manage Users</small>
-                            </div>
-                            <div class="dropdown-shortcuts-item col">
-                                <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                                    <i class="mdi mdi-shield-check-outline fs-4"></i>
-                                </span>
-                                <a href="app-access-roles.html" class="stretched-link">Role Management</a>
-                                <small class="text-muted mb-0">Permission</small>
+                                <a href="{{ route('bookings') }}" class="stretched-link">Bookings</a>
+                                <small class="text-muted mb-0">Manage Bookings</small>
                             </div>
                         </div>
                         <div class="row row-bordered overflow-visible g-0">
                             <div class="dropdown-shortcuts-item col">
                                 <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                                    <i class="mdi mdi-chart-pie-outline fs-4"></i>
+                                    <i class="menu-icon tf-icons mdi mdi-account-multiple-outline"></i>
                                 </span>
-                                <a href="index.html" class="stretched-link">Dashboard</a>
-                                <small class="text-muted mb-0">Analytics</small>
+                                <a href="{{ route('customers') }}" class="stretched-link">Customers</a>
+                                <small class="text-muted mb-0">Manage Customers</small>
                             </div>
                             <div class="dropdown-shortcuts-item col">
                                 <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                                    <i class="mdi mdi-cog-outline fs-4"></i>
+                                    <i class="menu-icon tf-icons mdi mdi-file-document-outline"></i>
                                 </span>
-                                <a href="pages-account-settings-account.html" class="stretched-link">Setting</a>
-                                <small class="text-muted mb-0">Account Settings</small>
+                                <a href="{{ route('invoice') }}" class="stretched-link">Invoice</a>
+                                <small class="text-muted mb-0">Manage Invoice</small>
+                            </div>
+                        </div>
+                        <div class="row row-bordered overflow-visible g-0">
+                            <div class="dropdown-shortcuts-item col">
+                                <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
+                                    <i class="menu-icon tf-icons mdi mdi-map-marker-path"></i>
+                                </span>
+                                <a href="{{ route('tracking') }}" class="stretched-link">Tracking</a>
+                                <small class="text-muted mb-0">Update Tracking</small>
+                            </div>
+                            <div class="dropdown-shortcuts-item col">
+                                <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
+                                    <i class="menu-icon tf-icons mdi mdi-cog"></i>
+                                </span>
+                                <a href="{{ route('settings') }}" class="stretched-link">Setting</a>
+                                <small class="text-muted mb-0">Quote Settings</small>
                             </div>
                         </div>
                         <div class="row row-bordered overflow-visible g-0">
@@ -130,192 +128,49 @@
                     href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside"
                     aria-expanded="false">
                     <i class="mdi mdi-bell-outline mdi-24px"></i>
+                    @if($notification_bookings->count())
                     <span
                         class="position-absolute top-0 start-50 translate-middle-y badge badge-dot bg-danger mt-2 border"></span>
+                        @endif
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end py-0">
                     <li class="dropdown-menu-header border-bottom">
                         <div class="dropdown-header d-flex align-items-center py-3">
-                            <h6 class="mb-0 me-auto">Notification</h6>
-                            <span class="badge rounded-pill bg-label-primary">8 New</span>
+                            <h6 class="mb-0 me-auto">Bookings</h6>
+                            <span class="badge rounded-pill bg-label-primary">{{ $notification_bookings->count() }} Pending</span>
                         </div>
                     </li>
                     <li class="dropdown-notifications-list scrollable-container">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                                <div class="d-flex gap-2">
-                                    <div class="flex-shrink-0">
-                                        <div class="avatar me-1">
-                                            <img src="../../assets/img/avatars/1.png" alt
-                                                class="w-px-40 h-auto rounded-circle" />
+                            @foreach ($notification_bookings as $booking)
+                                <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                                    <div class="d-flex gap-2">
+                                        <div class="flex-shrink-0">
+                                            <div class="avatar me-1">
+                                                <span class="avatar-initial rounded-circle bg-label-danger">{{ substr($booking->user->name, 0, 2) }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-column flex-grow-1 overflow-hidden w-px-200">
+                                            <h6 class="mb-1 text-truncate">{{$booking->user->name}}</h6>
+                                            <small class="text-truncate text-body">{{$booking->user->email}}</small>
+                                        </div>
+                                        <div class="flex-shrink-0 dropdown-notifications-actions">
+                                            <small class="text-muted">{{ $booking->created_at->diffForHumans() }}</small>
                                         </div>
                                     </div>
-                                    <div class="d-flex flex-column flex-grow-1 overflow-hidden w-px-200">
-                                        <h6 class="mb-1 text-truncate">Congratulation Lettie 🎉</h6>
-                                        <small class="text-truncate text-body">Won the monthly best seller gold
-                                            badge</small>
-                                    </div>
-                                    <div class="flex-shrink-0 dropdown-notifications-actions">
-                                        <small class="text-muted">1h ago</small>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                                <div class="d-flex gap-2">
-                                    <div class="flex-shrink-0">
-                                        <div class="avatar me-1">
-                                            <span class="avatar-initial rounded-circle bg-label-danger">CF</span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-column flex-grow-1 overflow-hidden w-px-200">
-                                        <h6 class="mb-1 text-truncate">Charles Franklin</h6>
-                                        <small class="text-truncate text-body">Accepted your connection</small>
-                                    </div>
-                                    <div class="flex-shrink-0 dropdown-notifications-actions">
-                                        <small class="text-muted">12hr ago</small>
-                                    </div>
-                                </div>
-                            </li>
-                            <li
-                                class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                                <div class="d-flex gap-2">
-                                    <div class="flex-shrink-0">
-                                        <div class="avatar me-1">
-                                            <img src="../../assets/img/avatars/2.png" alt
-                                                class="w-px-40 h-auto rounded-circle" />
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-column flex-grow-1 overflow-hidden w-px-200">
-                                        <h6 class="mb-1 text-truncate">New Message ✉️</h6>
-                                        <small class="text-truncate text-body">You have new message from
-                                            Natalie</small>
-                                    </div>
-                                    <div class="flex-shrink-0 dropdown-notifications-actions">
-                                        <small class="text-muted">1h ago</small>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                                <div class="d-flex gap-2">
-                                    <div class="flex-shrink-0">
-                                        <div class="avatar me-1">
-                                            <span class="avatar-initial rounded-circle bg-label-success"><i
-                                                    class="mdi mdi-cart-outline"></i></span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-column flex-grow-1 overflow-hidden w-px-200">
-                                        <h6 class="mb-1 text-truncate">Whoo! You have new order 🛒</h6>
-                                        <small class="text-truncate text-body">ACME Inc. made new order $1,154</small>
-                                    </div>
-                                    <div class="flex-shrink-0 dropdown-notifications-actions">
-                                        <small class="text-muted">1 day ago</small>
-                                    </div>
-                                </div>
-                            </li>
-                            <li
-                                class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                                <div class="d-flex gap-2">
-                                    <div class="flex-shrink-0">
-                                        <div class="avatar me-1">
-                                            <img src="../../assets/img/avatars/9.png" alt
-                                                class="w-px-40 h-auto rounded-circle" />
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-column flex-grow-1 overflow-hidden w-px-200">
-                                        <h6 class="mb-1 text-truncate">Application has been approved 🚀</h6>
-                                        <small class="text-truncate text-body">Your ABC project application has been
-                                            approved.</small>
-                                    </div>
-                                    <div class="flex-shrink-0 dropdown-notifications-actions">
-                                        <small class="text-muted">2 days ago</small>
-                                    </div>
-                                </div>
-                            </li>
-                            <li
-                                class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                                <div class="d-flex gap-2">
-                                    <div class="flex-shrink-0">
-                                        <div class="avatar me-1">
-                                            <span class="avatar-initial rounded-circle bg-label-success"><i
-                                                    class="mdi mdi-chart-pie-outline"></i></span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-column flex-grow-1 overflow-hidden w-px-200">
-                                        <h6 class="mb-1 text-truncate">Monthly report is generated</h6>
-                                        <small class="text-truncate text-body">July monthly financial report is
-                                            generated </small>
-                                    </div>
-                                    <div class="flex-shrink-0 dropdown-notifications-actions">
-                                        <small class="text-muted">3 days ago</small>
-                                    </div>
-                                </div>
-                            </li>
-                            <li
-                                class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                                <div class="d-flex gap-2">
-                                    <div class="flex-shrink-0">
-                                        <div class="avatar me-1">
-                                            <img src="../../assets/img/avatars/5.png" alt
-                                                class="w-px-40 h-auto rounded-circle" />
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-column flex-grow-1 overflow-hidden w-px-200">
-                                        <h6 class="mb-1 text-truncate">Send connection request</h6>
-                                        <small class="text-truncate text-body">Peter sent you connection
-                                            request</small>
-                                    </div>
-                                    <div class="flex-shrink-0 dropdown-notifications-actions">
-                                        <small class="text-muted">4 days ago</small>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                                <div class="d-flex gap-2">
-                                    <div class="flex-shrink-0">
-                                        <div class="avatar me-1">
-                                            <img src="../../assets/img/avatars/6.png" alt
-                                                class="w-px-40 h-auto rounded-circle" />
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-column flex-grow-1 overflow-hidden w-px-200">
-                                        <h6 class="mb-1 text-truncate">New message from Jane</h6>
-                                        <small class="text-truncate text-body">Your have new message from Jane</small>
-                                    </div>
-                                    <div class="flex-shrink-0 dropdown-notifications-actions">
-                                        <small class="text-muted">5 days ago</small>
-                                    </div>
-                                </div>
-                            </li>
-                            <li
-                                class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                                <div class="d-flex gap-2">
-                                    <div class="flex-shrink-0">
-                                        <div class="avatar me-1">
-                                            <span class="avatar-initial rounded-circle bg-label-warning"><i
-                                                    class="mdi mdi-alert-circle-outline"></i></span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-column flex-grow-1 overflow-hidden w-px-200">
-                                        <h6 class="mb-1">CPU is running high</h6>
-                                        <small class="text-truncate text-body">CPU Utilization Percent is currently at
-                                            88.63%,</small>
-                                    </div>
-                                    <div class="flex-shrink-0 dropdown-notifications-actions">
-                                        <small class="text-muted">5 days ago</small>
-                                    </div>
-                                </div>
-                            </li>
+                                </li>
+                            @endforeach
                         </ul>
                     </li>
                     <li class="dropdown-menu-footer border-top p-2">
-                        <a href="javascript:void(0);" class="btn btn-primary d-flex justify-content-center">
-                            View all notifications
+                        <a href="{{route('bookings')}}" class="btn btn-primary d-flex justify-content-center">
+                            View all bookings
                         </a>
                     </li>
                 </ul>
             </li>
             <!--/ Notification -->
-
+@endif
             <!-- User -->
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">

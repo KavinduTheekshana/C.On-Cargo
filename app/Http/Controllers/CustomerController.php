@@ -7,12 +7,22 @@ use App\Models\Invoice;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
     public function index()
     {
-        $customers = Customer::where('user_id', Auth::id())->get();
+        if (Auth::user()->role == '0') {
+            $customers = DB::table('customers')
+                ->join('users', 'customers.user_id', '=', 'users.id')
+                ->where('users.role', '!=', 1)
+                ->select('customers.*')
+                ->get();
+        } else {
+            $customers = Customer::where('user_id', Auth::id())->get();
+        }
+        // $customers = Customer::where('user_id', Auth::id())->get();
         return view('backend.customers.customers', compact('customers'));
     }
 
@@ -125,7 +135,6 @@ class CustomerController extends Controller
                 'error' => 'An error occurred while creating the customer.'
             ], 400); // 400 is the HTTP status code for a bad request
         }
-
     }
 
 
@@ -160,6 +169,14 @@ class CustomerController extends Controller
         }
     }
     public function getCustomerInvoices($customer_id)
+    {
+        $invoices = Invoice::with(['sender', 'receiver'])
+            ->where('customer_id', $customer_id)
+            ->get();
+        //   dd($invoices);
+        return view('backend.customers.invoice_details', compact('invoices'))->render();
+    }
+    public function getCustomerInvoicesDetails($customer_id)
     {
         $invoices = Invoice::with(['sender', 'receiver'])
             ->where('customer_id', $customer_id)

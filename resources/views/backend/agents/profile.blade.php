@@ -6,7 +6,7 @@
 @section('content')
     <!-- Content -->
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="py-3 mb-4"><span class="text-muted fw-light">User Profile /</span> Profile</h4>
+        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Agent Profile /</span> Profile</h4>
 
         <!-- Header -->
         <div class="row">
@@ -25,13 +25,13 @@
                             <div
                                 class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
                                 <div class="user-profile-info">
-                                    <h4>{{ Auth::user()->name }}</h4>
+                                    <h4>{{$user->name}}</h4>
                                     <ul
                                         class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
                                         <li class="list-inline-item">
                                             <i class="mdi mdi-calendar-blank-outline me-1 mdi-20px"></i><span
                                                 class="fw-medium"> Joined
-                                                {{ Auth::user()->created_at->format('M Y') }}</span>
+                                                {{ $user->created_at->format('M Y') }}</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -55,14 +55,14 @@
                         <ul class="list-unstyled my-3 py-1">
                             <li class="d-flex align-items-center mb-3">
                                 <i class="mdi mdi-account-outline mdi-24px"></i><span class="fw-medium mx-2">Full
-                                    Name:</span> <span>{{ Auth::user()->name }}</span>
+                                    Name:</span> <span>{{$user->name}}</span>
                             </li>
                             <li class="d-flex align-items-center mb-3">
                                 <i class="mdi mdi-check mdi-24px"></i><span class="fw-medium mx-2">Status:</span>
                                 <span>@auth
-                                        @if (auth()->user()->status == 0)
+                                        @if ($user->status == 0)
                                             Deactivated
-                                        @elseif(auth()->user()->status == 1)
+                                        @elseif($user->status == 1)
                                             Active
                                         @endif
                                     @endauth
@@ -71,9 +71,9 @@
                             <li class="d-flex align-items-center mb-3">
                                 <i class="mdi mdi-star-outline mdi-24px"></i><span class="fw-medium mx-2">Role:</span>
                                 <span>@auth
-                                        @if (auth()->user()->role == 0)
+                                        @if ($user->role == 0)
                                             Admin
-                                        @elseif(auth()->user()->role == 1)
+                                        @elseif($user->role == 1)
                                             Agent
                                         @endif
                                     @endauth
@@ -81,22 +81,22 @@
                             </li>
                             <li class="d-flex align-items-center mb-3">
                                 <i class="mdi mdi-flag-outline mdi-24px"></i><span class="fw-medium mx-2">Location:</span>
-                                <span>{{ Auth::user()->location }}</span>
+                                <span>{{ $user->location }}</span>
                             </li>
                             <li class="d-flex align-items-center mb-3">
                                 <i class="mdi mdi-translate mdi-24px"></i><span class="fw-medium mx-2">Identity:</span>
-                                <span>{{ Str::upper(Auth::user()->identity) }}</span>
+                                <span>{{ Str::upper($user->identity) }}</span>
                             </li>
                         </ul>
                         <small class="card-text text-uppercase">Contacts</small>
                         <ul class="list-unstyled my-3 py-1">
                             <li class="d-flex align-items-center mb-3">
                                 <i class="mdi mdi-phone-outline mdi-24px"></i><span class="fw-medium mx-2">Contact:</span>
-                                <span>{{ Auth::user()->phone }}</span>
+                                <span>{{ $user->phone }}</span>
                             </li>
                             <li class="d-flex align-items-center mb-3">
                                 <i class="mdi mdi-email-outline mdi-24px"></i><span class="fw-medium mx-2">Email:</span>
-                                <span>{{ Auth::user()->email }}</span>
+                                <span>{{ $user->email }}</span>
                             </li>
                         </ul>
 
@@ -124,22 +124,10 @@
                                 {{ session('success') }}
                             </div>
                         @endif
-                        <form id="formAccountSettings" method="POST" action="{{ route('user.password.update') }}">
+                        <form id="formAccountSettings" method="POST" action="{{ route('agent.password.update') }}">
                             @csrf
-                            <div class="row">
-                                <div class="mb-3 col-md-6 form-password-toggle">
-                                    <div class="input-group input-group-merge">
-                                        <div class="form-floating form-floating-outline">
-                                            <input class="form-control" type="password" name="current_password"
-                                                id="currentPassword"
-                                                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
-                                            <label for="currentPassword">Current Password</label>
-                                        </div>
-                                        <span class="input-group-text cursor-pointer"><i
-                                                class="mdi mdi-eye-off-outline"></i></span>
-                                    </div>
-                                </div>
-                            </div>
+
+                            <input type="hidden" name="user_id" value="{{$user->id}}">
                             <div class="row g-3 mb-4">
                                 <div class="col-md-6 form-password-toggle">
                                     <div class="input-group input-group-merge">

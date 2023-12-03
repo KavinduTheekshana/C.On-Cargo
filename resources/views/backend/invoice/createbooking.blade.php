@@ -115,10 +115,10 @@
                                             <b>Country: </b> {{ $sender->country }} <br>
                                         </p>
                                         <br>
-                                        <a href="{{ route('copy.customer', ['customer_id' => $sender->id]) }}"
+                                        {{-- <a href="{{ route('copy.customer', ['customer_id' => $sender->id]) }}"
                                             type="button" class="btn btn-sm btn-warning" data-repeater-create>
                                             <i class="mdi mdi-plus me-1"></i> Add as a Customer
-                                        </a>
+                                        </a> --}}
                                     </div>
                                     <div class="col-6 pr-100">
                                         <h6 class="pb-2">Consignee Details:</h6>
@@ -132,10 +132,10 @@
                                             <b>Country: </b> {{ $receiver->country }} <br>
                                         </p>
                                         <br>
-                                        <a href="{{ route('copy.customer', ['customer_id' => $receiver->id]) }}"
+                                        {{-- <a href="{{ route('copy.customer', ['customer_id' => $receiver->id]) }}"
                                             type="button" class="btn btn-sm btn-warning" data-repeater-create>
                                             <i class="mdi mdi-plus me-1"></i> Add as a Customer
-                                        </a>
+                                        </a> --}}
                                     </div>
                                 </div>
 

@@ -3,84 +3,7 @@
 @section('content')
     <!-- Content -->
     <div class="container-xxl flex-grow-1 container-p-y">
-        <div class="row g-4 mb-4">
-            <div class="col-sm-6 col-xl-3">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div class="me-1">
-                                <p class="text-heading mb-2">Total Customers</p>
-                                <div class="d-flex align-items-center">
-                                    <h4 class="mb-2 me-1 display-6">21,459</h4>
-                                </div>
-                            </div>
-                            <div class="avatar">
-                                <div class="avatar-initial bg-label-danger rounded">
-                                    <div class="mdi mdi-account-plus-outline mdi-24px scaleX-n1"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-xl-3">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div class="me-1">
-                                <p class="text-heading mb-2">Active Customers</p>
-                                <div class="d-flex align-items-center">
-                                    <h4 class="mb-2 me-1 display-6">4,567</h4>
-                                </div>
-                            </div>
-                            <div class="avatar">
-                                <div class="avatar-initial bg-label-success rounded">
-                                    <div class="mdi mdi-account-check-outline mdi-24px"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-xl-3">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div class="me-1">
-                                <p class="text-heading mb-2">Active Customers</p>
-                                <div class="d-flex align-items-center">
-                                    <h4 class="mb-2 me-1 display-6">19,860</h4>
-                                </div>
-                            </div>
-                            <div class="avatar">
-                                <div class="avatar-initial bg-label-primary rounded">
-                                    <div class="mdi mdi-account-outline mdi-24px"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-xl-3">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div class="me-1">
-                                <p class="text-heading mb-2">Pending Users</p>
-                                <div class="d-flex align-items-center">
-                                    <h4 class="mb-2 me-1 display-6">237</h4>
-                                </div>
-                            </div>
-                            <div class="avatar">
-                                <div class="avatar-initial bg-label-warning rounded">
-                                    <div class="mdi mdi-account-search mdi-24px"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
         <!-- Users List Table -->
         @include('backend.components.alert')
 
@@ -164,9 +87,9 @@
                                             </a>
                                         @endif
 
-                                        <a href="{{ route('agents.active', ['id' => $agent->id]) }}" type="button"
+                                        <a href="{{ route('agents.profile', ['id' => $agent->id]) }}" type="button"
                                             class="btn btn-icon btn-dark btn-fab demo waves-effect waves-light m-1">
-                                            <i class="tf-icons mdi mdi-form-textbox-password"></i>
+                                            <i class="tf-icons mdi mdi-eye-outline"></i>
                                         </a>
 
                                         <button type="button" onclick="openSweetAlert({{ $agent->id }})"
