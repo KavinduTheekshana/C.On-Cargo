@@ -23,7 +23,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-6">
+                            <div class="col-lg-6 col-md-6 mb-20">
                                 <label>&nbsp;Select Delivary Method</label>
                                 <div>
                                     <select id="delivery_type">
@@ -37,14 +37,16 @@
                             </div>
 
                         </div>
-
-                        <div id="item_type_div" class="row d-none">
-                            <div class="col-lg-12 col-md-12 mb-20">
-                                <div>
-                                    <select id="item_type" disabled>
-                                        <option value="personal">Personal</option>
-                                        <option value="commercial">Commercial</option>
-                                    </select>
+                        <div class="row">
+                            <div id="item_type_div" class="w-100 d-none">
+                                <div class="col-lg-12 col-md-12 col-12 mb-20">
+                                    <label>&nbsp;Item Type</label>
+                                    <div>
+                                        <select id="item_type" disabled>
+                                            <option value="personal">Personal</option>
+                                            <option value="commercial">Commercial</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -52,6 +54,7 @@
 
                         <div class="row">
                             <div class="col-lg-12 col-md-12 mb-20">
+                                <label>&nbsp;Number Of Kilogram</label>
                                 <div>
                                     <input type="number" inputmode="numeric" id="kg" name="kg"
                                         placeholder="Number Of Kilogram" required>
@@ -116,7 +119,7 @@
                     data: formData,
                     success: function(result) {
                         console.log(result);
-                        if (result =="error_weight") {
+                        if (result == "error_weight") {
                             alertFunction("Error",
                                 "You can Deliver Less than 30 Kilograms. Please enter the correct value",
                                 "error");
@@ -126,8 +129,8 @@
                                 "error");
                         } else if (result == "error_item") {
                             alertFunction("Error", "Error In Item Type. Please Check!",
-                            "error");
-                        }else{
+                                "error");
+                        } else {
                             alertFunction("Your Estimate is Ready", result, "success");
                         }
                     },

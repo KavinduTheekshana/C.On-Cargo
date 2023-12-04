@@ -9,8 +9,7 @@ class QuoteController extends Controller
 {
     public function handleFormSubmission(Request $request)
     {
-        $settings = Settings::all();
-        // Retrieve form data from the request
+        $settings = Settings::first();
         $destination = $request->input('destination');
         $deliveryType = $request->input('delivery_type'); // Corrected typo in the variable name
         $itemType = $request->input('item_type');
@@ -188,7 +187,7 @@ class QuoteController extends Controller
                     $result = "error_item";
                 }
             } else {
-                $result = "erroe_method";
+                $result = "error_method";
             }
         } else {
             // $result = "Your logic for other destinations goes here"; // Add your logic for other destinations

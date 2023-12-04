@@ -3,7 +3,7 @@
 @section('content')
     <main>
         <!-- breadcrumb-area-start -->
-        @section('page_img', asset('frontend/assets/img/bg/javygo-ZdySMOIicMo-unsplash13.jpg'))
+        @section('page_img', asset('frontend/assets/img/bg/javygo-ZdySMOIicMo-unsplash12.webp'))
         @section('page_name', 'Services')
         @include('frontend.components.breadcrumb')
         <!-- breadcrumb-area-end -->

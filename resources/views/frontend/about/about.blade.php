@@ -42,7 +42,7 @@
             <div class="col-xl-4 col-lg-4 col-md-6" data-animscroll="fade-up" data-animscroll-delay="200">
                 <div class="about-me-wrapper mb-30">
                     <div class="about-me-img">
-                        <img src="{{ asset('frontend/assets/img/bg/export-import-plane-1.jpg') }}" alt="">
+                        <img src="{{ asset('frontend/assets/img/bg/export-import-plane-1.webp') }}" alt="">
                     </div>
                     <div class="about-me-text">
                         <h3><i class="far fa-analytics"></i> Our Vision</h3>

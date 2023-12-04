@@ -8,7 +8,7 @@
     }
     .header-2-button {
         margin-left: 20px;
-    } 
+    }
     .logo.logo-shape {
         margin-left: 20px;
     }
@@ -37,7 +37,7 @@
 /* large desktop :1700px. */
 @media (min-width: 1500px) and (max-width: 1600px) {
     .header-right-wrapper {
-        margin-right: 50px; 
+        margin-right: 50px;
     }
 }
 
@@ -52,7 +52,7 @@
     }
     .header-2-button {
         margin-left: 0px;
-    } 
+    }
     .logo.logo-shape {
         margin-left: 0px;
     }
@@ -504,10 +504,7 @@
         top: 3px;
         right: 9px;
     }
-    .breadcrumb-area {
-        padding-top: 200px;
-        padding-bottom: 200px;
-    }
+
     .inner-history {
         padding: 30px 15px 28px;
     }
@@ -551,10 +548,7 @@
     .sea-content .about-info h2 {
         font-size: 24px;
     }
-    .breadcrumb-area {
-        padding-top: 140px;
-        padding-bottom: 140px;
-    }
+
     .breadcrumb-menu span {
         font-size: 25px;
     }
@@ -565,11 +559,11 @@
         font-size: 25px;
     }
 
-    
+
 
 }
 
- 
+
 /* Tablet desktop :768px. */
 @media (min-width: 768px) and (max-width: 991px) {
     .header-shape::before {
@@ -870,10 +864,6 @@
         top: 9px;
         right: 40px;
     }
-    .breadcrumb-area {
-        padding-top: 150px;
-        padding-bottom: 150px;
-    }
     .breadcrumb-text > h1 {
         font-size: 55px;
     }
@@ -905,7 +895,7 @@
 
 }
 
- 
+
 /* small mobile :320px. */
 @media (max-width: 767px) {
     .header-shape::before {
@@ -1303,10 +1293,6 @@
     .clients-wrapper::after {
         left: 25px;
     }
-    .breadcrumb-area {
-        padding-top: 120px;
-        padding-bottom: 120px;
-    }
     .breadcrumb-text > h1 {
         font-size: 32px;
     }
@@ -1393,7 +1379,7 @@
 
 
 }
- 
+
 /* Large Mobile :480px. */
 @media only screen and (min-width: 550px) and (max-width: 767px) {
 .slider-button a.white-btn {
@@ -1402,5 +1388,5 @@
 }
 
 
- 
+
 }

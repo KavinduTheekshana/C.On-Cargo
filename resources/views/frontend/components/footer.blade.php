@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col-xl-3 col-lg-3 col-md-6">
                         <div class="footer-logo mb-30">
-                            <a href="index.html"><img style="max-width: 80%" src="{{ asset('frontend/assets/img/logo/logolight.svg')}}" alt=""></a>
+                            <a href="{{route('/')}}"><img style="max-width: 80%" src="{{ asset('frontend/assets/img/logo/logolight.svg')}}" alt=""></a>
                             <div class="footer-text mt-20">
                                 <p>C.On Cargo (Pvt) Ltd is a trusted cargo service company specializing in seamless
                                     transportation solutions. With years of experience and a global network, we're
@@ -20,11 +20,21 @@
                             <h3 class="footer-title">Quick Links</h3>
                             <div class="footer-link ml-10">
                                 <ul>
-                                    <li><a href="services-01.html">- Home</a></li>
-                                    <li><a href="contact.html">- About</a></li>
-                                    <li><a href="contact.html">- Services</a></li>
-                                    <li><a href="blog.html">- Tracking</a></li>
-                                    <li><a href="about.html">- Contact Us</a></li>
+                                    <li><a href="{{route('/')}}">- Home</a></li>
+                                    <li><a href="{{ route('about') }}">- About</a></li>
+                                    <li><a href="{{ route('services') }}">- Services</a></li>
+                                    <li><a href="{{ route('contact') }}">- Contact Us</a></li>
+                                    @auth
+                                    @if (Auth::user()->role == 2)
+                                        <!-- Dashboard Button for Regular Users -->
+                                         <li><a href="{{ route('user/dashboard') }}">- Dashboard</a></li>
+                                    @endif
+                                @endauth
+
+                                @guest
+                                <li><a href="{{ route('user/login') }}">- Login</a></li>
+                                @endguest
+
                                 </ul>
                             </div>
                         </div>
@@ -66,12 +76,10 @@
                     <div class="col-xl-3 col-lg-3 col-md-6">
                         <div class="footer-wrapper mb-30">
                             <h3 class="footer-title">Social Media</h3>
-                            
+
                             <div class="footer-icon">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                                <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                                <a href="https://www.facebook.com/C.ONcargoLtd"><i class="fab fa-facebook-f"></i></a>
+                                <a href="https://instagram.com/c.oncargoltd?igshid=MzMyNGUyNmU2YQ=="><i class="fab fa-instagram"></i></a>
                             </div>
                         </div>
                     </div>

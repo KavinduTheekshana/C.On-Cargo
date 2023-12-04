@@ -11,139 +11,174 @@
             <div class="col-md-12">
                 <h5 class="card-header">Quote Settings</h5>
                 <div class="card-body">
-                    <div class="row mb-4">
-                        <p>Sri Lanka To UK First 5KG Price Chart</p>
-                        <div class="col-4">
-                            <div class="mt-2 mb-3">
-                                <label for="largeInput" class="form-label">1st KG</label>
-                                <input id="largeInput" class="form-control form-control-lg" type="text" placeholder="" />
+                    <form action="{{ route('settings.update')}}" method="POST">
+                        @csrf
+                        <div class="row mb-4">
+                            <p>Sri Lanka To UK First 5KG Price Chart</p>
+                            <div class="col-4">
+                                <div class="mt-2 mb-3">
+                                    <label for="largeInput" class="form-label">1st KG</label>
+                                    <input id="largeInput" class="form-control form-control-lg" type="text"
+                                        name="sltouk1kg" value="{{ $settings->sltouk1kg }}" />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mt-2 mb-3">
+                                    <label for="largeInput" class="form-label">2nd KG</label>
+                                    <input id="largeInput" class="form-control form-control-lg" type="text"
+                                        name="sltouk2kg" value="{{ $settings->sltouk2kg }}" />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mt-2 mb-3">
+                                    <label for="largeInput" class="form-label">3rd KG</label>
+                                    <input id="largeInput" class="form-control form-control-lg" type="text"
+                                        name="sltouk3kg" value="{{ $settings->sltouk3kg }}" />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mt-2 mb-3">
+                                    <label for="largeInput" class="form-label">4th KG</label>
+                                    <input id="largeInput" class="form-control form-control-lg" type="text"
+                                        name="sltouk4kg" value="{{ $settings->sltouk4kg }}" />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mt-2 mb-3">
+                                    <label for="largeInput" class="form-label">5th KG</label>
+                                    <input id="largeInput" class="form-control form-control-lg" type="text"
+                                        name="sltouk5kg" value="{{ $settings->sltouk5kg }}" />
+                                </div>
                             </div>
                         </div>
-                        <div class="col-4">
-                            <div class="mt-2 mb-3">
-                                <label for="largeInput" class="form-label">2nd KG</label>
-                                <input id="largeInput" class="form-control form-control-lg" type="text" placeholder="" />
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="mt-2 mb-3">
-                                <label for="largeInput" class="form-label">3rd KG</label>
-                                <input id="largeInput" class="form-control form-control-lg" type="text" placeholder="" />
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="mt-2 mb-3">
-                                <label for="largeInput" class="form-label">4th KG</label>
-                                <input id="largeInput" class="form-control form-control-lg" type="text" placeholder="" />
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="mt-2 mb-3">
-                                <label for="largeInput" class="form-label">5th KG</label>
-                                <input id="largeInput" class="form-control form-control-lg" type="text" placeholder="" />
-                            </div>
-                        </div>
-                    </div>
 
-                    <hr>
-                    <div class="row">
-                        <p>UK To Sri Lanka First 5KG Price Chart</p>
-                        <div class="col-4">
-                            <div class="mt-2 mb-3">
-                                <label for="largeInput" class="form-label">1st KG</label>
-                                <input id="largeInput" class="form-control form-control-lg" type="text" placeholder="" />
+                        <hr>
+                        <div class="row">
+                            <p>UK To Sri Lanka First 5KG Price Chart</p>
+                            <div class="col-4">
+                                <div class="mt-2 mb-3">
+                                    <label for="largeInput" class="form-label">1st KG</label>
+                                    <input id="largeInput" class="form-control form-control-lg" type="text"
+                                        name="uktosl1kg" value="{{ $settings->uktosl1kg }}" />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mt-2 mb-3">
+                                    <label for="largeInput" class="form-label">2nd KG</label>
+                                    <input id="largeInput" class="form-control form-control-lg" type="text"
+                                        name="uktosl2kg" value="{{ $settings->uktosl2kg }}" />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mt-2 mb-3">
+                                    <label for="largeInput" class="form-label">3rd KG</label>
+                                    <input id="largeInput" class="form-control form-control-lg" type="text"
+                                        name="uktosl3kg" value="{{ $settings->uktosl3kg }}" />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mt-2 mb-3">
+                                    <label for="largeInput" class="form-label">4th KG</label>
+                                    <input id="largeInput" class="form-control form-control-lg" type="text"
+                                        name="uktosl4kg" value="{{ $settings->uktosl4kg }}" />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mt-2 mb-3">
+                                    <label for="largeInput" class="form-label">5th KG</label>
+                                    <input id="largeInput" class="form-control form-control-lg" type="text"
+                                        name="uktosl5kg" value="{{ $settings->uktosl5kg }}" />
+                                </div>
                             </div>
                         </div>
-                        <div class="col-4">
-                            <div class="mt-2 mb-3">
-                                <label for="largeInput" class="form-label">2nd KG</label>
-                                <input id="largeInput" class="form-control form-control-lg" type="text" placeholder="" />
+                        <hr>
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="mt-2 mb-3">
+                                    <label for="largeInput" class="form-label">Sri Lanka to UK Per KG Price</label>
+                                    <input id="largeInput" class="form-control form-control-lg" type="text"
+                                        name="sltoukpkg" value="{{ $settings->sltoukpkg }}" />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mt-2 mb-3">
+                                    <label for="largeInput" class="form-label">UK to Sri Lanka Per KG Price
+                                        (Personal)</label>
+                                    <input id="largeInput" class="form-control form-control-lg" type="text"
+                                        name="uktoslpkgpersonal" value="{{ $settings->uktoslpkgpersonal }}" />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mt-2 mb-3">
+                                    <label for="largeInput" class="form-label">UK to Sri Lanka Per KG Price
+                                        (Commercial)</label>
+                                    <input id="largeInput" class="form-control form-control-lg" type="text"
+                                        name="uktoslpkgcommercial" value="{{ $settings->uktoslpkgcommercial }}" />
+                                </div>
                             </div>
                         </div>
-                        <div class="col-4">
-                            <div class="mt-2 mb-3">
-                                <label for="largeInput" class="form-label">3rd KG</label>
-                                <input id="largeInput" class="form-control form-control-lg" type="text" placeholder="" />
+                        <hr>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mt-2 mb-3">
+                                    <label for="largeInput" class="form-label">Sri Lanka to UK Delivery and collection fee
+                                        less than 12kg</label>
+                                    <input id="largeInput" class="form-control form-control-lg" type="text"
+                                        name="sltoukdeandcolless12" value="{{ $settings->sltoukdeandcolless12 }}" />
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mt-2 mb-3">
+                                    <label for="largeInput" class="form-label">Sri Lanka to UK Delivery and collection fee
+                                        more than 12kg</label>
+                                    <input id="largeInput" class="form-control form-control-lg" type="text"
+                                        name="sltoukdeandcolmore12" value="{{ $settings->sltoukdeandcolmore12 }}" />
+                                </div>
                             </div>
                         </div>
-                        <div class="col-4">
-                            <div class="mt-2 mb-3">
-                                <label for="largeInput" class="form-label">4th KG</label>
-                                <input id="largeInput" class="form-control form-control-lg" type="text" placeholder="" />
+                        <hr>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mt-2 mb-3">
+                                    <label for="largeInput" class="form-label">UK to Sri Lanka delivery and collection fee
+                                        less than 20kg Western Provience</label>
+                                    <input id="largeInput" class="form-control form-control-lg" type="text"
+                                        name="uktosldeandcolless20wp" value="{{ $settings->uktosldeandcolless20wp }}" />
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mt-2 mb-3">
+                                    <label for="largeInput" class="form-label">UK to Sri Lanka delivery and collection fee
+                                        more than 20kg Western Provience</label>
+                                    <input id="largeInput" class="form-control form-control-lg" type="text"
+                                        name="uktosldeandcolmore20wp" value="{{ $settings->uktosldeandcolmore20wp }}" />
+                                </div>
                             </div>
                         </div>
-                        <div class="col-4">
-                            <div class="mt-2 mb-3">
-                                <label for="largeInput" class="form-label">5th KG</label>
-                                <input id="largeInput" class="form-control form-control-lg" type="text" placeholder="" />
+                        <hr>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mt-2 mb-3">
+                                    <label for="largeInput" class="form-label">UK to Sri Lanka delivery and collection fee
+                                        less than 20kg Out of Western Provience</label>
+                                    <input id="largeInput" class="form-control form-control-lg" type="text"
+                                        name="uktosldeandcolless20owp"
+                                        value="{{ $settings->uktosldeandcolless20owp }}" />
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mt-2 mb-3">
+                                    <label for="largeInput" class="form-label">UK to Sri Lanka delivery and collection fee
+                                        more than 20kg Out of Western Provience</label>
+                                    <input id="largeInput" class="form-control form-control-lg" type="text"
+                                        name="uktosldeandcolmore20owp"
+                                        value="{{ $settings->uktosldeandcolmore20owp }}" />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="mt-2 mb-3">
-                                <label for="largeInput" class="form-label">Sri Lanka to UK Per KG Price</label>
-                                <input id="largeInput" class="form-control form-control-lg" type="text" placeholder="" />
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="mt-2 mb-3">
-                                <label for="largeInput" class="form-label">UK to Sri Lanka Per KG Price</label>
-                                <input id="largeInput" class="form-control form-control-lg" type="text"
-                                    placeholder="" />
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="mt-2 mb-3">
-                                <label for="largeInput" class="form-label">Sri Lanka to UK Delivery and collection fee less than 12kg</label>
-                                <input id="largeInput" class="form-control form-control-lg" type="text" placeholder="" />
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="mt-2 mb-3">
-                                <label for="largeInput" class="form-label">Sri Lanka to UK Delivery and collection fee more than 12kg</label>
-                                <input id="largeInput" class="form-control form-control-lg" type="text"
-                                    placeholder="" />
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="mt-2 mb-3">
-                                <label for="largeInput" class="form-label">UK to Sri Lanka delivery and collection fee less than 20kg Western Provience</label>
-                                <input id="largeInput" class="form-control form-control-lg" type="text" placeholder="" />
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="mt-2 mb-3">
-                                <label for="largeInput" class="form-label">UK to Sri Lanka delivery and collection fee more than 20kg Western Provience</label>
-                                <input id="largeInput" class="form-control form-control-lg" type="text"
-                                    placeholder="" />
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="mt-2 mb-3">
-                                <label for="largeInput" class="form-label">UK to Sri Lanka delivery and collection fee less than 20kg Out of Western Provience</label>
-                                <input id="largeInput" class="form-control form-control-lg" type="text" placeholder="" />
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="mt-2 mb-3">
-                                <label for="largeInput" class="form-label">UK to Sri Lanka delivery and collection fee more than 20kg Out of Western Provience</label>
-                                <input id="largeInput" class="form-control form-control-lg" type="text"
-                                    placeholder="" />
-                            </div>
-                        </div>
-                    </div>
-
+                        <br>
+                        <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Update Quote Settings</button>
+                    </form>
                 </div>
 
 
