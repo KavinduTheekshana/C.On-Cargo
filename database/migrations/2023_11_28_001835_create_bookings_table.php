@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('sender_id');
             $table->string('receiver_id');
             $table->string('user_id');
+            $table->string('invoice_id')->nullable();
             $table->string('width');
             $table->string('height');
             $table->string('length');

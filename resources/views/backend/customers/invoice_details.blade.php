@@ -21,7 +21,7 @@
                         <td>{{ $invoice->receiver->country }}</td>
                         <td>{{ $invoice->total_fee }}</td>
                         <td>
-                            <a type="button" href="{{ route('invoice.preview', ['id' => $invoice->id]) }}" title="Invoice"
+                            <a type="button" href="{{ route('invoice.preview', ['id' => $invoice->id]) }}" title="Invoice" target="_blank"
                                 class="btn btn-icon btn-primary btn-fab demo waves-effect waves-light m-1">
                                 <i class="tf-icons mdi mdi-file-document-outline"></i>
                             </a>

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('sender_id');
             $table->string('user_id');
             $table->string('receiver_id');
+            $table->string('booking_id')->nullable();
             $table->string('collection_fee')->default('0');
             $table->string('handling_fee')->default('0');
             $table->string('total_fee');

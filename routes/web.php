@@ -73,7 +73,7 @@ Route::middleware(['userOnly'])->group(function () {
     Route::get('/booking/delete/{id}', [BookingController::class, 'delete'])->name('booking.delete');
     Route::post('/regularuser/password/update', [ProfileController::class, 'updatePassword'])->name('regularuser.password.update');
 });
-
+Route::get('/invoice/delete/booking/{id}', [InvoiceController::class, 'delete_booking'])->name('invoice.delete.booking');
 
 // Error Route
 Route::get('/error', function () {
@@ -104,6 +104,8 @@ Route::middleware(['adminOnly'])->group(function () {
     Route::get('/booking/diactive/{id}', [BookingController::class, 'diactive'])->name('booking.diactive');
     Route::get('/booking/active/{id}', [BookingController::class, 'active'])->name('booking.active');
     Route::get('/copy-customer/{customer_id}', [BookingController::class, 'copyCustomer'])->name('copy.customer');
+    Route::post('invoice/store/booking', [InvoiceController::class, 'booking'])->name('invoices.store.booking');
+
 
     // settings
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings');

@@ -14,7 +14,7 @@
 
 
             <div class="col-lg-9 col-12 mb-lg-0 mb-4">
-                <form action="{{ route('invoices.store') }}" method="POST">
+                <form action="{{ route('invoices.store.booking') }}" method="POST">
                     @csrf
                     <div class="card invoice-preview-card">
                         <div class="card-body">
@@ -122,7 +122,8 @@
                                     </div>
                                     <div class="col-6 pr-100">
                                         <h6 class="pb-2">Consignee Details:</h6>
-                                        <input type="hidden" id="receiver_id" name="receiver_id" value="{{ $receiver->id }}">
+                                        <input type="hidden" id="receiver_id" name="receiver_id"
+                                            value="{{ $receiver->id }}">
                                         <p id="receiverDetails" class="mb-1" <b>Name: </b> {{ $receiver->firstname }}
                                             {{ $receiver->lastname }} <br>
                                             <b>Address: </b> {{ $receiver->address }} <br>
@@ -141,7 +142,7 @@
 
 
 
-
+                                <input type="hidden" name="booking_id" value="{{ $booking->id }}">
 
 
                             </div>

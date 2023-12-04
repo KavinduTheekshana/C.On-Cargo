@@ -12,8 +12,10 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Mail\PdfMail;
+use App\Models\Booking;
 use App\Models\Item;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
 {
@@ -63,9 +65,12 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        $customers = Customer::where('status', 1)
-            ->where('user_id', Auth::id())
-            ->get();
+        $customers = DB::table('customers')
+        ->join('users', 'customers.user_id', '=', 'users.id')
+        ->where('users.role', '!=', 1)
+        ->whereNull('customers.deleted_at') // Add this line to filter out soft-deleted records
+        ->select('customers.*')
+        ->get();
         $lastInvoiceId = Invoice::max('id');
         $nextInvoiceId = $lastInvoiceId + 1;
         $nextInvoiceNumber = str_pad($nextInvoiceId, 5, '0', STR_PAD_LEFT);
@@ -101,6 +106,47 @@ class InvoiceController extends Controller
         foreach ($request->items as $itemData) {
             $invoice->items()->create($itemData);
         }
+        if ($request->input('action') == 'save') {
+            return redirect()->route('invoice')->with('status', 'Invoice created successfully.');
+        } elseif ($request->input('action') == 'preview') {
+            return view('backend.invoice.preview', compact('invoice'))->with('status', 'Invoice created successfully.');
+        }
+    }
+
+    public function booking(Request $request)
+    {
+        // Validation can be added here
+        $this->validate($request, [
+            'invoice_id' => 'required|string|max:255',
+            'booking_id' => 'required',
+            'date' => 'required|date',
+            'job_number' => 'required|string|max:255',
+            'customer_id' => 'required|integer|exists:customers,id',
+            'sender_id' => 'required|integer|exists:customers,id',
+            'receiver_id' => 'required|integer|exists:customers,id',
+            'total_fee' => 'required|numeric',
+            'note' => 'nullable|string'
+        ]);
+
+
+        $invoiceData = $request->only([
+            'invoice_id', 'date', 'job_number', 'customer_id', 'sender_id','booking_id',
+            'receiver_id', 'collection_fee', 'handling_fee', 'total_fee', 'note'
+        ]);
+        $invoiceData['user_id'] = Auth::id();
+        $invoice = Invoice::create($invoiceData);
+        $invoiceId = $invoice->id;
+        foreach ($request->items as $itemData) {
+            $invoice->items()->create($itemData);
+        }
+
+        Booking::where('id', $request->input('booking_id'))
+        ->update(['invoice_id' => $invoiceId]);
+
+        $booking = Booking::find($request->input('booking_id'));
+        $booking->status = '1';
+        $booking->save();
+
         if ($request->input('action') == 'save') {
             return redirect()->route('invoice')->with('status', 'Invoice created successfully.');
         } elseif ($request->input('action') == 'preview') {
@@ -168,6 +214,21 @@ class InvoiceController extends Controller
     public function delete($id)
     {
         $Invoice = Invoice::find($id);
+        $Invoice->delete();
+        return response()->json(['message' => 'Invoice deleted successfully']);
+    }
+
+    public function delete_booking($id)
+    {
+        $Invoice = Invoice::find($id);
+        $booking_id = $Invoice->booking_id;
+        // return response()->json($booking_id);
+        Booking::where('id', $booking_id)
+        ->update(['invoice_id' => null]);
+
+        $booking = Booking::find($booking_id);
+        $booking->status = '0';
+        $booking->save();
         $Invoice->delete();
         return response()->json(['message' => 'Invoice deleted successfully']);
     }

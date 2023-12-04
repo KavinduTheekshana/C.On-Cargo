@@ -174,12 +174,12 @@
                             @enderror
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
-                            <select name="country" id="country" class="select2 form-select">
-                                <option value="">Select</option>
-                                <option value="Sri Lanka">Sri Lanka</option>
-                                <option value="United Kingdom">United Kingdom</option>
-                            </select>
-                            <label for="country">Country</label>
+
+
+                            <input type="text" id="add-user-country" class="form-control"
+                            placeholder="United Kingdom" aria-label="jdoe1" name="country"
+                            value="{{ old('country') }}" />
+                        <label for="add-user-company">Country</label>
                             @error('country')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror

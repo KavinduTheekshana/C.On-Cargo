@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Settings;
 use Illuminate\Http\Request;
 
 class QuoteController extends Controller
 {
     public function handleFormSubmission(Request $request)
     {
+        $settings = Settings::all();
         // Retrieve form data from the request
         $destination = $request->input('destination');
         $deliveryType = $request->input('delivery_type'); // Corrected typo in the variable name
@@ -18,17 +20,17 @@ class QuoteController extends Controller
         $length = $request->input('length');
 
         // Constants for charges and fees
-        $sl2uk_charges = [1 => 22.00, 2 => 30.00, 3 => 34.00, 4 => 36.00, 5 => 38.00];
-        $uk2sl_charges = [1 => 7.50, 2 => 15.00, 3 => 22.00, 4 => 30.00, 5 => 37.50];
-        $sl2uk_delivery_and_collection_fee_less_than_12kg = 15;
-        $sl2uk_delivery_and_collection_fee_more_than_12kg = 20;
-        $uk2sl_delivery_and_collection_fee_less_than_20kg_wp = 15;
-        $uk2sl_delivery_and_collection_fee_more_than_20kg_wp = 20;
-        $uk2sl_delivery_and_collection_fee_less_than_20kg_owp = 20;
-        $uk2sl_delivery_and_collection_fee_more_than_20kg_owp = 25;
-        $per_kg_price_sl2uk = 4;
-        $per_kg_price_uk2sl_personal = 5;
-        $per_kg_price_uk2sl_commercial = 7.5;
+        $sl2uk_charges = [1 => $settings->sltouk1kg, 2 => $settings->sltouk2kg, 3 => $settings->sltouk3kg, 4 => $settings->sltouk4kg, 5 => $settings->sltouk5kg];
+        $uk2sl_charges = [1 => $settings->uktosl1kg, 2 => $settings->uktosl2kg, 3 => $settings->uktosl3kg, 4 => $settings->uktosl4kg, 5 => $settings->uktosl5kg];
+        $sl2uk_delivery_and_collection_fee_less_than_12kg = $settings->sltoukdeandcolless12;
+        $sl2uk_delivery_and_collection_fee_more_than_12kg = $settings->sltoukdeandcolmore12;
+        $uk2sl_delivery_and_collection_fee_less_than_20kg_wp = $settings->uktosldeandcolless20wp;
+        $uk2sl_delivery_and_collection_fee_more_than_20kg_wp = $settings->uktosldeandcolmore20wp;
+        $uk2sl_delivery_and_collection_fee_less_than_20kg_owp = $settings->uktosldeandcolless20owp;
+        $uk2sl_delivery_and_collection_fee_more_than_20kg_owp = $settings->uktosldeandcolmore20owp;
+        $per_kg_price_sl2uk = $settings->sltoukpkg;
+        $per_kg_price_uk2sl_personal = $settings->uktoslpkgpersonal;
+        $per_kg_price_uk2sl_commercial = $settings->uktoslpkgcommercial;
 
         // Initialize result and total
         $result = "";

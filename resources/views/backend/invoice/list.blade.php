@@ -76,11 +76,20 @@
                                 </a>
 
                                 @if (auth()->user() && auth()->user()->role == 0)
+                                    @if ($item->booking_id)
+                                    <button type="button" onclick="openSweetAlert2({{ $item->id }})" title="Delete"
+                                        data-toggle="tooltip"
+                                        class="btn btn-icon btn-danger btn-fab demo waves-effect waves-light m-1">
+                                        <i class="tf-icons mdi mdi-trash-can-outline"></i>
+                                    </button>
+                                    @else
                                     <button type="button" onclick="openSweetAlert({{ $item->id }})" title="Delete"
                                         data-toggle="tooltip"
                                         class="btn btn-icon btn-danger btn-fab demo waves-effect waves-light m-1">
                                         <i class="tf-icons mdi mdi-trash-can-outline"></i>
                                     </button>
+                                    @endif
+
                                 @endif
                             </td>
                         </tr>
@@ -326,6 +335,43 @@
                 if (result.isConfirmed) {
 
                     fetch(`/invoice/delete/${$id}`, {
+                            method: 'GET',
+                            headers: {
+                                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                            },
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.message === 'Invoice deleted successfully') {
+                                Swal.fire('Deleted!', 'The Invoice has been deleted.', 'success');
+                                // Reload the current page after a short delay
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 1000); // 1000 milliseconds = 1 second
+                            } else {
+                                Swal.fire('Error', 'Something went wrong!', 'error');
+                            }
+                        });
+
+
+                }
+            })
+        }
+
+        function openSweetAlert2($id) {
+            console.log($id);
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    fetch(`/invoice/delete/booking/${$id}`, {
                             method: 'GET',
                             headers: {
                                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
