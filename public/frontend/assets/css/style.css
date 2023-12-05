@@ -104,7 +104,7 @@ input[type="number"] {
 .color-brown {
     color: #b51f38 !important;
 }
-input {
+.appiontment-form input {
     text-transform: none !important;
 }
 .quote-form {
