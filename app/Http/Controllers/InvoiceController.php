@@ -49,7 +49,7 @@ class InvoiceController extends Controller
 
     public function index()
     {
-        if (Auth::user()->role == '0') {
+        if (Auth::user()->role == 0) {
             $invoices = Invoice::with(['sender', 'receiver'])
                 ->get();
         } else {
@@ -65,12 +65,18 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        $customers = DB::table('customers')
-        ->join('users', 'customers.user_id', '=', 'users.id')
-        ->where('users.role', '!=', 1)
-        ->whereNull('customers.deleted_at') // Add this line to filter out soft-deleted records
-        ->select('customers.*')
-        ->get();
+        if (Auth::user()->role == 0) {
+            $customers = Customer::all();
+        } else {
+            $customers = Customer::where('user_id', Auth::id())
+                ->get();
+        }
+        // $customers = DB::table('customers')
+        // ->join('users', 'customers.user_id', '=', 'users.id')
+        // ->where('users.role', '!=', 1)
+        // ->whereNull('customers.deleted_at') // Add this line to filter out soft-deleted records
+        // ->select('customers.*')
+        // ->get();
         $lastInvoiceId = Invoice::max('id');
         $nextInvoiceId = $lastInvoiceId + 1;
         $nextInvoiceNumber = str_pad($nextInvoiceId, 5, '0', STR_PAD_LEFT);
@@ -130,7 +136,7 @@ class InvoiceController extends Controller
 
 
         $invoiceData = $request->only([
-            'invoice_id', 'date', 'job_number', 'customer_id', 'sender_id','booking_id',
+            'invoice_id', 'date', 'job_number', 'customer_id', 'sender_id', 'booking_id',
             'receiver_id', 'collection_fee', 'handling_fee', 'total_fee', 'note'
         ]);
         $invoiceData['user_id'] = Auth::id();
@@ -141,7 +147,7 @@ class InvoiceController extends Controller
         }
 
         Booking::where('id', $request->input('booking_id'))
-        ->update(['invoice_id' => $invoiceId]);
+            ->update(['invoice_id' => $invoiceId]);
 
         $booking = Booking::find($request->input('booking_id'));
         $booking->status = '1';
@@ -224,7 +230,7 @@ class InvoiceController extends Controller
         $booking_id = $Invoice->booking_id;
         // return response()->json($booking_id);
         Booking::where('id', $booking_id)
-        ->update(['invoice_id' => null]);
+            ->update(['invoice_id' => null]);
 
         $booking = Booking::find($booking_id);
         $booking->status = '0';

@@ -25,7 +25,7 @@
 
                             <div class="col-lg-12 col-md-12">
                                 <div class="mb-20">
-                                    <input type="text" id="invoice_number" name="invoice_number" value="DW-00001"
+                                    <input type="text" id="invoice_number" name="invoice_number"
                                         placeholder="Invoice Number">
                                     @error('invoice_number')
                                         <p class="text-danger text-left">{{ $message }}</p>

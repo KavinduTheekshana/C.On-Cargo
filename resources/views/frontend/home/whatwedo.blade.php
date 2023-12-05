@@ -4,7 +4,7 @@
     transform: scaleX(-1);">
 
     </div>
-    <div data-animscroll="fade-left" class="container-fluid">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-xl-6 offset-xl-6 col-lg-6 offset-lg-6">
                 <div class="features-02-wrapper">

@@ -61,7 +61,7 @@
 @endsection
 
 @push('scripts')
-<script>
+{{-- <script>
     $(document).ready(function(){
       // Add smooth scrolling to all links
       $(".scroll-link").on('click', function(event) {
@@ -86,6 +86,6 @@
         } // End if
       });
     });
-  </script>
+  </script> --}}
 
 @endpush

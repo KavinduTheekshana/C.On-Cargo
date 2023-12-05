@@ -16,6 +16,7 @@
     <!-- Place favicon.ico in the root directory -->
 
     <!-- CSS here -->
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/animate.min.css') }}">
@@ -26,7 +27,6 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/default.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {{-- Anim Trap  --}}

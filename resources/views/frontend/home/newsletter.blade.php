@@ -4,7 +4,7 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-xl-6 offset-xl-4  col-lg-6 offset-lg-6" data-animscroll="fade-left" data-animscroll-delay="500">
+            <div class="col-xl-6 offset-xl-4  col-lg-6 offset-lg-6" data-animscroll-delay="500">
                 <div class="single-02-newsletters mb-30">
                     <div class="section-title pos-rel mb-40">
                         <span class="line">Our Newsletters</span>

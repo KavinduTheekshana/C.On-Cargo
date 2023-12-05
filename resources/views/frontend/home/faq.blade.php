@@ -95,7 +95,7 @@
                             </div>
                         </div>
                     </div>
-                    <div data-animscroll="fade-left" data-animscroll-delay="500" class="col-xl-6 col-lg-6 mb-30">
+                    <div  data-animscroll-delay="500" class="col-xl-6 col-lg-6 mb-30">
                         <div class="faq-img">
                             <img src="{{ asset('frontend/assets/img/bg/faq.jpg')}}" alt="">
                         </div>
