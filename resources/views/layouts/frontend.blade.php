@@ -32,7 +32,6 @@
     {{-- Anim Trap  --}}
     <link rel="stylesheet" href="{{ asset('frontend/assets/plugin/animtrap/css/animtrap.css') }}">
 
-    @vite('resources/js/app.js')
 </head>
 
 <body>
