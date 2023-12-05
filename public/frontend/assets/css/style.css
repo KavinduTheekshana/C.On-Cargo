@@ -173,9 +173,13 @@ input {
         margin: 0 !important;
     }
     .mb-130 {
-      margin-bottom: 0 !important;
-  }
-  .header-right{
-    display: none !important;
-  }
+        margin-bottom: 0 !important;
+    }
+    .header-right {
+        display: none !important;
+    }
 }
+#contact-form .form-2-box input::placeholder {
+    color: #fff !important; /* Set the desired color for the placeholder text */
+}
+

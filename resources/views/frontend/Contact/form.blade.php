@@ -9,7 +9,7 @@
                     <span class="border-right-1"></span>
                     <h2>Don't Hesitated To Contact Us</h2>
                 </div>
-            </div> 
+            </div>
         </div>
         <div class="row" data-animscroll="fade-up" data-animscroll-delay="500">
             <div class="col-xl-4 col-lg-4">
@@ -45,26 +45,27 @@
             </div>
             <div class="col-xl-8 col-lg-8">
                 <div class="contact-us-wrapper">
-                    <form id="contact-form" action="assets/mail.php" method="POST">
+                    <form id="contact-form">
+                        @csrf
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-2-box user-2-icon mb-30">
-                                    <input type="text" name="name" placeholder="Your Name">
+                                    <input type="text" id="name" name="name" placeholder="Your Name">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-2-box email-2-icon mb-30">
-                                    <input type="text" name="email" placeholder="Email Address">
+                                    <input type="text" id="email" name="email" placeholder="Email Address">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-2-box phone-2-icon mb-30">
-                                    <input type="text" name="phone" placeholder="Phone Number">
+                                    <input type="text" id="phone" name="phone" placeholder="Phone Number">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-2-box subject-2-icon mb-30">
-                                    <input type="text" name="subject" placeholder="Your Subject">
+                                    <input type="text" id="subject" name="subject" placeholder="Your Subject">
                                 </div>
                             </div>
                             <div class="col-lg-12">
@@ -77,9 +78,52 @@
                             </div>
                         </div>
                     </form>
-                    <p class="ajax-response"></p>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script>
+     // submit form
+     $(document).ready(function() {
+            $('#contact-form').submit(function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                var formData = {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    name: $('#name').val(),
+                    email: $('#email').val(),
+                    phone: $('#phone').val(),
+                    subject: $('#subject').val(),
+                    message: $('#message').val(),
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('contactsubmit') }}',
+                    data: formData,
+                    success: function(result) {
+                        console.log(result);
+                        alertFunctionContactForm("Success",result.message, "success");
+                        $('#contact-form')[0].reset();
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                        alertFunctionContactForm("Error",error, "error");
+                    }
+                });
+            });
+        });
+
+        function alertFunctionContactForm(title, message, icon) {
+            Swal.fire({
+                title: title,
+                text: message,
+                icon: icon,
+            })
+        }
+</script>
+@endpush

@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\AgentsController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LabelController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\SettingsController;
@@ -63,6 +65,8 @@ Route::get('user/forgot-password', function () {
 
 Route::post('regularuser', [ProfileController::class, 'regularuser'])->name('regularuser');
 Route::post('/quote/form', [QuoteController::class, 'handleFormSubmission'])->name('quote.form');
+Route::post('/newsletter', [NewsletterController::class, 'store'])->name('newsletter');
+Route::post('/contactsubmit', [ContactController::class, 'store'])->name('contactsubmit');
 
 
 Route::middleware(['userOnly'])->group(function () {
@@ -107,12 +111,24 @@ Route::middleware(['adminOnly'])->group(function () {
     Route::post('invoice/store/booking', [InvoiceController::class, 'booking'])->name('invoices.store.booking');
     Route::get('/invoice/delete/booking/{id}', [InvoiceController::class, 'delete_booking'])->name('invoice.delete.booking');
 
+    // Newsletter
+    Route::get('/newsletters', [NewsletterController::class, 'index'])->name('newsletters');
+    Route::get('/download-email-list', [NewsletterController::class,'downloadEmailList'])->name('download.email.list');
+
+    // Contact Form Submissions
+    Route::get('/contactform', [ContactController::class, 'index'])->name('contactform');
+    Route::get('/contact/delete/{id}', [ContactController::class, 'delete'])->name('contact.delete');
+    Route::get('/contact/active/{id}', [ContactController::class, 'active'])->name('contact.active');
+    Route::get('/contact/diactive/{id}', [ContactController::class, 'diactive'])->name('contact.diactive');
+    Route::get('/contact/{contactid}/details', [ContactController::class, 'getContactDetails'])->name('contact.details');
+
+
 
     // settings
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
     Route::post('/settings/update', [SettingsController::class, 'update'])->name('settings.update');
 });
-    Route::middleware('adminOrAgent')->group(function () {
+Route::middleware('adminOrAgent')->group(function () {
     // Dashboard Routes
     Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 

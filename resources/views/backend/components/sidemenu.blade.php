@@ -122,6 +122,23 @@
                     <div data-i18n="Settings">Settings</div>
                 </a>
             </li>
+
+            <li class="menu-header fw-medium mt-4">
+                <span class="menu-header-text">Submitions</span>
+            </li>
+            <li class="menu-item {{ request()->is('newsletters') ? 'active' : '' }}">
+                <a href="{{ route('newsletters') }}" class="menu-link">
+                    <i class="menu-icon tf-icons mdi mdi-newspaper-variant-multiple-outline"></i>
+                    <div data-i18n="Newsletters">Newsletters</div>
+                </a>
+            </li>
+
+            <li class="menu-item {{ request()->is('contactform') ? 'active' : '' }}">
+                <a href="{{ route('contactform') }}" class="menu-link">
+                    <i class="menu-icon tf-icons mdi mdi-contacts-outline"></i>
+                    <div data-i18n="Contact">Contact</div>
+                </a>
+            </li>
         @endif
     </ul>
 </aside>
