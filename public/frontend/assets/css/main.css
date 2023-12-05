@@ -14,7 +14,7 @@
     1. Theme default css
     2. header
     3. features
-    4. about 
+    4. about
     5. cta
     6. services
     7. testimonial
@@ -5554,7 +5554,6 @@ ul.cat li a:hover {
   color: #282828;
   border: 2px solid #eeeeee;
   font-size: 16px;
-  text-transform: capitalize;
   border-radius: 0;
   font-weight: 600;
   font-family: "Poppins";
