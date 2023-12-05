@@ -14,7 +14,7 @@
                 <div class="col-xl-8 col-lg-9">
                     <div class="header-right f-right d-none d-lg-block">
                         <div class="header-info f-right">
-                            <span><i class="far fa-phone"></i>+44 75 032 88 488</span>
+                            <span><i class="far fa-phone"></i>+44 7503 288 488</span>
                         </div>
                         <div class="header-right-img f-right">
                             <img src="{{ asset('frontend/assets/img/shape/line-1.png') }}" alt="">
@@ -33,7 +33,7 @@
                                         href="{{ route('about') }}">About </a></li>
                                 <li class="{{ request()->is('services') ? 'active' : '' }}"><a
                                         href="{{ route('services') }}">Services </a></li>
-                                {{-- <li class="{{ request()->is('tracking') ? 'active' : '' }}"><a href="{{ route('/') }}">Tracking </a></li> --}}
+                                <li class="{{ request()->is('user/tracking') ? 'active' : '' }}"><a href="{{ route('user.tracking') }}">Tracking </a></li>
                                 <li class="{{ request()->is('contact') ? 'active' : '' }}"><a
                                         href="{{ route('contact') }}">Contact </a></li>
                                 @auth

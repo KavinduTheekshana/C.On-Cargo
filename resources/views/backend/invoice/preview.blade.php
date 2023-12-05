@@ -308,7 +308,7 @@
                         <label for="invoice-to">To</label>
                     </div>
                     <div class="form-floating form-floating-outline mb-4">
-                        <input type="text" class="form-control" id="email-subject" value="Invoice of C.On Cargo Ltd"
+                        <input type="text" class="form-control" id="email-subject" value="Invoice of C.ON Cargo Ltd"
                             placeholder="Invoice regarding goods" />
                         <label for="invoice-subject">Subject</label>
                     </div>

@@ -9,7 +9,7 @@ class Tracking extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['invoice_id', 'stop_id', 'departed_at', 'arrived_at', /* other fields */];
+    protected $fillable = ['invoice_id', 'stop_id', 'departed_at', 'arrived_at','tracking_id' /* other fields */];
 
     public function invoice()
     {

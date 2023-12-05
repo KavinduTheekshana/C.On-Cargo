@@ -59,7 +59,6 @@ class TrackingController extends Controller
 
         foreach ($invoices as $invoice) {
             $tracking = Tracking::where('invoice_id', $invoice->id)->value('id');
-
             if ($tracking) {
                 $newData = ['stop_id' => $validated['stopid']];
 
@@ -81,13 +80,13 @@ class TrackingController extends Controller
                 // Create a new record
                 Tracking::create([
                     'invoice_id' => $invoice->id,
+                    'tracking_id' => $invoice->invoice_id,
                     'stop_id' => $validated['stopid'],
                     'departed_at' => $validated['departed_at'],
                     'arrived_at' => $validated['arrived_at'],
                 ]);
             }
         }
-
         return response()->json(['message' => '2']);
     }
 
@@ -95,6 +94,16 @@ class TrackingController extends Controller
     {
         $invoice = Invoice::with(['sender', 'receiver', 'items','tracking'])->find($invoiceId);
         return response()->json($invoice);
+    }
+
+    public function tracking_invoice(Request $request)
+    {
+        $validated = $request->validate([
+            'invoice_number' => 'required',
+        ]);
+
+        $tracking = Tracking::where('tracking_id',$validated['invoice_number'])->first();
+        return response()->json($tracking);
     }
 
 }

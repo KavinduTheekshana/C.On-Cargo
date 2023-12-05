@@ -42,6 +42,11 @@ Route::get('contact', function () {
     return view('frontend.contact.index');
 })->name('contact');
 
+Route::get('user/tracking', function () {
+    return view('frontend.tracking.index');
+})->name('user.tracking');
+Route::post('tracking/invoice', [TrackingController::class, 'tracking_invoice'])->name('tracking.invoice');
+
 Route::get('user/login', function () {
     if (Auth::check()) {
         return redirect('user/dashboard');

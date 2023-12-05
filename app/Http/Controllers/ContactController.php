@@ -74,4 +74,5 @@ class ContactController extends Controller
         $contact = Contact::find($contactid);
         return response()->json($contact);
     }
+
 }
