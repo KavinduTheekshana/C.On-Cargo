@@ -69,13 +69,15 @@
                                     <i class="tf-icons mdi mdi-receipt-text-check-outline"></i>
                                 </a>
 
+
+                                @if (auth()->user() && auth()->user()->role == 0)
+
                                 <a type="button" href="{{ route('invoice.edit', ['id' => $item->id]) }}"
                                     title="Edit Invoice" data-toggle="tooltip" target="_blank"
                                     class="btn btn-icon btn-info btn-fab demo waves-effect waves-light m-1">
                                     <i class="tf-icons mdi mdi-file-edit-outline"></i>
                                 </a>
 
-                                @if (auth()->user() && auth()->user()->role == 0)
                                     @if ($item->booking_id)
                                     <button type="button" onclick="openSweetAlert2({{ $item->id }})" title="Delete"
                                         data-toggle="tooltip"

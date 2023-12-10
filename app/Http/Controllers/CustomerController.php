@@ -14,11 +14,12 @@ class CustomerController extends Controller
     public function index()
     {
         if (Auth::user()->role == '0') {
-            $customers = DB::table('customers')
-                ->join('users', 'customers.user_id', '=', 'users.id')
-                ->where('users.role', '!=', 1)
-                ->select('customers.*')
-                ->get();
+            // $customers = DB::table('customers')
+            //     ->join('users', 'customers.user_id', '=', 'users.id')
+            //     ->where('users.role', '!=', 1)
+            //     ->select('customers.*')
+            //     ->get();
+            $customers = Customer::all();
         } else {
             $customers = Customer::where('user_id', Auth::id())->get();
         }

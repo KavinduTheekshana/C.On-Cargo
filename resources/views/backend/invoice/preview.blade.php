@@ -83,7 +83,7 @@
                                 <div class="col-md-6">
                                     <h6 class="pb-0"><b>Consignee Details:</b></h6>
                                     <p class="mb-1"><b class="black">Name:</b> {{ $invoice->receiver->firstname }}
-                                        {{ $invoice->sender->lastname }}</p>
+                                        {{ $invoice->receiver->lastname }}</p>
                                     <p class="mb-1"><b class="black">Address:</b> {{ $invoice->receiver->address }}-{{ $invoice->receiver->country }}</p>
                                     <p class="mb-1"><b class="black">Post Code:</b> {{ $invoice->receiver->postcode }}</p>
                                     <p class="mb-1"><b class="black">Email:</b> {{ $invoice->receiver->email }}</p>
