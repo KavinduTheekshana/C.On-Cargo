@@ -176,9 +176,18 @@
                         <div class="form-floating form-floating-outline mb-4">
 
 
-                            <input type="text" id="add-user-country" class="form-control"
+                            {{-- <input type="text" id="add-user-country" class="form-control"
                             placeholder="United Kingdom" aria-label="jdoe1" name="country"
-                            value="{{ old('country') }}" />
+                            value="{{ old('country') }}" /> --}}
+                            <select name="country" id="customer_country" class="select form-select">
+                                <option value="">Select</option>
+                                <option value="Sri Lanka">Sri Lanka</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="France">France</option>
+                                <option value="India">India</option>
+                                <option value="Italy">Italy</option>
+                                <option value="Canada">Canada</option>
+                            </select>
                         <label for="add-user-company">Country</label>
                             @error('country')
                                 <p class="text-danger">{{ $message }}</p>
@@ -259,6 +268,10 @@
                                 <option value="">Select</option>
                                 <option value="Sri Lanka">Sri Lanka</option>
                                 <option value="United Kingdom">United Kingdom</option>
+                                <option value="France">France</option>
+                                <option value="India">India</option>
+                                <option value="Italy">Italy</option>
+                                <option value="Canada">Canada</option>
                             </select>
                             <label for="customer_country">Country</label>
                             @error('customer_country')
