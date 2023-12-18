@@ -112,7 +112,7 @@
         $(document).ready(function() {
             $('#bookings').DataTable({
                 "order": [
-                    [0, "desc"]
+                    [2, "desc"]
                 ]
             });
         });
