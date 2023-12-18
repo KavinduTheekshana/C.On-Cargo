@@ -127,10 +127,12 @@
     <script>
         // these phrases will repeat
         const phrases = [
+            "France",
+            "India",
+            "Italy",
+            "Canada",
             "Sri Lanka",
             "United Kingdom",
-            "India",
-            "France"
         ];
 
         // start with initial random phrase from the collection
