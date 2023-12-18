@@ -28,7 +28,12 @@ class HomeController extends Controller
                 ->where('users.role', '!=', 1)
                 ->select('customers.*')
                 ->count();
-        $invoice_count = Invoice::where('user_id', Auth::id())->count();
+
+        if (Auth::user()->role == 0) {
+            $invoice_count = Invoice::count();
+        } else {
+            $invoice_count = Invoice::where('user_id', Auth::id())->count();
+        }
         return view('backend.dashboard.dashboard', compact('agents_count', 'pending_bookings','customers_count','invoice_count'));
     }
 }
