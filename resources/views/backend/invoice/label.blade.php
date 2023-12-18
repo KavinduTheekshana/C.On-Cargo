@@ -59,7 +59,7 @@
                                                 <h3 class="pb-0"><b class="black">Consignee Details:</b></h3>
                                                 <hr class="black">
                                                 <h4 class="mb-2"><b>Name:</b> {{ $invoice->receiver->firstname }}
-                                                    {{ $invoice->sender->lastname }}</p>
+                                                    {{ $invoice->receiver->lastname }}</p>
                                                     <hr class="black">
                                                     <h4 class="mb-2"><b>Address:</b> <br> {{ $invoice->receiver->address }} - {{ $invoice->receiver->country }}
                                                     </h4>
