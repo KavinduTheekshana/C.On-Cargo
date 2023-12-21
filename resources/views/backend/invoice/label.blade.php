@@ -282,7 +282,7 @@
                 while (heightLeft >= 0) {
                     pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
                     heightLeft -= pageHeight;
-                    if (heightLeft > 0) {
+                    if (heightLeft > 10) {
                         position = -heightLeft; // Move content up by the remaining height
                         pdf.addPage(); // Add a new page
                     }

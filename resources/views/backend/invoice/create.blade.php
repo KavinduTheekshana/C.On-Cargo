@@ -545,8 +545,7 @@
                 let price = parseFloat($(this).find('.price-input').val()) || 0;
 
                 let volume = (width * height * length) / 5000; // Example calculation
-                $(this).find('.invoice-volume-weight').val(volume.toFixed(
-                    2)); // Display the Volume Weight in the input
+                $(this).find('.invoice-volume-weight').val(volume); // Display the Volume Weight in the input
 
                 // Compare weight input and volume input
                 if (volume > weight) {
