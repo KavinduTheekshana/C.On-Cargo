@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Customer;
 use App\Models\Invoice;
+use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +36,14 @@ class BookingController extends Controller
         $lastInvoiceId = Invoice::max('id');
         $nextInvoiceId = $lastInvoiceId + 1;
         $nextInvoiceNumber = str_pad($nextInvoiceId, 5, '0', STR_PAD_LEFT);
-        return view('backend.invoice.createbooking', compact('booking', 'nextInvoiceNumber', 'customers', 'sender', 'receiver'));
+
+        $users = User::where('role', 1)->get();
+        $identities = $users->map(function ($user) {
+            return ['id' => $user->id, 'identity' => $user->identity];
+        });
+
+
+        return view('backend.invoice.createbooking', compact('booking', 'nextInvoiceNumber', 'customers', 'sender', 'receiver', 'identities'));
     }
 
     public function copyCustomer($customer_id)
