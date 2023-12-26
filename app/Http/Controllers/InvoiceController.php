@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 use App\Mail\PdfMail;
 use App\Models\Booking;
 use App\Models\Item;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -60,9 +61,7 @@ class InvoiceController extends Controller
         return view('backend.invoice.list', compact('invoices'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         if (Auth::user()->role == 0) {
@@ -81,7 +80,12 @@ class InvoiceController extends Controller
         $nextInvoiceId = $lastInvoiceId + 1;
         $nextInvoiceNumber = str_pad($nextInvoiceId, 5, '0', STR_PAD_LEFT);
         // dd($nextInvoiceNumber);
-        return view('backend.invoice.create', compact('customers', 'nextInvoiceNumber'));
+        // Fetch users with role equal to 1
+        $users = User::where('role', 1)->get();
+        $identities = $users->map(function ($user) {
+            return ['id' => $user->id, 'identity' => $user->identity];
+        });
+        return view('backend.invoice.create', compact('customers', 'nextInvoiceNumber', 'identities'));
     }
 
     /**
@@ -100,13 +104,21 @@ class InvoiceController extends Controller
             'total_fee' => 'required|numeric',
             'note' => 'nullable|string'
         ]);
+        // Invoice Creating user ID
+        $invoiceUserId = $request->input('invoice_id');
+        $user = User::find($invoiceUserId);
+        $identity = $user->identity;
 
+        $lastInvoiceId = Invoice::max('id');
+        $nextInvoiceId = $lastInvoiceId + 1;
+        $nextInvoiceNumber = str_pad($nextInvoiceId, 5, '0', STR_PAD_LEFT);
 
         $invoiceData = $request->only([
-            'invoice_id', 'date', 'job_number', 'customer_id', 'sender_id',
+            'date', 'job_number', 'customer_id', 'sender_id',
             'receiver_id', 'collection_fee', 'handling_fee', 'total_fee', 'note'
         ]);
-        $invoiceData['user_id'] = Auth::id();
+        $invoiceData['user_id'] = $invoiceUserId;
+        $invoiceData['invoice_id'] =  strtoupper($identity) . "-" . $nextInvoiceNumber;
         $invoice = Invoice::create($invoiceData);
 
         foreach ($request->items as $itemData) {

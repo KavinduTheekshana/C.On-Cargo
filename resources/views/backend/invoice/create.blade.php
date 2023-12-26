@@ -59,9 +59,31 @@
                                         <dd class="col-sm-6">
                                             <div class="input-group input-group-merge disabled">
                                                 <span class="input-group-text">#</span>
-                                                <input type="text" class="form-control d-bg" readonly name="invoice_id"
-                                                    id="invoiceId"
-                                                    value="{{ strtoupper(Auth::user()->identity) }}-{{ $nextInvoiceNumber }}" />
+                                                {{-- <input type="text" class="form-control d-bg" readonly
+                                                name="invoice_id" id="invoiceId"
+                                                value="{{ strtoupper(Auth::user()->identity) }}-{{ $nextInvoiceNumber }}" /> --}}
+                                                @if (auth()->user() && auth()->user()->role == 0)
+                                                    <select  name="invoice_id" id="invoiceId" class="form-select">
+                                                        <option selected
+                                                            value="{{ strtoupper(Auth::user()->id) }}">
+                                                            {{ strtoupper(Auth::user()->identity) }}-{{ $nextInvoiceNumber }}
+                                                        </option>
+                                                        @foreach ($identities as $identity)
+                                                            <option value="{{ strtoupper($identity['id']) }}">{{ strtoupper($identity['identity']) }}-{{ $nextInvoiceNumber }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                @elseif(auth()->user()->role == 1)
+                                                <select  name="invoice_id" id="invoiceId" class="form-select">
+                                                    <option selected
+                                                        value="{{ strtoupper(Auth::user()->id) }}">
+                                                        {{ strtoupper(Auth::user()->identity) }}-{{ $nextInvoiceNumber }}
+                                                    </option>
+
+                                                </select>
+
+                                                @endif
+
+
                                             </div>
                                         </dd>
                                         <dt class="col-sm-6 mb-2 d-md-flex align-items-center justify-content-end">
@@ -155,7 +177,7 @@
                                                                 <p class="mb-2 repeater-title">Volume Weight</p>
                                                                 <input type="text" name="items[0][volume_weight]"
                                                                     class="form-control invoice-volume-weight mb-2 d-bg"
-                                                                    placeholder="00" readonly/>
+                                                                    placeholder="00" readonly />
                                                             </div>
                                                             <div class="col">
                                                                 <p class="mb-2 repeater-title">Unit Price (£)</p>
@@ -165,8 +187,9 @@
                                                             </div>
                                                             <div class="col">
                                                                 <p class="mb-2 repeater-title">Weight (KG)</p>
-                                                                <input type="number" name="items[0][weight]" step=".01"
-                                                                    class="form-control weight-input" placeholder="0" />
+                                                                <input type="number" name="items[0][weight]"
+                                                                    step=".01" class="form-control weight-input"
+                                                                    placeholder="0" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -203,15 +226,15 @@
 
                                             <div class="col">
                                                 <p class="mb-2 repeater-title">Collection & Delivery</p>
-                                                <input type="number" name="collection_fee" class="form-control mb-2" step=".01"
-                                                    value="{{ old('collection_fee', '0.00') }}" id="collection-input"
-                                                    onkeyup="calculateTotal()" placeholder="0" />
+                                                <input type="number" name="collection_fee" class="form-control mb-2"
+                                                    step=".01" value="{{ old('collection_fee', '0.00') }}"
+                                                    id="collection-input" onkeyup="calculateTotal()" placeholder="0" />
                                             </div>
                                             <div class="col">
                                                 <p class="mb-2 repeater-title">Other</p>
-                                                <input type="number" name="handling_fee" class="form-control" step=".01"
-                                                    value="{{ old('handling_fee', '0.00') }}" id="handling-input"
-                                                    onkeyup="calculateTotal()" placeholder="0" />
+                                                <input type="number" name="handling_fee" class="form-control"
+                                                    step=".01" value="{{ old('handling_fee', '0.00') }}"
+                                                    id="handling-input" onkeyup="calculateTotal()" placeholder="0" />
                                             </div>
                                         </div>
                                     </div>
@@ -308,7 +331,8 @@
                         <select id="selectCustomer" class="select2 form-select form-select-lg" data-allow-clear="true">
                             <option value="" data-address="">Select a Customer</option>
                             @foreach ($customers as $customer)
-                                <option value="{{ $customer->id }}" data-id="{{ $customer->id }}">{{ $customer->firstname }}
+                                <option value="{{ $customer->id }}" data-id="{{ $customer->id }}">
+                                    {{ $customer->firstname }}
                                     {{ $customer->lastname }} - {{ $customer->address }}
                                 </option>
                             @endforeach
@@ -348,8 +372,8 @@
 
                         <hr>
 
-                        <button type="button" class="btn btn-danger w-100 btn-lg"
-                            data-bs-toggle="offcanvas" data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd"><span
+                        <button type="button" class="btn btn-danger w-100 btn-lg" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd"><span
                                 class="mdi mdi-plus"></span> &nbsp;Add Customer</button>
 
                     </div>
