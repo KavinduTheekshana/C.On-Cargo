@@ -61,9 +61,26 @@
                                         <dd class="col-sm-6">
                                             <div class="input-group input-group-merge disabled">
                                                 <span class="input-group-text">#</span>
-                                                <input type="text" class="form-control d-bg" readonly name="invoice_id"
-                                                    id="invoiceId"
-                                                    value="{{ strtoupper(Auth::user()->identity) }}-{{ $nextInvoiceNumber }}" />
+                                                @if (auth()->user() && auth()->user()->role == 0)
+                                                <select  name="invoice_id" id="invoiceId" class="form-select">
+                                                    <option selected
+                                                        value="{{ strtoupper(Auth::user()->id) }}">
+                                                        {{ strtoupper(Auth::user()->identity) }}-{{ $nextInvoiceNumber }}
+                                                    </option>
+                                                    @foreach ($identities as $identity)
+                                                        <option value="{{ strtoupper($identity['id']) }}">{{ strtoupper($identity['identity']) }}-{{ $nextInvoiceNumber }}</option>
+                                                    @endforeach
+                                                </select>
+                                            @elseif(auth()->user()->role == 1)
+                                            <select  name="invoice_id" id="invoiceId" class="form-select">
+                                                <option selected
+                                                    value="{{ strtoupper(Auth::user()->id) }}">
+                                                    {{ strtoupper(Auth::user()->identity) }}-{{ $nextInvoiceNumber }}
+                                                </option>
+
+                                            </select>
+
+                                            @endif
                                             </div>
                                         </dd>
                                         <dt class="col-sm-6 mb-2 d-md-flex align-items-center justify-content-end">
