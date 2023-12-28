@@ -147,11 +147,21 @@ class InvoiceController extends Controller
         ]);
 
 
+        // Invoice Creating user ID
+        $invoiceUserId = $request->input('invoice_id');
+        $user = User::find($invoiceUserId);
+        $identity = $user->identity;
+
+        $lastInvoiceId = Invoice::max('id');
+        $nextInvoiceId = $lastInvoiceId + 1;
+        $nextInvoiceNumber = str_pad($nextInvoiceId, 5, '0', STR_PAD_LEFT);
+
         $invoiceData = $request->only([
-            'invoice_id', 'date', 'job_number', 'customer_id', 'sender_id', 'booking_id',
+            'date', 'job_number', 'customer_id', 'sender_id', 'booking_id',
             'receiver_id', 'collection_fee', 'handling_fee', 'total_fee', 'note'
         ]);
-        $invoiceData['user_id'] = Auth::id();
+        $invoiceData['user_id'] = $invoiceUserId;
+        $invoiceData['invoice_id'] =  strtoupper($identity) . "-" . $nextInvoiceNumber;
         $invoice = Invoice::create($invoiceData);
         $invoiceId = $invoice->id;
         foreach ($request->items as $itemData) {

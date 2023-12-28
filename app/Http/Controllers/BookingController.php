@@ -19,7 +19,6 @@ class BookingController extends Controller
         $bookings = Booking::all();
         return view('backend.bookings.bookings', compact('bookings'));
     }
-
     public function create($id)
     {
         $booking = Booking::find($id);
@@ -41,8 +40,6 @@ class BookingController extends Controller
         $identities = $users->map(function ($user) {
             return ['id' => $user->id, 'identity' => $user->identity];
         });
-
-
         return view('backend.invoice.createbooking', compact('booking', 'nextInvoiceNumber', 'customers', 'sender', 'receiver', 'identities'));
     }
 
