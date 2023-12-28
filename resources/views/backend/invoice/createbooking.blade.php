@@ -209,7 +209,7 @@
                                                             </div>
                                                             <div class="col">
                                                                 <p class="mb-2 repeater-title">Weight (KG)</p>
-                                                                <input type="number" name="items[0][weight]"
+                                                                <input type="number" name="items[0][weight]" step=".01"
                                                                     class="form-control weight-input" placeholder="0"
                                                                     value="{{ $booking->weight }}" />
                                                             </div>
@@ -248,13 +248,13 @@
 
                                             <div class="col">
                                                 <p class="mb-2 repeater-title">Collection & Delivery</p>
-                                                <input type="number" name="collection_fee" class="form-control mb-2"
+                                                <input type="number" name="collection_fee" class="form-control mb-2" step=".01"
                                                     value="{{ old('collection_fee', '0.00') }}" id="collection-input"
                                                     onkeyup="calculateTotal()" placeholder="0" />
                                             </div>
                                             <div class="col">
                                                 <p class="mb-2 repeater-title">Other</p>
-                                                <input type="number" name="handling_fee" class="form-control"
+                                                <input type="number" name="handling_fee" class="form-control" step=".01"
                                                     value="{{ old('handling_fee', '0.00') }}" id="handling-input"
                                                     onkeyup="calculateTotal()" placeholder="0" />
                                             </div>
