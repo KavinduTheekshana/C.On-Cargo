@@ -74,16 +74,15 @@
                                     <div class="pro-filter">
                                         <select id="destination" name="sender">
                                             <option selected>Choose...</option>
-                                            @forelse ($address as $item)
+                                            @foreach ($address as $item)
                                                 <option value="{{ $item->id }}">{{ $item->firstname }}
                                                     {{ $item->lastname }} |
                                                     {{ $item->address }}, {{ $item->postcode }},
                                                     {{ $item->country }}
                                                 </option>
 
-                                            @empty
-                                                <option>Please Add Address using Address Tab</option>
-                                            @endforelse
+
+                                            @endforeach
 
                                         </select>
                                     </div>
@@ -472,37 +471,84 @@
     }
 
     $(document).ready(function() {
-        $('#quote-form').submit(function(e) {
-            e.preventDefault();
-            var form = this;
-            $.ajax({
-                type: "POST",
-                url: "{{ route('user.booking.store') }}", // Laravel route
-                data: $(this).serialize(), // serializes the form's elements
-                success: function(response) {
-                    // handle success
-                    console.log(response);
-                    form.reset();
-                    Swal.fire({
-                        title: 'Success!',
-                        html: 'Booking confirmed! An agent will contact you soon. Thank you for choosing our services.<br><br>Your Booking Reference: #' +
-                            response.booking_id,
-                        icon: 'success',
-                        confirmButtonText: 'Ok'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = window.location.href.split('#')[
-                                0] + '#bookings-list';
-                            window.location.reload();
-                        }
-                    });
-                },
-                error: function(error) {
-                    // handle error
-                    console.log(error);
-                }
-            });
+    $('#quote-form').submit(function(e) {
+        e.preventDefault();
+
+       // Validate From Address
+       var senderAddress = $('#destination[name="sender"]').val();
+        if (senderAddress === "Choose..." || senderAddress === "") {
+            alert('Please select a From Address.');
+            return false;
+        }
+
+        // Validate To Address
+        var receiverAddress = $('#destination[name="receiver"]').val();
+        if (receiverAddress === "Choose..." || receiverAddress === "") {
+            alert('Please select a To Address.');
+            return false;
+        }
+
+        // Validate dimensions (Height, Width, Length)
+        if ($('#height').val() == "" || isNaN($('#height').val()) || $('#height').val() <= 0) {
+            alert('Please enter a valid Height in centimeters.');
+            return false;
+        }
+
+        if ($('#width').val() == "" || isNaN($('#width').val()) || $('#width').val() <= 0) {
+            alert('Please enter a valid Width in centimeters.');
+            return false;
+        }
+
+        if ($('#length').val() == "" || isNaN($('#length').val()) || $('#length').val() <= 0) {
+            alert('Please enter a valid Length in centimeters.');
+            return false;
+        }
+
+        // Validate Weight
+        if ($('input[name="weight"]').val() == "" || isNaN($('input[name="weight"]').val()) || $('input[name="weight"]').val() <= 0) {
+            alert('Please enter a valid weight in kilograms.');
+            return false;
+        }
+
+       // Validate Contact Number (including optional country code)
+       var contactNumber = $('input[name="contact"]').val();
+        var phonePattern = /^\+?[0-9]{10,15}$/; // Regex to match numbers with or without '+' and 10 to 15 digits long
+
+        if (!phonePattern.test(contactNumber)) {
+            alert('Please enter a valid contact number.');
+            return false;
+        }
+
+        // If all validations pass
+        var form = this;
+        $.ajax({
+            type: "POST",
+            url: "{{ route('user.booking.store') }}", // Laravel route
+            data: $(this).serialize(), // serializes the form's elements
+            success: function(response) {
+                // handle success
+                console.log(response);
+                form.reset();
+                Swal.fire({
+                    title: 'Success!',
+                    html: 'Booking confirmed! An agent will contact you soon. Thank you for choosing our services.<br><br>Your Booking Reference: #' +
+                        response.booking_id,
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = window.location.href.split('#')[0] + '#bookings-list';
+                        window.location.reload();
+                    }
+                });
+            },
+            error: function(error) {
+                // handle error
+                console.log(error);
+            }
         });
     });
+});
+
 </script>
 @endpush
