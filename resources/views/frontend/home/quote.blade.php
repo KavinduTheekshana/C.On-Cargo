@@ -121,7 +121,7 @@
                         console.log(result);
                         if (result == "error_weight") {
                             alertFunction("Error",
-                                "You can Deliver Less than 30 Kilograms. Please enter the correct value",
+                                "For items exceeding 30 kg, please reach out to us for personalized support and guidance. +44 7503 288 488",
                                 "error");
                         } else if (result == "error_method") {
                             alertFunction("Error",
