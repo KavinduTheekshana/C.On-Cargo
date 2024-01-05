@@ -196,7 +196,7 @@
                                                             <div class="col">
                                                                 <p class="mb-2 repeater-title">Weight (KG)</p>
                                                                 <input type="number" name="items[0][weight]"
-                                                                    class="form-control weight-input" placeholder="0"
+                                                                    class="form-control weight-input" step=".01" placeholder="0"
                                                                     value="{{ $item->weight }}" />
                                                             </div>
                                                         </div>
@@ -205,7 +205,7 @@
                                                     <div class="col-md-1 col-12 pe-0">
                                                         <p class="mb-2 repeater-title">Price (£)</p>
                                                         <input type="text" name="items[0][price]"
-                                                            class="form-control total-display d-bg" readonly value="{{ $item->price }}"
+                                                            class="form-control total-display d-bg" step=".01" readonly value="{{ $item->price }}"
                                                             placeholder="£0.00" />
                                                         {{-- <p class="mb-0 total-display">£0.00</p> --}}
                                                     </div>
@@ -230,13 +230,13 @@
                                             <div class="col">
                                                 <p class="mb-2 repeater-title">Collection & Delivery</p>
                                                 <input type="number" name="collection_fee" class="form-control mb-2"
-                                                    value="{{$invoice->collection_fee}}" id="collection-input"
+                                                    value="{{$invoice->collection_fee}}" id="collection-input" step=".01"
                                                     onkeyup="calculateTotal()" placeholder="0" />
                                             </div>
                                             <div class="col">
                                                 <p class="mb-2 repeater-title">Other</p>
                                                 <input type="number" name="handling_fee" class="form-control"
-                                                value="{{$invoice->handling_fee}}" id="handling-input"
+                                                value="{{$invoice->handling_fee}}" id="handling-input" step=".01"
                                                     onkeyup="calculateTotal()" placeholder="0" />
                                             </div>
                                         </div>
