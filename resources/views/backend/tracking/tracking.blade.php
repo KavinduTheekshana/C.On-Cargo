@@ -67,9 +67,9 @@
                         </div>
 
                         <div class="mt-3">
-                        <button type="submit" class="btn btn-lg btn-warning">Filter</button>
-                        <button id="btn_update" type="button" data-bs-toggle="modal" data-bs-target="#referAndEarn"
-                            class="btn btn-lg btn-dark ml-20">Update Tracking Group</button>
+                            <button type="submit" class="btn btn-lg btn-warning">Filter</button>
+                            <button id="btn_update" type="button" data-bs-toggle="modal" data-bs-target="#referAndEarn"
+                                class="btn btn-lg btn-dark ml-20">Update Tracking Group</button>
                         </div>
                     </form>
 
@@ -102,8 +102,8 @@
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <div class="form-floating form-floating-outline">
-                                        <input type="text" id="toDateModule" placeholder="YYYY-MM-DD"
-                                            name="toDateModule" class="form-control" />
+                                        <input type="text" id="toDateModule" placeholder="YYYY-MM-DD" name="toDateModule"
+                                            class="form-control" />
                                         <label for="toDateModule">To Date</label>
                                     </div>
                                 </div>
@@ -368,13 +368,17 @@
         function fetchAndDisplayInvoices() {
             var fromdate = $('#flatpickr-date').val();
             var todate = $('#flatpickr-date2').val();
+            var from_country = $('#from_country').val();
+            var to_country = $('#to_country').val();
 
             $.ajax({
                 url: '{{ route('filter.invoices') }}',
                 type: 'GET',
                 data: {
                     start_date: fromdate,
-                    end_date: todate
+                    end_date: todate,
+                    from_country: from_country,
+                    to_country: to_country,
                 },
                 success: function(response) {
                     $('#invoiceBody').empty(); // Clear existing rows

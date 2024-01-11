@@ -86,8 +86,36 @@ class TrackingController extends Controller
             'departed_at' => 'nullable|date',
             'arrived_at' => 'nullable|date',
         ]);
+        $from_country = $request->send_country;
+        $to_country = $request->recieve_country;
 
-        $invoices = Invoice::whereBetween('date', [$validated['fromDateModule'], $validated['toDateModule']])->get();
+        // $invoices = Invoice::whereBetween('date', [$validated['fromDateModule'], $validated['toDateModule']])->get();
+        $invoices = Invoice::leftJoin('trackings', 'trackings.invoice_id', '=', 'invoices.id')
+        ->leftJoin('customers as sender', 'invoices.sender_id', '=', 'sender.id')
+        ->leftJoin('customers as receiver', 'invoices.receiver_id', '=', 'receiver.id')
+        ->whereBetween('invoices.date', [$validated['fromDateModule'], $validated['toDateModule']])
+        ->when($from_country, function ($query, $from_country) {
+            return $query->where('sender.country', $from_country);
+        })
+        ->when($to_country, function ($query, $to_country) {
+            return $query->where('receiver.country', $to_country);
+        })
+        ->select(
+            'invoices.id as id',
+            'invoices.invoice_id as invoice_id',
+            'trackings.id as tracking_id',
+            'sender.firstname as sender_first_name',
+            'sender.lastname as sender_last_name',
+            'sender.address as sender_address',
+            'sender.country as sender_country',
+            'receiver.country as receiver_country',
+            'invoices.date as invoice_date',
+            'invoices.total_fee as invoice_amount',
+            'trackings.arrived_at as tracking_arrived_at',
+            'trackings.departed_at as tracking_departed_at',
+            'trackings.stop_id as tracking_id'
+        )
+        ->get();
 
         foreach ($invoices as $invoice) {
             $tracking = Tracking::where('invoice_id', $invoice->id)->value('id');
