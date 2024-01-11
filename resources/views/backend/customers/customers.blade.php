@@ -188,7 +188,7 @@
                                 <option value="Italy">Italy</option>
                                 <option value="Canada">Canada</option>
                             </select>
-                        <label for="add-user-company">Country</label>
+                            <label for="add-user-company">Country</label>
                             @error('country')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
@@ -391,9 +391,33 @@
             });
 
             // Edit Customer in Off canves
-            document.querySelectorAll('.updatebtn').forEach(button => {
-                button.addEventListener('click', function() {
-                    const customerId = this.getAttribute('data-customer-id');
+            // document.querySelectorAll('.updatebtn').forEach(button => {
+            //     button.addEventListener('click', function() {
+            //         const customerId = this.getAttribute('data-customer-id');
+            //         console.log("sdfsd");
+            //         // AJAX request using jQuery
+            //         $.ajax({
+            //             url: '/customers/details/' + customerId,
+            //             type: 'GET',
+            //             success: function(response) {
+            //                 // Populate the offcanvas with customer data
+
+            //                 populateOffcanvas(response);
+            //             },
+            //             error: function(xhr, status, error) {
+            //                 // Handle the error
+            //                 console.error("Error occurred: " + status + ", " + error);
+            //                 // Optionally, display an error message to the user
+            //                 alert("An error occurred. Please try again.");
+            //             }
+            //         });
+            //     });
+            // });
+
+            $(document).ready(function() {
+                $(document).on('click', '.updatebtn', function() {
+                    const customerId = $(this).data('customer-id');
+                    console.log(customerId);
 
                     // AJAX request using jQuery
                     $.ajax({
@@ -401,7 +425,6 @@
                         type: 'GET',
                         success: function(response) {
                             // Populate the offcanvas with customer data
-
                             populateOffcanvas(response);
                         },
                         error: function(xhr, status, error) {
@@ -413,6 +436,7 @@
                     });
                 });
             });
+
 
 
             function populateOffcanvas(customerData) {
