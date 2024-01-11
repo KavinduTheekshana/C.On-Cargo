@@ -27,22 +27,49 @@
                             <div class="form-floating form-floating-outline">
                                 <input type="text" class="form-control" value="{{ old('start_date') }}"
                                     placeholder="YYYY-MM-DD" id="flatpickr-date" name="start_date" required />
-                                <label for="flatpickr-date">From</label>
+                                <label for="flatpickr-date">From Date</label>
                             </div>
-
-
 
                             <div class="form-floating form-floating-outline" style="margin-left: 20px !important;">
                                 <input type="text" class="form-control" placeholder="YYYY-MM-DD"
                                     value="{{ old('end_date') }}" id="flatpickr-date2" name="end_date" required />
-                                <label for="flatpickr-date">To</label>
+                                <label for="flatpickr-date">To Date</label>
+                            </div>
+
+                            <div class="form-floating form-floating-outline" style="margin-left: 20px !important;">
+                                <select name="from_country" id="from_country" class="select form-select">
+                                    <option value="United Kingdom">United Kingdom</option>
+                                    <option value="Sri Lanka">Sri Lanka</option>
+                                    <option value="France">France</option>
+                                    <option value="India">India</option>
+                                    <option value="Italy">Italy</option>
+                                    <option value="Canada">Canada</option>
+                                </select>
+                                <label for="flatpickr-date">Send Country</label>
+                            </div>
+
+                            <div class="form-floating form-floating-outline" style="margin-left: 20px !important;">
+                                <select name="to_country" id="to_country" class="select form-select">
+                                    <option value="United Kingdom">United Kingdom</option>
+                                    <option value="Sri Lanka">Sri Lanka</option>
+                                    <option value="France">France</option>
+                                    <option value="India">India</option>
+                                    <option value="Italy">Italy</option>
+                                    <option value="Canada">Canada</option>
+                                </select>
+                                <label for="flatpickr-date">Recieve Country</label>
                             </div>
 
 
-                            <button type="submit" class="btn btn-lg btn-warning ml-20">Filter</button>
-                            <button id="btn_update" type="button" data-bs-toggle="modal" data-bs-target="#referAndEarn"
-                                class="btn btn-lg btn-dark ml-20">Update Tracking Group</button>
 
+
+
+                        </div>
+
+                        <div class="mt-3">
+                        <button type="submit" class="btn btn-lg btn-warning">Filter</button>
+                        <button id="btn_update" type="button" data-bs-toggle="modal" data-bs-target="#referAndEarn"
+                            class="btn btn-lg btn-dark ml-20">Update Tracking Group</button>
                         </div>
                     </form>
 
@@ -80,6 +107,35 @@
                                         <label for="toDateModule">To Date</label>
                                     </div>
                                 </div>
+
+                                <div class="col-12 col-md-6">
+                                    <div class="form-floating form-floating-outline">
+                                        <select name="send_country" id="from_country2" class="select form-select">
+                                            <option value="United Kingdom">United Kingdom</option>
+                                            <option value="Sri Lanka">Sri Lanka</option>
+                                            <option value="France">France</option>
+                                            <option value="India">India</option>
+                                            <option value="Italy">Italy</option>
+                                            <option value="Canada">Canada</option>
+                                        </select>
+                                        <label for="fromDateModule">Send Country</label>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="form-floating form-floating-outline">
+                                        <select name="recieve_country" id="to_country2" class="select form-select">
+                                            <option value="United Kingdom">United Kingdom</option>
+                                            <option value="Sri Lanka">Sri Lanka</option>
+                                            <option value="France">France</option>
+                                            <option value="India">India</option>
+                                            <option value="Italy">Italy</option>
+                                            <option value="Canada">Canada</option>
+                                        </select>
+                                        <label for="toDateModule">Recieve Country</label>
+                                    </div>
+                                </div>
+
+
                                 <div class="col-12">
                                     <div class="form-floating form-floating-outline">
                                         <select id="stopid" name="stopid" class="form-select"
@@ -356,6 +412,7 @@
                     type: 'GET',
                     data: $(this).serialize(),
                     success: function(response) {
+                        // console.log(response);
                         $('#invoiceBody').empty(); // Clear existing rows
                         response.invoices.forEach(function(invoice) {
                             let status = getStatusBadge(invoice);
@@ -379,8 +436,12 @@
                         $('#btn_update').removeAttr('disabled');
                         var fromdate = $('#flatpickr-date').val();
                         var todate = $('#flatpickr-date2').val();
+                        var from_country = $('#from_country').val();
+                        var to_country = $('#to_country').val();
                         $('#fromDateModule').val(fromdate);
                         $('#toDateModule').val(todate);
+                        $('#from_country2').val(from_country);
+                        $('#to_country2').val(to_country);
                     },
                     error: function(xhr, status, error) {
                         // Handle errors

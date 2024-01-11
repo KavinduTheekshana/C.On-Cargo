@@ -204,7 +204,7 @@ class InvoiceController extends Controller
 
         $invoice->update($request->only([
             'date', 'job_number', 'customer_id', 'sender_id',
-            'receiver_id', 'total_fee', 'note'
+            'receiver_id', 'total_fee', 'note', 'collection_fee', 'handling_fee'
             // Include any other fields that are part of the Invoice model
         ]));
 
