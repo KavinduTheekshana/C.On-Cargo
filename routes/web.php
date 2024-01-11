@@ -105,6 +105,7 @@ Route::middleware(['adminOnly'])->group(function () {
     Route::get('/filter-invoices', [TrackingController::class, 'filter'])->name('filter.invoices');
     Route::get('/tracking/{invoice}/details', [TrackingController::class, 'getTrackingDetails'])->name('tracking.details');
     Route::post('/track-invoice', [TrackingController::class, 'trackInvoice'])->name('track.invoice');
+    Route::post('/track-invoice-single', [TrackingController::class, 'trackInvoiceSingle'])->name('track.invoice.single');
 
     // Bookings
     Route::get('/bookings', [BookingController::class, 'index'])->name('bookings');

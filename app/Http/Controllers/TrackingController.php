@@ -74,6 +74,60 @@ class TrackingController extends Controller
             'invoices' => $invoices
         ]);
     }
+
+    public function trackInvoiceSingle(Request $request)
+    {
+
+        // Validate the request data
+        $validated = $request->validate([
+            'single_invoice' => 'required',
+            'single_invoice_id' => 'required',
+            'stopidSingle' => 'required|integer',
+            'departed_at_single' => 'nullable|date',
+            'arrived_at_single' => 'nullable|date',
+        ]);
+
+
+        // $invoice = Invoice::where('date', [$validated['fromDateModule'], $validated['toDateModule']])->get();
+
+
+
+            $tracking = Tracking::where('invoice_id', $validated['single_invoice'])->value('id');
+
+            if ($tracking) {
+                $newData = ['stop_id' => $validated['stopidSingle']];
+
+                // Add 'departed_at' and 'arrived_at' only if they're not null
+                if (!is_null($validated['departed_at_single'])) {
+                    $newData['departed_at'] = $validated['departed_at_single'];
+
+                }
+                if (!is_null($validated['arrived_at_single'])) {
+                    $newData['arrived_at'] = $validated['arrived_at_single'];
+
+                }
+              Tracking::where('id', $tracking)->update($newData);
+
+            } else {
+                // Check if both 'departed_at' and 'arrived_at' are null
+                if (is_null($validated['departed_at_single']) && is_null($validated['arrived_at_single'])) {
+                    return response()->json(['message' => '1']);
+                }
+
+                // Create a new record
+                Tracking::create([
+                    'invoice_id' => $validated['single_invoice'],
+                    'tracking_id' => $validated['single_invoice_id'],
+                    'stop_id' => $validated['stopidSingle'],
+                    'departed_at' => $validated['departed_at_single'],
+                    'arrived_at' => $validated['arrived_at_single'],
+                ]);
+            }
+
+        return response()->json(['message' => '2']);
+    }
+
+
     public function trackInvoice(Request $request)
     {
         // Validate the request data

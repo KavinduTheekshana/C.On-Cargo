@@ -180,6 +180,118 @@
                 </div>
             </div>
             {{-- modal  --}}
+
+
+            {{-- modal  --}}
+            <div class="modal fade" id="singleEditTracking" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-simple modal-refer-and-earn">
+                    <div class="modal-content p-3 p-md-5">
+                        <div class="modal-body pt-3 pt-md-0 px-0 pb-md-0">
+
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            <div class="text-center mb-4">
+                                <h3 class="mb-2">Update Tracking Information</h3>
+                            </div>
+
+                            <div id="responseMessage2" class="alert d-none" role="alert">
+                            </div>
+                            <br>
+
+                            <form id="editTrackingFormSingle" class="row g-4" onsubmit="return false">
+                                @csrf
+
+
+
+                                <input type="text" id="single_invoice" name="single_invoice" hidden
+                                class="form-control" />
+
+
+
+
+                                <div class="col-12 col-md-6">
+                                    <div class="form-floating form-floating-outline">
+                                        <input type="text" id="single_invoice_id" name="single_invoice_id" readonly
+                                            class="form-control" />
+                                        <label for="Invoice_ID">Invoice ID</label>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="form-floating form-floating-outline">
+                                        <input type="text" id="single_invoice_date" name="single_invoice_date" readonly
+                                            class="form-control" />
+                                        <label for="Invoice_Date">Invoice Date</label>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="form-floating form-floating-outline">
+                                        <input type="text" id="single_job_number" name="single_job_number" readonly
+                                            class="form-control" />
+                                        <label for="Job_Number">Job Number</label>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="form-floating form-floating-outline">
+                                        <input type="text" id="single_customer_id" name="single_customer_id" readonly
+                                            class="form-control" />
+                                        <label for="Customer_id">Customer Id</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <h6 class="m-0">Sender Details :</h6>
+                                    <p id="SinglemodalInvoiceSenderDetails"></p>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <h6 class="m-0">Receiver Details :</h6>
+                                    <p id="SinglemodalInvoiceReceiverDetails"></p>
+                                </div>
+
+
+                                <div class="col-12">
+                                    <div class="form-floating form-floating-outline">
+                                        <select id="stopidSingle" name="stopidSingle" class="form-select"
+                                            aria-label="Default select example">
+                                            <option value="1">Dispatched</option>
+                                            <option value="2">In transit</option>
+                                            <option value="3">Out for delivery</option>
+                                            <option value="4">Estimated delivary</option>
+                                        </select>
+                                        <label for="stopid">Status</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <div class="form-floating form-floating-outline">
+                                        <input type="text" id="departed_at_single" placeholder="YYYY-MM-DD"
+                                            name="departed_at_single" class="form-control" />
+                                        <label for="departed_at">Departed At</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <div class="form-floating form-floating-outline">
+                                        <input type="text" id="arrived_at_single" placeholder="YYYY-MM-DD" name="arrived_at_single"
+                                            class="form-control" />
+                                        <label for="arrived_at">Arrived At</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 text-center">
+                                    <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
+                                    <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal"
+                                        aria-label="Close">
+                                        Cancel
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- modal  --}}
+
+
             <div class="card-datatable table-responsive">
                 <table id="invoice" class="table table-striped table-bordered" style="width:100%">
                     <thead>
@@ -365,6 +477,47 @@
         });
 
 
+        $(document).ready(function() {
+            $('#editTrackingFormSingle').submit(function(e) {
+                e.preventDefault(); // Prevent the default form submit
+
+                $.ajax({
+                    url: "{{ route('track.invoice.single') }}", // Laravel route
+                    type: "POST",
+                    data: $(this).serialize(), // Serialize form data
+                    success: function(response) {
+                        // Handle success (you might want to redirect, display a message, etc.)
+
+                        if (response.message == "1") {
+                            $('#responseMessage2')
+                                .html(
+                                    "Please provide both departure and arrival times for new tracking records."
+                                )
+                                .removeClass('alert-success d-none') // Set the message text
+                                .addClass(
+                                    'alert-danger') // Add class for styling success messages
+                                .show(); // Make the message visible
+                        } else {
+                            $('#responseMessage2')
+                                .html(
+                                    "Tracking data processed successfully for invoices within date range"
+                                )
+                                .removeClass('alert-danger d-none') // Set the message text
+                                .addClass(
+                                    'alert-success') // Add class for styling success messages
+                                .show(); // Make the message visible
+                        }
+
+                        fetchAndDisplayInvoices();
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle errors
+                        console.error("Error:", error);
+                    }
+                });
+            });
+        });
+
         function fetchAndDisplayInvoices() {
             var fromdate = $('#flatpickr-date').val();
             var todate = $('#flatpickr-date2').val();
@@ -396,6 +549,13 @@
                                     data-bs-toggle="modal" title="View Invoice" data-invoice-id="${invoice.id}"
                                     data-bs-target="#addNewAddress">
                                     <i class="tf-icons mdi mdi-eye-outline"></i>
+                                </button>
+
+                                <button type="button"
+                                class="btn btn-icon btn-info btn-fab demo waves-effect waves-light m-1 update-tracking"
+                                    data-bs-toggle="modal" title="View Invoice" data-invoice-id="${invoice.id}"
+                                    data-bs-target="#singleEditTracking">
+                                    <i class="tf-icons mdi mdi-file-edit-outline"></i>
                                 </button>
                     </td>
             </tr>`;
@@ -432,6 +592,13 @@
                                     data-bs-toggle="modal" title="View Invoice" data-invoice-id="${invoice.id}"
                                     data-bs-target="#addNewAddress">
                                     <i class="tf-icons mdi mdi-eye-outline"></i>
+                                </button>
+
+                                <button type="button"
+                                class="btn btn-icon btn-info btn-fab demo waves-effect waves-light m-1 update-tracking"
+                                    data-bs-toggle="modal" title="View Invoice" data-invoice-id="${invoice.id}"
+                                    data-bs-target="#singleEditTracking">
+                                    <i class="tf-icons mdi mdi-file-edit-outline"></i>
                                 </button>
                     </td>
                         </tr>`;
@@ -500,6 +667,41 @@
                     }
                 });
             });
+
+
+            // Update Tracking Single Order
+
+            $(document).on('click', '.update-tracking', function() {
+                var invoiceId = $(this).data('invoice-id'); // Retrieve the invoice ID
+
+                $.ajax({
+                    url: '/tracking/' + invoiceId + '/details',
+                    type: 'GET',
+                    success: function(response) {
+                        updateModalContentSingleTracking(response);
+                    },
+                    error: function(error) {
+                        console.error(error);
+                    }
+                });
+            });
+
+
+            function updateModalContentSingleTracking(response) {
+                $('#single_invoice').val(response.id);
+                $('#single_invoice_id').val(response.invoice_id);
+                $('#single_invoice_date').val(response.date);
+                $('#single_job_number').val(response.job_number);
+                $('#single_customer_id').val(response.customer_id);
+
+                var senderDetails = formatContactDetails(response.sender);
+                $('#SinglemodalInvoiceSenderDetails').html(senderDetails);
+
+                var receiverDetails = formatContactDetails(response.receiver);
+                $('#SinglemodalInvoiceReceiverDetails').html(receiverDetails);
+            }
+
+
 
             function updateTrackingIconsAndTexts(stopId) {
                 var trackingStages = ['Dispatched', 'Transit', 'Delivary', 'Arrivel'];
