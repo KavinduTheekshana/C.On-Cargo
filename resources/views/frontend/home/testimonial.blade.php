@@ -73,7 +73,7 @@
                     <div class="testimonial-inner">
                         <div class="testimonial-text">
                             <p>The best customer service. I contacted a few shipping places but they all let me down last minute. Finally
-                                I contacted C.ON Cargo and the customer service I received was amazing, They were really helpful, The
+                                I contacted C-ON Cargo and the customer service I received was amazing, They were really helpful, The
                                 cargo finally arrived in Sri Lanka before the expected day. I want to thanks and will always use them for
                                 my cargo needs from now on. Thank you
                             </p>
@@ -91,7 +91,7 @@
                     <div class="testimonial-inner">
                         <div class="testimonial-text">
                             <p>I have used them a few times for bring &amp; send to parcels. I have never been disappointed. Still need to do
-                                some improvements but they provide a valuable service to the Sri Lankans. C.ON Cargo do a pretty good
+                                some improvements but they provide a valuable service to the Sri Lankans. C-ON Cargo do a pretty good
                                 job at a reasonable cost.
                             </p>
                             <h3>Ajith Herath</h3>

@@ -10,7 +10,7 @@
                         <h1>01</h1>
                         <span class="line">Explore Our  Agency</span>
                         <h2>We Are The Most Trusted & Successfully Logistics & Transport Compnay</h2>
-                        <p> At C.On, we're dedicated to simplifying your cargo needs. With a global network, we offer
+                        <p> At C-ON, we're dedicated to simplifying your cargo needs. With a global network, we offer
                             seamless solutions for your UK-Sri Lanka shipments. Trust us to deliver reliability and
                             expertise every time. Our experienced team is committed to your cargo's safety and timely
                             delivery, making us your go-to partner for international logistics.</p>

@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>C.ON Cargo - Your Trusted Cargo Partner</title>
-    <meta name="description" content="At C.On, we're dedicated to simplifying your cargo needs. With a global network, we offer
+    <title>C-ON Cargo - Your Trusted Cargo Partner</title>
+    <meta name="description" content="At C-ON, we're dedicated to simplifying your cargo needs. With a global network, we offer
     seamless solutions for your UK-Sri Lanka shipments. Trust us to deliver reliability and
     expertise every time. Our experienced team is committed to your cargo's safety and timely
     delivery, making us your go-to partner for international logistics.">

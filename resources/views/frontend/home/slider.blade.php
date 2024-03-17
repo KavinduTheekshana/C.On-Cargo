@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col-xl-10 col-lg-10 ">
                         <div class="slider-content pos-rel">
-                            <h1>C.ON</h1>
+                            <h1>C-ON</h1>
                             <h2 data-animation="fadeInLeft" data-delay=".3s">From the <span>UK</span> to <span>Sri Lanka</span> and back, we've got you covered.  </h2>
                             <div class="slider-button">
                                 <a class="btn scroll-link" href="#quoteSection" data-animation="fadeInUp" data-delay=".5s">get Quote <i class="far fa-paper-plane"></i></a>
@@ -21,7 +21,7 @@
                 <div class="row">
                     <div class="col-xl-10 col-lg-10 ">
                         <div class="slider-content pos-rel">
-                            <h1>C.ON</h1>
+                            <h1>C-ON</h1>
                             <h2 data-animation="fadeInLeft" data-delay=".3s">Your goods, <span>our expertise</span>, one reliable route.</h2>
                             <div class="slider-button">
                                 <a class="btn scroll-link" href="#quoteSection" data-animation="fadeInUp" data-delay=".5s">get Quote <i class="far fa-paper-plane"></i></a>
@@ -37,7 +37,7 @@
                 <div class="row">
                     <div class="col-xl-10 col-lg-10 ">
                         <div class="slider-content pos-rel">
-                            <h1>C.ON</h1>
+                            <h1>C-ON</h1>
                             <h2 data-animation="fadeInLeft" data-delay=".3s">Trusted cargo services between the <span>UK</span> and <span>Sri Lanka.</span></h2>
                             <div class="slider-button">
                                 <a class="btn scroll-link" href="#quoteSection" data-animation="fadeInUp" data-delay=".5s">get Quote <i class="far fa-paper-plane"></i></a>

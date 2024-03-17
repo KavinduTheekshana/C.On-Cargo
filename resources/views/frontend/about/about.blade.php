@@ -14,7 +14,7 @@
                 <div class="about-right-single mb-30">
                     <div class="about-me-info">
                         <span>
-                            At C.On, we're dedicated to simplifying your cargo needs. With a global network, we offer
+                            At C-ON, we're dedicated to simplifying your cargo needs. With a global network, we offer
                             seamless solutions for your UK-Sri Lanka shipments. </span>
                         <p> Trust us to deliver reliability and
                             expertise every time. Our experienced team is committed to your cargo's safety and timely
@@ -31,7 +31,7 @@
                     </div>
                     <div class="about-me-text">
                         <h3><i class="far fa-anchor"></i> Our Mission</h3>
-                        <p>At C.On Cargo, our mission is to provide seamless cargo solutions, ensuring the
+                        <p>At C-ON Cargo, our mission is to provide seamless cargo solutions, ensuring the
                             reliable and cost-effective transportation of your goods. We are dedicated to delivering
                             your cargo with precision, punctuality, and unwavering commitment. Our mission is centered
                             on your success.</p>
@@ -46,7 +46,7 @@
                     </div>
                     <div class="about-me-text">
                         <h3><i class="far fa-analytics"></i> Our Vision</h3>
-                        <p>Our vision at C.On Cargo is to be the leading choice for cargo services between the
+                        <p>Our vision at C-ON Cargo is to be the leading choice for cargo services between the
                             UK and Sri Lanka. We aim to establish a solid reputation for excellence, efficiency, and
                             unparalleled customer satisfaction. We envision a future where logistics challenges are
                             eliminated, allowing businesses to focus on their core operations while we manage the rest.
@@ -62,7 +62,7 @@
                     </div>
                     <div class="about-me-text">
                         <h3><i class="far fa-atom-alt"></i> Why Choose Us</h3>
-                        <p>At C.On Cargo, our commitment to providing seamless cargo solutions is why you
+                        <p>At C-ON Cargo, our commitment to providing seamless cargo solutions is why you
                             should choose us. We offer reliable and cost-effective transportation services, ensuring
                             your goods are delivered with precision and punctuality. Our dedication revolves around your
                             success, making us the preferred choice for your cargo needs.</p>

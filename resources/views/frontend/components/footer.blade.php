@@ -7,7 +7,7 @@
                         <div class="footer-logo mb-30">
                             <a href="{{route('/')}}"><img style="max-width: 80%" src="{{ asset('frontend/assets/img/logo/logolight.svg')}}" alt=""></a>
                             <div class="footer-text mt-20">
-                                <p>C.On Cargo (Pvt) Ltd is a trusted cargo service company specializing in seamless
+                                <p>C-ON Cargo (Pvt) Ltd is a trusted cargo service company specializing in seamless
                                     transportation solutions. With years of experience and a global network, we're
                                     committed to delivering your cargo safely and on time. Your success is our priority.
                                 </p>
@@ -92,7 +92,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="copyright text-center">
-                        <p>Copyright <i class="far fa-copyright"></i> {{ now()->year }} C.On Cargo (Pvt) Ltd. All
+                        <p>Copyright <i class="far fa-copyright"></i> {{ now()->year }} C-ON Cargo (Pvt) Ltd. All
                             Rights Reserved | Design & Developed By <a href="https://creatxsoftware.com"> CreatX
                                 Software </a>
                         </p>

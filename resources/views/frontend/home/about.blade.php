@@ -14,7 +14,7 @@
                         <h2 data-animscroll="fade-up">Modern & Trusted Logistics Company</h2>
                     </div>
                     <div class="about-us-text pos-rel" data-animscroll="fade-up">
-                        <p>At C.On, we're dedicated to simplifying your cargo needs. With a global network, we offer
+                        <p>At C-ON, we're dedicated to simplifying your cargo needs. With a global network, we offer
                             seamless solutions for your UK-Sri Lanka shipments. Trust us to deliver reliability and
                             expertise every time. Our experienced team is committed to your cargo's safety and timely
                             delivery, making us your go-to partner for international logistics.</p>
