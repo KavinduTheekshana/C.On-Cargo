@@ -108,6 +108,8 @@ class BookingController extends Controller
             'length' => 'required|numeric',
             'weight' => 'required|numeric',
             'contact' => 'required|string',
+            'item_list' => 'required|string',
+            'remarks' => 'string',
         ]);
 
         // Create a new Booking instance and set its properties from the validated data
@@ -120,6 +122,8 @@ class BookingController extends Controller
         $booking->length = $validatedData['length'];
         $booking->weight = $validatedData['weight'];
         $booking->contact = $validatedData['contact'];
+        $booking->item_list = $validatedData['item_list'];
+        $booking->remarks = $validatedData['remarks'];
 
         // Optional: Add user_id if it's a required field and you have user authentication
         // $booking->user_id = auth()->id();

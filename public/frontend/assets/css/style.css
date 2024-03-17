@@ -120,8 +120,35 @@ input[type="number"] {
     --arrow-icon: url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg);
     --option-bg: white;
     --select-bg: rgba(255, 255, 255, 1);
+    --arrow-bg-booking: #eeeeee;
 }
-.quote-form select {
+.appiontment-form select{
+    appearance: none;
+    border: 2px solid #eeeeee;
+    height: 70px;
+    border-radius: 0px !important;
+    outline: 0;
+    font: inherit;
+    width: 100%;
+    /* Personalize */
+    padding: 1rem 4rem 1rem 1rem;
+    background: var(--arrow-icon) no-repeat right 0.8em center / 1.4em,
+        linear-gradient(to left, var(--arrow-bg-booking) 3em, var(--select-bg) 3em);
+    color: #282828;
+    border-radius: 0.25em;
+    /* box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2); */
+    cursor: pointer;
+    /* Remove IE arrow */
+    &::-ms-expand {
+        display: none;
+    }
+    /* Remove focus outline */
+    &:focus {
+        outline: none;
+    }
+
+}
+.quote-form select{
     appearance: none;
     border: 2px solid #000;
     height: 70px;
@@ -268,4 +295,16 @@ input[type="number"] {
 }
 .order-tracking.completed:before {
     background-color: #27aa80;
+}
+.dark-btn {
+    background: rgb(91, 91, 91) !important;
+    background: linear-gradient(
+        90deg,
+        rgba(91, 91, 91, 1) 0%,
+        rgba(0, 0, 0, 1) 100%,
+        rgba(24, 39, 42, 1) 100%
+    ) !important;
+}
+.white-btn:hover {
+    color: #000000 !important;
 }

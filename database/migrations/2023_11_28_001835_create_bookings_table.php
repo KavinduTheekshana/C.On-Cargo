@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('length');
             $table->string('weight');
             $table->string('contact');
+            $table->longText('item_list');
+            $table->longText('remarks')->nullable();
             $table->boolean('status')->default(0);
             $table->softDeletes();
             $table->timestamps();

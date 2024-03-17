@@ -31,7 +31,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {{-- Anim Trap  --}}
     <link rel="stylesheet" href="{{ asset('frontend/assets/plugin/animtrap/css/animtrap.css') }}">
-
+    @vite(['resources/js/app.js'])
 </head>
 
 <body>

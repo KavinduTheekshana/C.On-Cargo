@@ -27,7 +27,7 @@
                                     <div class="mb-20">
 
 
-                                        <input type="email" name="email" placeholder="Email Adsress">
+                                        <input type="email" name="email" placeholder="Email Address">
                                         @error('email')
                                             <p class="text-danger text-left">{{ $message }}</p>
                                         @enderror

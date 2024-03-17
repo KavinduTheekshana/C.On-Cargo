@@ -16,17 +16,18 @@
 
                     <ul class="nav flex-column" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active btn white-btn squre-btn squre-shadow" data-toggle="tab"
+                            <a class="nav-link active btn squre-btn white-btn squre-shadow" data-toggle="tab"
+                                href="#address">Address Book</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link  btn white-btn squre-btn squre-shadow" data-toggle="tab"
                                 href="#booking">Booking</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link btn squre-btn white-btn squre-shadow" data-toggle="tab"
                                 href="#booking-list">Bookings List</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn squre-btn white-btn squre-shadow" data-toggle="tab"
-                                href="#address">Address Book</a>
-                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link btn squre-btn white-btn squre-shadow" data-toggle="tab"
                                 href="#password">Change Password</a>
@@ -66,63 +67,99 @@
                         </div>
                     @endif
                     <div class="tab-content">
-                        <div id="booking" class="container tab-pane active">
-                            <form class="appiontment-form" id="quote-form">
+                        <div id="address" class="container tab-pane active">
+                            <button class="btn squre-btn white-btn squre-shadow" data-toggle="modal"
+                                data-target="#exampleModalCenter"> <i class=" far fa-solid fa-plus"></i> &nbsp; Add
+                                New
+                                Address</button>
+                            <hr>
+                            @foreach ($address as $item)
+                                <div class="card mb-10 ">
+                                    <div class="card-body">
+                                        <a onclick="openSweetAlert({{ $item->id }})" class="delete-btn"><i
+                                                class="fas fa-solid fa-trash"></i></a>
+                                        <h5 class="card-title">{{ $item->firstname }} {{ $item->lastname }}</h5>
+                                        <p class="card-text m-0"><b>Address: </b>{{ $item->address }}</p>
+                                        <p class="card-text m-0"><b>Post Code: </b>{{ $item->postcode }}</p>
+                                        <p class="card-text m-0"><b>Country: </b>{{ $item->country }}</p>
+                                        <p class="card-text m-0"><b>Email: </b>{{ $item->email }}</p>
+                                        <p class="card-text m-0"><b>Contact: </b>{{ $item->contact }}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div id="booking" class="container tab-pane fade">
+                            <h6>Please review our <a href="{{ route('terms') }}"><span class="theme-color">Restricted
+                                        items list</span></a> and terms and conditions.</h6>
+                            <form class="appiontment-form mt-5" id="quote-form">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="inputState">From Address</label>
-                                    <div class="pro-filter">
-                                        <select id="destination" name="sender">
-                                            <option selected>Choose...</option>
-                                            @foreach ($address as $item)
-                                                <option value="{{ $item->id }}">{{ $item->firstname }}
-                                                    {{ $item->lastname }} |
-                                                    {{ $item->address }}, {{ $item->postcode }},
-                                                    {{ $item->country }}
-                                                </option>
+                                    <label for="inputState">From Address <span class="theme-color">*</span></label>
+                                    {{-- <div class="pro-filter"> --}}
+                                    <select id="destination" name="sender">
+                                        <option selected>Choose...</option>
+                                        @foreach ($address as $item)
+                                            <option value="{{ $item->id }}">{{ $item->firstname }}
+                                                {{ $item->lastname }} |
+                                                {{ $item->address }}, {{ $item->postcode }},
+                                                {{ $item->country }}
+                                            </option>
+                                        @endforeach
 
-
-                                            @endforeach
-
-                                        </select>
-                                    </div>
+                                    </select>
+                                    @error('sender')
+                                        <p class="text-danger text-left">{{ $message }}</p>
+                                    @enderror
+                                    {{-- </div> --}}
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputState">To Address</label>
-                                    <div class="pro-filter">
-                                        <select id="destination" name="receiver">
-                                            <option selected>Choose...</option>
-                                            @foreach ($address as $item)
-                                                <option value="{{ $item->id }}">{{ $item->firstname }}
-                                                    {{ $item->lastname }} |
-                                                    {{ $item->address }}, {{ $item->postcode }}, {{ $item->country }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    <label for="inputState">To Address <span class="theme-color">*</span></label>
+                                    {{-- <div class="pro-filter"> --}}
+                                    <select id="destination" name="receiver">
+                                        <option selected>Choose...</option>
+                                        @foreach ($address as $item)
+                                            <option value="{{ $item->id }}">{{ $item->firstname }}
+                                                {{ $item->lastname }} |
+                                                {{ $item->address }}, {{ $item->postcode }}, {{ $item->country }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('receiver')
+                                        <p class="text-danger text-left">{{ $message }}</p>
+                                    @enderror
+                                    {{-- </div> --}}
                                 </div>
 
-                                <label>&nbsp;Please Enter the Centimeter Value <span
-                                        class="theme-color">(<b>CM</b>)</span></label>
+                                <label>&nbsp;Please Enter Dimensions <span
+                                        class="theme-color">(<b>CM</b>)*</span></label>
                                 <div class="row">
 
                                     <div class="col-lg-4 col-md-6">
                                         <div class="mb-20">
                                             <input type="number" id="height" name="height" placeholder="Height"
                                                 required>
+                                            @error('height')
+                                                <p class="text-danger text-left">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-6">
                                         <div class="mb-20">
                                             <input type="number" id="width" name="width" placeholder="Width"
                                                 required>
+                                            @error('width')
+                                                <p class="text-danger text-left">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-6">
                                         <div class="mb-20">
                                             <input type="number" id="length" name="length" placeholder="Length"
                                                 required>
+                                            @error('length')
+                                                <p class="text-danger text-left">{{ $message }}</p>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -130,13 +167,36 @@
 
 
                                 <div class="form-group">
-                                    <label for="inputCity">Number Of Kilogram (KG)</label>
-                                    <input type="number" class="form-control" name="weight">
+                                    <label for="inputCity">Number Of Kilogram (KG) <span
+                                            class="theme-color">*</span></label>
+                                    <input type="number" class="form-control" required name="weight">
+                                    @error('weight')
+                                        <p class="text-danger text-left">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputCity">Contact Number</label>
-                                    <input type="text" class="form-control" name="contact">
+                                    <label for="inputCity">Contact Number <span class="theme-color">*</span></label>
+                                    <input type="text" class="form-control" required name="contact">
+                                    @error('contact')
+                                        <p class="text-danger text-left">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputCity">Item List <span class="theme-color">*</span></label>
+                                    <textarea class="form-control" name="item_list" required rows="5"></textarea>
+                                    @error('item_list')
+                                        <p class="text-danger text-left">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputCity">Remarks</label>
+                                    <textarea class="form-control" name="remarks" rows="3"></textarea>
+                                    @error('remarks')
+                                        <p class="text-danger text-left">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
                                 <button type="submit" class="btn btn-primary squre-btn">Submit</button>
@@ -147,8 +207,18 @@
                             @forelse ($bookings as $item)
                                 <div class="card mb-10 ">
                                     <div class="card-body">
-                                        <a onclick="openSweetAlertBooking({{ $item->id }})" class="delete-btn"><i
-                                                class="fas fa-solid fa-trash"></i></a>
+
+                                        @if ($item->status == 0)
+                                            <div class="row delete-btn mr-2">
+                                                <a href="" class="mr-3"><i class="fas fa-pencil" aria-hidden="true" title="Edit"></i></a>
+
+                                                <a onclick="openSweetAlertBooking({{ $item->id }})"
+                                                    title="Delete"><i class="fas fa-solid fa-trash"></i></a>
+                                            </div>
+                                        @endif
+
+
+
                                         @if ($item->status == 0)
                                             <h6 class="card-title"><span class="badge badge-warning">&nbsp;
                                                     Pending... | Reference Number:
@@ -187,6 +257,14 @@
                                         <hr>
                                         <p class="card-text m-0"><b>Contact Number:</b></p>
                                         <p class="card-text m-0">Contact: {{ $item->contact }}</p>
+
+                                        <hr>
+                                        <p class="card-text m-0"><b>Item List:</b></p>
+                                        <p class="card-text m-0">{{ $item->item_list }}</p>
+
+                                        <hr>
+                                        <p class="card-text m-0"><b>Remarks:</b></p>
+                                        <p class="card-text m-0">{{ $item->remarks }}</p>
                                     </div>
                                 </div>
 
@@ -197,27 +275,7 @@
                             @endforelse
 
                         </div>
-                        <div id="address" class="container tab-pane fade">
-                            <button class="btn squre-btn white-btn squre-shadow" data-toggle="modal"
-                                data-target="#exampleModalCenter"> <i class=" far fa-solid fa-plus"></i> &nbsp; Add
-                                New
-                                Address</button>
-                            <hr>
-                            @foreach ($address as $item)
-                                <div class="card mb-10 ">
-                                    <div class="card-body">
-                                        <a onclick="openSweetAlert({{ $item->id }})" class="delete-btn"><i
-                                                class="fas fa-solid fa-trash"></i></a>
-                                        <h5 class="card-title">{{ $item->firstname }} {{ $item->lastname }}</h5>
-                                        <p class="card-text m-0"><b>Address: </b>{{ $item->address }}</p>
-                                        <p class="card-text m-0"><b>Post Code: </b>{{ $item->postcode }}</p>
-                                        <p class="card-text m-0"><b>Country: </b>{{ $item->country }}</p>
-                                        <p class="card-text m-0"><b>Email: </b>{{ $item->email }}</p>
-                                        <p class="card-text m-0"><b>Contact: </b>{{ $item->contact }}</p>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
+
                         <div id="password" class="container tab-pane fade">
 
 
@@ -471,84 +529,86 @@
     }
 
     $(document).ready(function() {
-    $('#quote-form').submit(function(e) {
-        e.preventDefault();
+        $('#quote-form').submit(function(e) {
+            e.preventDefault();
 
-       // Validate From Address
-       var senderAddress = $('#destination[name="sender"]').val();
-        if (senderAddress === "Choose..." || senderAddress === "") {
-            alert('Please select a From Address.');
-            return false;
-        }
-
-        // Validate To Address
-        var receiverAddress = $('#destination[name="receiver"]').val();
-        if (receiverAddress === "Choose..." || receiverAddress === "") {
-            alert('Please select a To Address.');
-            return false;
-        }
-
-        // Validate dimensions (Height, Width, Length)
-        if ($('#height').val() == "" || isNaN($('#height').val()) || $('#height').val() <= 0) {
-            alert('Please enter a valid Height in centimeters.');
-            return false;
-        }
-
-        if ($('#width').val() == "" || isNaN($('#width').val()) || $('#width').val() <= 0) {
-            alert('Please enter a valid Width in centimeters.');
-            return false;
-        }
-
-        if ($('#length').val() == "" || isNaN($('#length').val()) || $('#length').val() <= 0) {
-            alert('Please enter a valid Length in centimeters.');
-            return false;
-        }
-
-        // Validate Weight
-        if ($('input[name="weight"]').val() == "" || isNaN($('input[name="weight"]').val()) || $('input[name="weight"]').val() <= 0) {
-            alert('Please enter a valid weight in kilograms.');
-            return false;
-        }
-
-       // Validate Contact Number (including optional country code)
-       var contactNumber = $('input[name="contact"]').val();
-        var phonePattern = /^\+?[0-9]{10,15}$/; // Regex to match numbers with or without '+' and 10 to 15 digits long
-
-        if (!phonePattern.test(contactNumber)) {
-            alert('Please enter a valid contact number.');
-            return false;
-        }
-
-        // If all validations pass
-        var form = this;
-        $.ajax({
-            type: "POST",
-            url: "{{ route('user.booking.store') }}", // Laravel route
-            data: $(this).serialize(), // serializes the form's elements
-            success: function(response) {
-                // handle success
-                console.log(response);
-                form.reset();
-                Swal.fire({
-                    title: 'Success!',
-                    html: 'Booking confirmed! An agent will contact you soon. Thank you for choosing our services.<br><br>Your Booking Reference: #' +
-                        response.booking_id,
-                    icon: 'success',
-                    confirmButtonText: 'Ok'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = window.location.href.split('#')[0] + '#bookings-list';
-                        window.location.reload();
-                    }
-                });
-            },
-            error: function(error) {
-                // handle error
-                console.log(error);
+            // Validate From Address
+            var senderAddress = $('#destination[name="sender"]').val();
+            if (senderAddress === "Choose..." || senderAddress === "") {
+                alert('Please select a From Address.');
+                return false;
             }
+
+            // Validate To Address
+            var receiverAddress = $('#destination[name="receiver"]').val();
+            if (receiverAddress === "Choose..." || receiverAddress === "") {
+                alert('Please select a To Address.');
+                return false;
+            }
+
+            // Validate dimensions (Height, Width, Length)
+            if ($('#height').val() == "" || isNaN($('#height').val()) || $('#height').val() <= 0) {
+                alert('Please enter a valid Height in centimeters.');
+                return false;
+            }
+
+            if ($('#width').val() == "" || isNaN($('#width').val()) || $('#width').val() <= 0) {
+                alert('Please enter a valid Width in centimeters.');
+                return false;
+            }
+
+            if ($('#length').val() == "" || isNaN($('#length').val()) || $('#length').val() <= 0) {
+                alert('Please enter a valid Length in centimeters.');
+                return false;
+            }
+
+            // Validate Weight
+            if ($('input[name="weight"]').val() == "" || isNaN($('input[name="weight"]').val()) || $(
+                    'input[name="weight"]').val() <= 0) {
+                alert('Please enter a valid weight in kilograms.');
+                return false;
+            }
+
+            // Validate Contact Number (including optional country code)
+            var contactNumber = $('input[name="contact"]').val();
+            var phonePattern =
+                /^\+?[0-9]{10,15}$/; // Regex to match numbers with or without '+' and 10 to 15 digits long
+
+            if (!phonePattern.test(contactNumber)) {
+                alert('Please enter a valid contact number.');
+                return false;
+            }
+
+            // If all validations pass
+            var form = this;
+            $.ajax({
+                type: "POST",
+                url: "{{ route('user.booking.store') }}", // Laravel route
+                data: $(this).serialize(), // serializes the form's elements
+                success: function(response) {
+                    // handle success
+                    console.log(response);
+                    form.reset();
+                    Swal.fire({
+                        title: 'Success!',
+                        html: 'Booking confirmed! An agent will contact you soon. Thank you for choosing our services.<br><br>Your Booking Reference: #' +
+                            response.booking_id,
+                        icon: 'success',
+                        confirmButtonText: 'Ok'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = window.location.href.split('#')[
+                                0] + '#bookings-list';
+                            window.location.reload();
+                        }
+                    });
+                },
+                error: function(error) {
+                    // handle error
+                    console.log(error);
+                }
+            });
         });
     });
-});
-
 </script>
 @endpush

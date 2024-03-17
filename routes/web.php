@@ -38,6 +38,10 @@ Route::get('services', function () {
     return view('frontend.services.index');
 })->name('services');
 
+Route::get('terms', function () {
+    return view('frontend.terms.index');
+})->name('terms');
+
 Route::get('contact', function () {
     return view('frontend.contact.index');
 })->name('contact');
