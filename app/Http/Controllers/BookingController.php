@@ -74,7 +74,14 @@ class BookingController extends Controller
             return back()->with('error', 'An error occurred while creating the customer.');
         }
     }
-
+    public function edit($id)
+    {
+        $address = Customer::where('user_id', Auth::id())->get();
+        $booking = Booking::find($id);
+        $sender = Customer::find($booking->sender_id);
+        $reciver = Customer::find($booking->receiver_id);
+        return view('frontend.login.update_booking', compact('booking','address','sender','reciver'));
+    }
     public function deleteadmin($id)
     {
         $booking = Booking::find($id);
@@ -133,6 +140,43 @@ class BookingController extends Controller
 
         // Return a JSON response
         return response()->json(['message' => 'Booking saved successfully', 'booking_id' => $booking->id]);
+    }
+
+    public function update(Request $request)
+    {
+        // Validate the request data
+        $validatedData = $request->validate([
+            'id' => 'required',
+            'sender' => 'required|string',
+            'receiver' => 'required|string',
+            'height' => 'required|numeric',
+            'width' => 'required|numeric',
+            'length' => 'required|numeric',
+            'weight' => 'required|numeric',
+            'contact' => 'required|string',
+            'item_list' => 'required|string',
+            'remarks' => 'string',
+        ]);
+
+        // Find the booking by ID
+        $booking = Booking::findOrFail($validatedData['id']);
+
+        // Update the booking properties from the validated data
+        $booking->sender_id = $validatedData['sender'];
+        $booking->receiver_id = $validatedData['receiver'];
+        $booking->height = $validatedData['height'];
+        $booking->width = $validatedData['width'];
+        $booking->length = $validatedData['length'];
+        $booking->weight = $validatedData['weight'];
+        $booking->contact = $validatedData['contact'];
+        $booking->item_list = $validatedData['item_list'];
+        $booking->remarks = $validatedData['remarks'];
+
+        // Save the updated booking
+        $booking->save();
+
+
+        return redirect()->back()->with('success', 'Booking updated successfully');
     }
 
     public function delete($id)

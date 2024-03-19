@@ -210,7 +210,7 @@
 
                                         @if ($item->status == 0)
                                             <div class="row delete-btn mr-2">
-                                                <a href="" class="mr-3"><i class="fas fa-pencil" aria-hidden="true" title="Edit"></i></a>
+                                                <a href="{{ route('booking.edit', ['id' => $item->id]) }}" class="mr-3"><i class="fas fa-pencil" aria-hidden="true" title="Edit"></i></a>
 
                                                 <a onclick="openSweetAlertBooking({{ $item->id }})"
                                                     title="Delete"><i class="fas fa-solid fa-trash"></i></a>

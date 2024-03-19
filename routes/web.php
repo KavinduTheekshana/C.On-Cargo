@@ -84,6 +84,8 @@ Route::middleware(['userOnly'])->group(function () {
     Route::post('user/booking/store', [BookingController::class, 'store'])->name('user.booking.store');
     Route::get('/address/delete/{id}', [CustomerController::class, 'delete'])->name('address.delete');
     Route::get('/booking/delete/{id}', [BookingController::class, 'delete'])->name('booking.delete');
+    Route::get('/booking/edit/{id}', [BookingController::class, 'edit'])->name('booking.edit');
+    Route::post('user/booking/update', [BookingController::class, 'update'])->name('user.booking.update');
     Route::post('/regularuser/password/update', [ProfileController::class, 'updatePassword'])->name('regularuser.password.update');
 });
 
