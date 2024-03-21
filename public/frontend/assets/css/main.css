@@ -2129,9 +2129,9 @@ label {
   position: relative;
   text-transform: uppercase;
   transition: 0.3s;
-  /* background-image: -moz-linear-gradient(-51deg, #eb120a 0%, #b51f38 99%);
+  background-image: -moz-linear-gradient(-51deg, #eb120a 0%, #b51f38 99%);
   background-image: -webkit-linear-gradient(-51deg, #eb120a 0%, #b51f38 99%);
-  background-image: -ms-linear-gradient(-51deg, #eb120a 0%, #b51f38 99%); */
+  background-image: -ms-linear-gradient(-51deg, #eb120a 0%, #b51f38 99%);
   border-radius: 50px;
   border: none;
   transition: 0.3s;
