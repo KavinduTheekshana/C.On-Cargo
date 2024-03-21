@@ -6947,5 +6947,16 @@ button {
 .pricing-button a.btn {
   padding: 16px 32px 16px 29px;
 }
-
+.dark-btn {
+  background: rgb(91, 91, 91) !important;
+  background: linear-gradient(
+      90deg,
+      #5b5b5b 0%,
+      rgba(0, 0, 0, 1) 100%,
+      #18272a 100%
+  ) !important;
+  background-image: -moz-linear-gradient(-51deg, #5b5b5b 0%, #18272a 99%) !important;
+  background-image: -webkit-linear-gradient(-51deg, #5b5b5b 0%, #18272a 99%) !important;
+  background-image: -ms-linear-gradient(-51deg, #5b5b5b 0%, #18272a 99%) !important;
+}
 /*# sourceMappingURL=main.css.map */
