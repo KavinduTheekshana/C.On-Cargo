@@ -297,6 +297,18 @@ input[type="number"] {
     background-color: #27aa80;
 }
 .dark-btn {
+    color: #ffffff;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 26px 54px 26px 50px;
+    position: relative;
+    text-transform: uppercase;
+    transition: 0.3s;
+    border-radius: 50px;
+    border: none;
+    transition: 0.3s;
     background: rgb(91, 91, 91) !important;
     background: linear-gradient(
         90deg,
