@@ -14,9 +14,21 @@
     border-radius: 50px;
     border: none;
     transition: 0.3s;
-    background-image: -moz-linear-gradient(-51deg, #5b5b5b 0%, #18272a 99%) !important;
-    background-image: -webkit-linear-gradient(-51deg, #5b5b5b 0%, #18272a 99%) !important;
-    background-image: -ms-linear-gradient(-51deg, #5b5b5b 0%, #18272a 99%) !important;
+    background-image: -moz-linear-gradient(
+        -51deg,
+        #5b5b5b 0%,
+        #18272a 99%
+    ) !important;
+    background-image: -webkit-linear-gradient(
+        -51deg,
+        #5b5b5b 0%,
+        #18272a 99%
+    ) !important;
+    background-image: -ms-linear-gradient(
+        -51deg,
+        #5b5b5b 0%,
+        #18272a 99%
+    ) !important;
 }
 .slider-content h2 span {
     color: #bc110b !important;
@@ -124,8 +136,8 @@ input[type="number"] {
     text-transform: none !important;
 }
 .quote-form {
-    border: 4px solid #000;
-    padding: 30px;
+    border: 4px solid #000 !important;
+    padding: 30px !important;
 }
 .quote-form input {
     border-radius: 0px !important;
@@ -138,33 +150,36 @@ input[type="number"] {
     --select-bg: rgba(255, 255, 255, 1);
     --arrow-bg-booking: #eeeeee;
 }
-.appiontment-form select{
-    appearance: none;
-    border: 2px solid #eeeeee;
-    height: 70px;
+.appiontment-form select {
+    appearance: none !important;
+    border: 2px solid #eeeeee !important;
+    height: 70px !important;
     border-radius: 0px !important;
-    outline: 0;
-    font: inherit;
-    width: 100%;
+    outline: 0 !important;
+    font: inherit !important;
+    width: 100% !important;
     /* Personalize */
-    padding: 1rem 4rem 1rem 1rem;
+    padding: 1rem 4rem 1rem 1rem !important;
     background: var(--arrow-icon) no-repeat right 0.8em center / 1.4em,
-        linear-gradient(to left, var(--arrow-bg-booking) 3em, var(--select-bg) 3em);
-    color: #282828;
-    border-radius: 0.25em;
+        linear-gradient(
+            to left,
+            var(--arrow-bg-booking) 3em,
+            var(--select-bg) 3em
+        ) !important;
+    color: #282828 !important;
+    border-radius: 0.25em !important;
     /* box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2); */
-    cursor: pointer;
+    cursor: pointer !important;
     /* Remove IE arrow */
     &::-ms-expand {
-        display: none;
+        display: none !important;
     }
     /* Remove focus outline */
     &:focus {
-        outline: none;
+        outline: none !important;
     }
-
 }
-.quote-form select{
+.quote-form select {
     appearance: none;
     border: 2px solid #000;
     height: 70px;
@@ -313,9 +328,21 @@ input[type="number"] {
     background-color: #27aa80;
 }
 .red-btn {
-    background-image: -moz-linear-gradient(-51deg, #eb120a 0%, #b51f38 99%) !important;
-  background-image: -webkit-linear-gradient(-51deg, #eb120a 0%, #b51f38 99%) !important;
-  background-image: -ms-linear-gradient(-51deg, #eb120a 0%, #b51f38 99%) !important;
+    background-image: -moz-linear-gradient(
+        -51deg,
+        #eb120a 0%,
+        #b51f38 99%
+    ) !important;
+    background-image: -webkit-linear-gradient(
+        -51deg,
+        #eb120a 0%,
+        #b51f38 99%
+    ) !important;
+    background-image: -ms-linear-gradient(
+        -51deg,
+        #eb120a 0%,
+        #b51f38 99%
+    ) !important;
 }
 .white-btn:hover {
     color: #000000 !important;
