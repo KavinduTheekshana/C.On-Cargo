@@ -300,10 +300,13 @@ input[type="number"] {
     background: rgb(91, 91, 91) !important;
     background: linear-gradient(
         90deg,
-        rgba(91, 91, 91, 1) 0%,
+        #5b5b5b 0%,
         rgba(0, 0, 0, 1) 100%,
-        rgba(24, 39, 42, 1) 100%
+        #18272a 100%
     ) !important;
+    background-image: -moz-linear-gradient(-51deg, #5b5b5b 0%, #18272a 99%) !important;
+    background-image: -webkit-linear-gradient(-51deg, #5b5b5b 0%, #18272a 99%) !important;
+    background-image: -ms-linear-gradient(-51deg, #5b5b5b 0%, #18272a 99%) !important;
 }
 .white-btn:hover {
     color: #000000 !important;
