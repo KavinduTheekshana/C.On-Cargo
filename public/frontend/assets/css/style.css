@@ -296,7 +296,7 @@ input[type="number"] {
 .order-tracking.completed:before {
     background-color: #27aa80;
 }
-.dark-btn {
+.dark-btn-custom {
     color: #ffffff;
     display: inline-block;
     font-size: 15px;
