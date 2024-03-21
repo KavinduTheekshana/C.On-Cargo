@@ -17,9 +17,15 @@
                                 <label>&nbsp;Select Destination</label>
                                 <div>
                                     <select id="destination">
-                                        <option value="sl2uk">Sri Lanka To UK</option>
-                                        <option value="uk2sl">UK to Sri Lanka</option>
-                                        <option value="uk2ind">UK to India</option>
+                                        <option value="sl2uk">Sri Lanka To United Kingdom</option>
+                                        <option value="uk2sl">United Kingdom to Sri Lanka</option>
+                                        <option value="sl2uk">Sri Lanka To France</option>
+                                        <option value="uk2sl">France to Sri Lanka</option>
+                                        <option value="sl2uk">Sri Lanka To Italy</option>
+                                        <option value="uk2sl">Italy to Sri Lanka</option>
+                                        <option value="sl2uk">Sri Lanka To Canada</option>
+                                        <option value="uk2sl">Canada to Sri Lanka</option>
+                                        <option value="uk2ind">United Kingdom to India</option>
                                     </select>
                                 </div>
                             </div>

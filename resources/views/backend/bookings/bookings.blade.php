@@ -26,7 +26,7 @@
                             <th>ID</th>
                             <th>Date</th>
                             <th>User ID</th>
-                            <th>User's Details</th>
+                            <th>Order Details</th>
                             <th>Box Size</th>
                             <th>Weight</th>
                             <th>Status</th>
@@ -38,7 +38,14 @@
                             <td>B{{ $item->id }}</td>
                             <td>{{ $item->created_at }}</td>
                             <td>U{{ $item->user_id }}</td>
-                            <td><b>{{ $item->user->name }}</b> <br>{{ $item->user->email }}<br>{{ $item->contact }} </td>
+                            <td><b>Name : {{ $item->user->name }}</b> <br>Email : {{ $item->user->email }}<br>Contact :
+                                {{ $item->contact }} @if ($item->item_list)
+                                    <br> <span class="text-primary"> Pack List : {{ $item->item_list }} </span>
+                                @endif
+                                @if ($item->remarks)
+                                    <br> <span class="text-danger"> Remarks : {{ $item->remarks }}</span>
+                                @endif
+                            </td>
                             <td>{{ $item->width }}x{{ $item->height }}x{{ $item->length }}</td>
                             <td>{{ $item->weight }} KG</td>
                             <td>
@@ -50,8 +57,7 @@
                             </td>
                             <td>
                                 <div class="row">
-                                    <a href="{{ route('booking.create', ['id' => $item->id]) }}"
-                                        type="button"
+                                    <a href="{{ route('booking.create', ['id' => $item->id]) }}" type="button"
                                         class="btn btn-icon btn-dark btn-fab demo waves-effect waves-light m-1">
                                         <i class="tf-icons mdi mdi-eye-outline"></i>
                                     </a>
@@ -63,14 +69,12 @@
                                     </button> --}}
 
                                     @if ($item->status)
-                                        <a href="{{ route('booking.diactive', ['id' => $item->id]) }}"
-                                            type="button"
+                                        <a href="{{ route('booking.diactive', ['id' => $item->id]) }}" type="button"
                                             class="btn btn-icon btn-warning btn-fab demo waves-effect waves-light m-1">
                                             <i class="tf-icons mdi mdi-octagon-outline"></i>
                                         </a>
                                     @else
-                                        <a href="{{ route('booking.active', ['id' => $item->id]) }}"
-                                            type="button"
+                                        <a href="{{ route('booking.active', ['id' => $item->id]) }}" type="button"
                                             class="btn btn-icon btn-success btn-fab demo waves-effect waves-light m-1">
                                             <i class="tf-icons mdi mdi-check"></i>
                                         </a>
@@ -117,8 +121,8 @@
             });
         });
 
-         // Sweet Alert
-         function openSweetAlert($id) {
+        // Sweet Alert
+        function openSweetAlert($id) {
             console.log($id);
             Swal.fire({
                 title: 'Are you sure?',
@@ -145,7 +149,7 @@
                                 setTimeout(() => {
                                     location.reload();
                                 }, 1000); // 1000 milliseconds = 1 second
-                            }  else {
+                            } else {
                                 Swal.fire('Error', 'Something went wrong!', 'error');
                             }
                         });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Invoice;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -34,6 +35,21 @@ class HomeController extends Controller
         } else {
             $invoice_count = Invoice::where('user_id', Auth::id())->count();
         }
-        return view('backend.dashboard.dashboard', compact('agents_count', 'pending_bookings','customers_count','invoice_count'));
+          // Calculate the date 12 months ago from today
+          $startDate = Carbon::now()->subMonths(11)->startOfMonth();
+          $endDate = Carbon::now()->endOfMonth();
+
+          // Fetch bookings data for the past 12 months
+          $monthlyBookings = Booking::select(DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month'), DB::raw('count(*) as total'))
+                                  ->whereBetween('created_at', [$startDate, $endDate])
+                                  ->groupBy('month')
+                                  ->orderBy('month', 'asc')
+                                  ->get();
+
+        $labels = $monthlyBookings->pluck('month');
+        $totals = $monthlyBookings->pluck('total');
+
+        // dd($totals);
+        return view('backend.dashboard.dashboard', compact('agents_count', 'pending_bookings','customers_count','invoice_count','labels','totals',));
     }
 }

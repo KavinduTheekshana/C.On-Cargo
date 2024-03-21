@@ -84,6 +84,30 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <!-- Vehicles overview -->
+
+                <!--/ Vehicles overview -->
+                <!-- Shipment statistics-->
+                <div class="col-lg-6 col-xxl-6 mb-4 order-3 order-xxl-1">
+                  <div class="card">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                      <div class="card-title mb-0">
+                        <h5 class="m-0 me-2 mb-1">Bookings statistics</h5>
+                      </div>
+
+                    </div>
+                    <div class="card-body">
+                        <canvas id="analyticsChart" width="" height=""></canvas>
+                    </div>
+                  </div>
+                </div>
+                <!--/ Shipment statistics -->
+
+              </div>
+
+
             <!--/ Card Border Shadow -->
             <div class="row">
                 <img width="120px" src="{{ asset('frontend/assets/img/logo/logo.svg') }}" alt=""
@@ -96,4 +120,30 @@
 
     @push('pagejs')
         <script src="{{ asset('backend/assets/js/app-logistics-dashboard.js') }}"></script>
+
+        <script>
+            var ctx = document.getElementById('analyticsChart').getContext('2d');
+            var data = {
+                labels: {!! json_encode($labels) !!},
+                datasets: [{
+                    label: 'Total Bookings',
+                    data: {!! json_encode($totals) !!},
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            };
+            var options = {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            };
+            var analyticsChart = new Chart(ctx, {
+                type: 'bar',
+                data: data,
+                options: options
+            });
+        </script>
     @endpush

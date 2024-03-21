@@ -42,7 +42,7 @@
         {
           name: 'Shipment',
           type: 'column',
-          data: [38, 45, 33, 38, 32, 50, 48, 40, 42, 37]
+          data: [8, 5, 3, 8, 2, 0, 8, 0, 2, 7]
         },
         {
           name: 'Delivery',

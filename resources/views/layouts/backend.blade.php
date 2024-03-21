@@ -59,6 +59,7 @@
     <script src="{{ asset('backend/assets/vendor/js/helpers.js') }}"></script>
     <script src="{{ asset('backend/assets/vendor/js/template-customizer.js') }}"></script>
     <script src="{{ asset('backend/assets/js/config.js') }}"></script>
+    @vite(['resources/js/app.js'])
 </head>
 
 <body>
@@ -99,6 +100,7 @@
     <!-- Vendors JS -->
     <script src="{{ asset('backend/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
     <script src="{{ asset('backend/assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     @stack('vendorsjs')
 
     <!-- Main JS -->
