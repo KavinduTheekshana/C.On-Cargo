@@ -16,7 +16,7 @@
                     <p>Just a few quick things to get started</p>
                     <div class="col-lg-12 col-md-12 mt-20-btn p-2">
                         <div class="mb-20">
-                            <a href="{{ route('user/register') }}" class="dark-btn-custom squre-btn" type="button">Register
+                            <a href="{{ route('user/register') }}" class=" btn dark-btn-custom squre-btn" type="button">Register
                                 <i class="far fa-paper-plane"></i></a>
                         </div>
                     </div>
