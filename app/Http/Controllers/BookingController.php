@@ -115,8 +115,8 @@ class BookingController extends Controller
             'length' => 'required|numeric',
             'weight' => 'required|numeric',
             'contact' => 'required|string',
-            'item_list' => 'required|string',
-            'remarks' => 'string',
+            'item_list' => 'nullable|string',
+            'remarks' => 'nullable|string',
         ]);
 
         // Create a new Booking instance and set its properties from the validated data
@@ -154,7 +154,7 @@ class BookingController extends Controller
             'length' => 'required|numeric',
             'weight' => 'required|numeric',
             'contact' => 'required|string',
-            'item_list' => 'required|string',
+            'item_list' => 'string',
             'remarks' => 'string',
         ]);
 

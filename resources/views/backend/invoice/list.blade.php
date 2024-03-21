@@ -222,7 +222,7 @@
 
                                     <tr>
                                         <td></td>
-                                        <td>Other</td>
+                                        <td><span id="modalInvoiceOption"></span></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -405,6 +405,7 @@
                 url: '/invoices/' + invoiceId + '/details',
                 type: 'GET',
                 success: function(response) {
+                    console.log(response);
                     // Assuming response is the invoice object with an items array
                     $('#modalInvoiceId').text(response.invoice_id);
                     $('#modalInvoiceDate').text(response.date);
@@ -414,6 +415,7 @@
                     $('#modalHandlingFee').text(response.handling_fee);
                     $('#modalTotal').text(response.total_fee);
                     $('#modalNote').text(response.note);
+                    $('#modalInvoiceOption').text(response.invoice_option);
                     // sender details
                     $('#modalSenderFirstName').text(response.sender.firstname);
                     $('#modalSenderLastName').text(response.sender.lastname);
@@ -430,6 +432,7 @@
                     $('#modalReceiverAddress').text(response.receiver.address);
                     $('#modaReceiverPostCode').text(response.receiver.postcode);
                     $('#modalReceiverCountry').text(response.receiver.country);
+
                     // Populate more invoice fields
 
                     // Clear previous items

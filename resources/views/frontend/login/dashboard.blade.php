@@ -184,8 +184,8 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputCity">Item List <span class="theme-color">*</span></label>
-                                    <textarea class="form-control" name="item_list" required rows="5"></textarea>
+                                    <label for="inputCity">Item List <span class="theme-color"></span></label>
+                                    <textarea class="form-control" name="item_list" rows="5"></textarea>
                                     @error('item_list')
                                         <p class="text-danger text-left">{{ $message }}</p>
                                     @enderror

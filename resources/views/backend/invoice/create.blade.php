@@ -25,7 +25,7 @@
                                             <div class="col">
                                                 <span class="app-brand-logo demo">
                                                     <img width="140px"
-                                                        src="{{ asset('frontend/assets/img/logo/logo.svg') }}"
+                                                        src="{{ asset('frontend/assets/img/logo/logodarkcargo.svg') }}"
                                                         alt="" />
                                                 </span>
                                             </div>
@@ -63,24 +63,23 @@
                                                 name="invoice_id" id="invoiceId"
                                                 value="{{ strtoupper(Auth::user()->identity) }}-{{ $nextInvoiceNumber }}" /> --}}
                                                 @if (auth()->user() && auth()->user()->role == 0)
-                                                    <select  name="invoice_id" id="invoiceId" class="form-select">
-                                                        <option selected
-                                                            value="{{ strtoupper(Auth::user()->id) }}">
+                                                    <select name="invoice_id" id="invoiceId" class="form-select">
+                                                        <option selected value="{{ strtoupper(Auth::user()->id) }}">
                                                             {{ strtoupper(Auth::user()->identity) }}-{{ $nextInvoiceNumber }}
                                                         </option>
                                                         @foreach ($identities as $identity)
-                                                            <option value="{{ strtoupper($identity['id']) }}">{{ strtoupper($identity['identity']) }}-{{ $nextInvoiceNumber }}</option>
+                                                            <option value="{{ strtoupper($identity['id']) }}">
+                                                                {{ strtoupper($identity['identity']) }}-{{ $nextInvoiceNumber }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 @elseif(auth()->user()->role == 1)
-                                                <select  name="invoice_id" id="invoiceId" class="form-select">
-                                                    <option selected
-                                                        value="{{ strtoupper(Auth::user()->id) }}">
-                                                        {{ strtoupper(Auth::user()->identity) }}-{{ $nextInvoiceNumber }}
-                                                    </option>
+                                                    <select name="invoice_id" id="invoiceId" class="form-select">
+                                                        <option selected value="{{ strtoupper(Auth::user()->id) }}">
+                                                            {{ strtoupper(Auth::user()->identity) }}-{{ $nextInvoiceNumber }}
+                                                        </option>
 
-                                                </select>
-
+                                                    </select>
                                                 @endif
 
 
@@ -134,10 +133,6 @@
                                         <p id="receiverDetails" class="mb-1"></p>
                                     </div>
                                 </div>
-
-
-
-
 
 
                             </div>
@@ -223,7 +218,6 @@
                                 <div class="row mt-3">
                                     <div class="col-md-12 col-12 mb-md-0 mb-3">
                                         <div class="row">
-
                                             <div class="col">
                                                 <p class="mb-2 repeater-title">Collection & Delivery</p>
                                                 <input type="number" name="collection_fee" class="form-control mb-2"
@@ -231,10 +225,24 @@
                                                     id="collection-input" onkeyup="calculateTotal()" placeholder="0" />
                                             </div>
                                             <div class="col">
-                                                <p class="mb-2 repeater-title">Other</p>
-                                                <input type="number" name="handling_fee" class="form-control"
-                                                    step=".01" value="{{ old('handling_fee', '0.00') }}"
-                                                    id="handling-input" onkeyup="calculateTotal()" placeholder="0" />
+                                                <p class="mb-2 repeater-title">Choose Option</p>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <select name="invoice_option" id="invoice_option" class="form-select">
+                                                            <option selected value="Other">Other</option>
+                                                            <option value="Repacking">Repacking</option>
+                                                            <option value="Discount">Discount</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col">
+                                                        <input type="number" name="handling_fee"
+                                                            class="form-control" step=".01"
+                                                            value="{{ old('handling_fee', '0.00') }}" id="handling-input"
+                                                            onkeyup="calculateTotal()" placeholder="0" />
+                                                    </div>
+
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>

@@ -102,7 +102,8 @@ class InvoiceController extends Controller
             'sender_id' => 'required|integer|exists:customers,id',
             'receiver_id' => 'required|integer|exists:customers,id',
             'total_fee' => 'required|numeric',
-            'note' => 'nullable|string'
+            'note' => 'nullable|string',
+            'invoice_option' => 'required|string'
         ]);
         // Invoice Creating user ID
         $invoiceUserId = $request->input('invoice_id');
@@ -115,7 +116,7 @@ class InvoiceController extends Controller
 
         $invoiceData = $request->only([
             'date', 'job_number', 'customer_id', 'sender_id',
-            'receiver_id', 'collection_fee', 'handling_fee', 'total_fee', 'note'
+            'receiver_id', 'collection_fee', 'handling_fee', 'total_fee', 'note' , 'invoice_option'
         ]);
         $invoiceData['user_id'] = $invoiceUserId;
         $invoiceData['invoice_id'] =  strtoupper($identity) . "-" . $nextInvoiceNumber;
