@@ -308,6 +308,11 @@ input[type="number"] {
     background-image: -webkit-linear-gradient(-51deg, #5b5b5b 0%, #18272a 99%) !important;
     background-image: -ms-linear-gradient(-51deg, #5b5b5b 0%, #18272a 99%) !important;
 }
+.red-btn {
+    background-image: -moz-linear-gradient(-51deg, #eb120a 0%, #b51f38 99%) !important;
+  background-image: -webkit-linear-gradient(-51deg, #eb120a 0%, #b51f38 99%) !important;
+  background-image: -ms-linear-gradient(-51deg, #eb120a 0%, #b51f38 99%) !important;
+}
 .white-btn:hover {
     color: #000000 !important;
 }
