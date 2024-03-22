@@ -20,7 +20,7 @@
                                     <div class="row">
                                         <div class="mb-2 col-6">
                                             <span class="app-brand-logo demo">
-                                                <img width="160px" src="{{ asset('backend/assets/svg/logo.png') }}"
+                                                <img width="160px" src="{{ asset('backend/assets/svg/logodarkcargo.png') }}"
                                                     alt="" srcset="">
                                             </span>
 
@@ -98,6 +98,7 @@
                                 <thead class="border-top">
                                     <tr>
                                         <th>No</th>
+                                        <th>Description</th>
                                         <th>Dimensions (CM)</th>
                                         <th>Unit Price (£)</th>
                                         <th>Volume Weight</th>
@@ -109,6 +110,7 @@
                                     @foreach ($invoice->items as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
+                                            <td>Fright Charge</td>
                                             <td>{{ $item->width }}x{{ $item->height }}x{{ $item->length }}</td>
                                             <td>£ {{ $item->unit_price }}</td>
                                             <td>{{ $item->volume_weight }}</td>
@@ -124,12 +126,14 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
+                                        <td></td>
                                         <td class="pt-1">£ {{ $invoice->collection_fee }}</td>
                                     </tr>
 
                                     <tr>
                                         <td></td>
-                                        <td class="pt-0">Other</td>
+                                        <td class="pt-0">{{ $invoice->invoice_option }}</td>
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -166,15 +170,15 @@
                                     <div class="invoice-calculations">
 
 
-                                        <div class="d-flex justify-content-between mb-2">
+                                        <div class="d-flex container justify-content-right mb-2">
                                             <div class="row">
-                                                <div class="col d-flex justify-content-end align-items-end">
+                                                <div class="col-6 ">
                                                     <div class="content">
                                                         <h3 class="w-px-150 total-text">Total:</h3>
                                                     </div>
                                                 </div>
 
-                                                <div class="col">
+                                                <div class="col-6">
                                                     <h3 class="w-px-150 total-text">£ {{ $invoice->total_fee }}</h3>
                                                 </div>
                                             </div>
@@ -200,21 +204,21 @@
 
                         <div class="card-body pl-manual pb-0">
                             <div class="row">
-                                <div class="col-3">
+                                {{-- <div class="col-3">
                                     <h6 class="pb-0">DON'T SEND</h6>
                                     <img width="100%" src="{{ asset('backend/assets/svg/invoiceicon.png') }}"
                                         alt="" srcset="">
-                                </div>
-                                <div class="col-9">
+                                </div> --}}
+                                <div class="col-12">
                                     <h6 class="pb-0">TERMS & CONDITIONS</h6>
                                     <ul style="font-size: 12px">
-                                        <li>All non document items are subject to inspection.</li>
+                                        <li>All packages are subject to inspection.</li>
                                         <li>Sender will be responsible penalties for any wrong declaration</li>
 
                                         <li>Custom duty is not included. Any custom Duty, Customer is liable to pay.</li>
                                         <li>All deliveries are subject to Airline weather conditions, Custom clearance &
                                             flight schedule, Delays.</li>
-                                        <li>Economy Air cargo ( Below 5 KG) Delivery Within 5-7 working days.</li>
+                                        {{-- <li>Economy Air cargo ( Below 5 KG) Delivery Within 5-7 working days.</li> --}}
                                         <li>Chargeable weight (Gross weight or Volume weight) which is highest.</li>
                                     </ul>
                                 </div>
@@ -225,7 +229,7 @@
                         <div class="card-body pt-2" style="font-size: 12px;">
                             <div class="row">
                                 <div class="col-12 justify-center text-center">
-                                    <p class="m-0">C.ON Group Ltd - 12, King Arthur Road, Waltham Cross, London, EN8 8EH
+                                    <p class="m-0">C.ON Group Ltd is Trading as C-ON Cargo <br> 12, King Arthur Road, Waltham Cross, London, EN8 8EH
                                         &nbsp; <span class="mdi mdi-phone-classic"> 01992416763</span></p>
                                     <p class="m-0">Company Reg No. 15130909 | VAT No. 451 2523 24</p>
                                     <p>www.concargo.co.uk</p>

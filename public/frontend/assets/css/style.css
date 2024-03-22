@@ -147,12 +147,20 @@ input[type="number"] {
     --arrow-bg: rgba(0, 0, 0, 1);
     --arrow-icon: url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg);
     --option-bg: white;
-    --select-bg: rgba(255, 255, 255, 1);
-    --arrow-bg-booking: #eeeeee;
+    --select-bg: rgb(255, 255, 255);
+    --arrow-bg-booking: #000000;
+}
+.appiontment-form input {
+    border: 2px solid #000000 !important;
+    border-radius: 0px !important;
+}
+.booking-textarea{
+    border: 2px solid #000000 !important;
+    border-radius: 0px !important;
 }
 .appiontment-form select {
     appearance: none !important;
-    border: 2px solid #eeeeee !important;
+    border: 2px solid #000000 !important;
     height: 70px !important;
     border-radius: 0px !important;
     outline: 0 !important;
@@ -167,7 +175,7 @@ input[type="number"] {
             var(--select-bg) 3em
         ) !important;
     color: #282828 !important;
-    border-radius: 0.25em !important;
+
     /* box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2); */
     cursor: pointer !important;
     /* Remove IE arrow */

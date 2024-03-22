@@ -29,7 +29,7 @@
                                             <div class="col">
                                                 <span class="app-brand-logo demo">
                                                     <img width="140px"
-                                                        src="{{ asset('frontend/assets/img/logo/logo.svg') }}"
+                                                        src="{{ asset('frontend/assets/img/logo/logodarkcargo.svg') }}"
                                                         alt="" />
                                                 </span>
                                             </div>
@@ -234,11 +234,31 @@
                                                     onkeyup="calculateTotal()" placeholder="0" />
                                             </div>
                                             <div class="col">
+                                                <p class="mb-2 repeater-title">Choose Option</p>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <select name="invoice_option" id="invoice_option" class="form-select">
+                                                            <option value="Other" {{ $invoice->invoice_option == 'Other' ? 'selected' : '' }}>Other</option>
+                                                            <option value="Repacking" {{ $invoice->invoice_option == 'Repacking' ? 'selected' : '' }}>Repacking</option>
+                                                            <option value="Discount" {{ $invoice->invoice_option == 'Discount' ? 'selected' : '' }}>Discount</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col">
+                                                        <input type="number" name="handling_fee" class="form-control"
+                                                        value="{{$invoice->handling_fee}}" id="handling-input" step=".01"
+                                                            onkeyup="calculateTotal()" placeholder="0" />
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            {{-- <div class="col">
                                                 <p class="mb-2 repeater-title">Other</p>
                                                 <input type="number" name="handling_fee" class="form-control"
                                                 value="{{$invoice->handling_fee}}" id="handling-input" step=".01"
                                                     onkeyup="calculateTotal()" placeholder="0" />
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>

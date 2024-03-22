@@ -144,7 +144,8 @@ class InvoiceController extends Controller
             'sender_id' => 'required|integer|exists:customers,id',
             'receiver_id' => 'required|integer|exists:customers,id',
             'total_fee' => 'required|numeric',
-            'note' => 'nullable|string'
+            'note' => 'nullable|string',
+            'invoice_option' => 'required|string'
         ]);
 
 
@@ -159,7 +160,7 @@ class InvoiceController extends Controller
 
         $invoiceData = $request->only([
             'date', 'job_number', 'customer_id', 'sender_id', 'booking_id',
-            'receiver_id', 'collection_fee', 'handling_fee', 'total_fee', 'note'
+            'receiver_id', 'collection_fee', 'handling_fee', 'total_fee', 'note' ,'invoice_option'
         ]);
         $invoiceData['user_id'] = $invoiceUserId;
         $invoiceData['invoice_id'] =  strtoupper($identity) . "-" . $nextInvoiceNumber;
@@ -200,12 +201,13 @@ class InvoiceController extends Controller
             'sender_id' => 'required|integer|exists:customers,id',
             'receiver_id' => 'required|integer|exists:customers,id',
             'total_fee' => 'required|numeric',
-            'note' => 'nullable|string'
+            'note' => 'nullable|string',
+            'invoice_option' => 'required|string'
         ]);
 
         $invoice->update($request->only([
             'date', 'job_number', 'customer_id', 'sender_id',
-            'receiver_id', 'total_fee', 'note', 'collection_fee', 'handling_fee'
+            'receiver_id', 'total_fee', 'note', 'collection_fee', 'handling_fee' , 'invoice_option'
             // Include any other fields that are part of the Invoice model
         ]));
 
@@ -230,13 +232,19 @@ class InvoiceController extends Controller
 
     public function edit($id)
     {
+        if (Auth::user()->role == 0) {
+            $customers = Customer::all();
+        } else {
+            $customers = Customer::where('user_id', Auth::id())
+                ->get();
+        }
         $invoice = Invoice::find($id);
         $sender = Customer::find($invoice->sender_id);
         $receiver = Customer::find($invoice->receiver_id);
         $items = Item::where('invoice_id', $invoice->id)->get();
-        $customers = Customer::where('status', 1)
-            ->where('user_id', Auth::id())
-            ->get();
+        // $customers = Customer::where('status', 1)
+        //     ->where('user_id', Auth::id())
+        //     ->get();
         return view('backend.invoice.updateinvoice', compact('invoice', 'customers', 'items', 'sender', 'receiver'));
     }
 

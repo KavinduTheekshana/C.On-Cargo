@@ -120,7 +120,7 @@
                                     <div class="row">
                                         <div style="width: 200px" class="mb-2 col">
                                             <span class="app-brand-logo demo">
-                                                <img width="160px" src="{{ asset('backend/assets/svg/logo.png') }}"
+                                                <img width="160px" src="{{ asset('frontend/assets/img/logo/logodarkcargo.svg') }}"
                                                     alt="" srcset="">
                                             </span>
 
@@ -197,6 +197,7 @@
                                 <thead class="border-top">
                                     <tr>
                                         <th>No</th>
+                                        <th>Description</th>
                                         <th>Dimensions (CM)</th>
                                         <th>Unit Price (£)</th>
                                         <th>Volume Weight</th>
@@ -217,12 +218,14 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
+                                        <td></td>
                                         <td><span id="modalCollectionFee"></span></td>
                                     </tr>
 
                                     <tr>
                                         <td></td>
                                         <td><span id="modalInvoiceOption"></span></td>
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -442,7 +445,7 @@
                     response.items.forEach(function(item, index) {
                         var iteration = index + 1;
                         var row = '<tr>' +
-                            '<td>' + iteration + '</td>' +
+                            '<td>' + iteration + '</td>' + '<td>' + 'Fright Charges' + '</td>' +
                             '<td>' + item.width + 'x' + item.height + 'x' + item.length +
                             '</td>' +
                             '<td>' + item.unit_price + '</td>' +

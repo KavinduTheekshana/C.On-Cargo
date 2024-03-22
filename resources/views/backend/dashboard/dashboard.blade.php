@@ -108,7 +108,7 @@
                     <div class="card">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <div class="card-title mb-0">
-                                <h5 class="m-0 me-2 mb-1">Bookings statistics</h5>
+                                <h5 class="m-0 me-2 mb-1">Customer statistics</h5>
                             </div>
 
                         </div>

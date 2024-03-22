@@ -185,7 +185,7 @@
 
                                 <div class="form-group">
                                     <label for="inputCity">Item List <span class="theme-color"></span></label>
-                                    <textarea class="form-control" name="item_list" rows="5"></textarea>
+                                    <textarea class="form-control booking-textarea" name="item_list" rows="5"></textarea>
                                     @error('item_list')
                                         <p class="text-danger text-left">{{ $message }}</p>
                                     @enderror
@@ -193,7 +193,7 @@
 
                                 <div class="form-group">
                                     <label for="inputCity">Remarks</label>
-                                    <textarea class="form-control" name="remarks" rows="3"></textarea>
+                                    <textarea class="form-control booking-textarea" name="remarks" rows="3"></textarea>
                                     @error('remarks')
                                         <p class="text-danger text-left">{{ $message }}</p>
                                     @enderror
