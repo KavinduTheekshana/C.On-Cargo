@@ -163,6 +163,18 @@ class SettingsController extends Controller
         return redirect()->back()->with('success', 'Settings updated successfully.');
     }
 
+    public function uktoind(Request $request)
+    {
+        foreach ($request->uk2indd2d as $index => $value) {
+            $setting = Settings::find($index + 1); // Assuming the IDs start from 1
+            if ($setting) {
+                $setting->uk2indd2d = $request->uk2indd2d[$index];
+                $setting->save();
+            }
+        }
+        return redirect()->back()->with('success', 'Settings updated successfully.');
+    }
+
 
     /**
      * Remove the specified resource from storage.

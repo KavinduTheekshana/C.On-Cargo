@@ -26,6 +26,7 @@ return new class extends Migration
             $table->decimal("it2sld2d", 8, 2);
             $table->decimal("sl2cad2d", 8, 2);
             $table->decimal("ca2sld2d", 8, 2);
+            $table->decimal("uk2indd2d", 8, 2);
             $table->timestamps();
         });
     }

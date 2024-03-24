@@ -148,6 +148,7 @@ Route::middleware(['adminOnly'])->group(function () {
     Route::post('/settings/update/ittosl', [SettingsController::class, 'ittosl'])->name('settings.update.ittosl');
     Route::post('/settings/update/sltoca', [SettingsController::class, 'sltoca'])->name('settings.update.sltoca');
     Route::post('/settings/update/catosl', [SettingsController::class, 'catosl'])->name('settings.update.catosl');
+    Route::post('/settings/update/uktoind', [SettingsController::class, 'uktoind'])->name('settings.update.uktoind');
 
 });
 Route::middleware('adminOrAgent')->group(function () {

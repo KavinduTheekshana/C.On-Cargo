@@ -111,7 +111,34 @@
                             </div>
                         </div>
 
-                        <div class="col-6"></div>
+                        <div class="col-6">
+                            <h5>United Kingdom to India</h5>
+                            <div class="table-responsive text-nowrap">
+                                <form method="POST" action="{{ route('settings.update.uktoind') }}">
+                                    @csrf
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Weight (kg)</th>
+                                                <th>Door to Door</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($settings as $setting)
+                                                <tr>
+                                                    <td>{{ $setting->id }}</td>
+                                                    <td><input type="number" step=".01" class="form-control"
+                                                            name="uk2indd2d[]" value="{{ $setting->uk2indd2d }}"></td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    <button type="submit"
+                                        class="float-right mt-2 mb-2 btn btn-warning waves-effect waves-light">Update
+                                        Table</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
 
 
