@@ -7,6 +7,103 @@ use Illuminate\Http\Request;
 
 class QuoteController extends Controller
 {
+
+    public function quoteForm(Request $request)
+    {
+        $destination = $request->input('destination');
+        $deliveryType = $request->input('delivery_type'); // Corrected typo in the variable name
+        $itemType = $request->input('item_type');
+        $weight = $request->input('kg');
+        $height = $request->input('height');
+        $width = $request->input('width');
+        $length = $request->input('length');
+        $result = "";
+        $total = 0;
+        $volumeWeight = ceil(($height * $width * $length) / 5000);
+        $chargeableWeight = max($weight, $volumeWeight);
+        $settings = Settings::find($chargeableWeight);
+
+        if ($weight < 31) {
+
+            if ($destination == 'sl2uk') {
+                if ($deliveryType == "sl2uk_d2d") {
+                    $result = "Your Estimate Charge is: £" . $settings->sl2ukd2d;
+                } else {
+                    $result = "error_method";
+                }
+            } else if ($destination == 'uk2sl') {
+                if ($deliveryType == 'uk2sl_wh2wh') {
+                    if ($itemType == "personal") {
+                        $result = "Your Estimate Charge is: £" . $settings->uk2slwh2whP;
+                    } else if ($itemType == "commercial") {
+                        $result = "Your Estimate Charge is: £" . $settings->uk2slwh2whC;
+                    } else {
+                        $result = "error_item";
+                    }
+                } else if ($deliveryType == 'uk2sl_d2d_wp') {
+                    if ($itemType == "personal") {
+                        $result = "Your Estimate Charge is: £" . $settings->uk2sld2dwpP;
+                    } else if ($itemType == "commercial") {
+                        $result = "Your Estimate Charge is: £" . $settings->uk2sld2dwpC;
+                    } else {
+                        $result = "error_item";
+                    }
+                } else if ($deliveryType == 'uk2sl_d2d_owp') {
+                    if ($itemType == "personal") {
+                        $result = "Your Estimate Charge is: £" . $settings->uk2sld2dowpP;
+                    } else if ($itemType == "commercial") {
+                        $result = "Your Estimate Charge is: £" . $settings->uk2sld2dowpC;
+                    } else {
+                        $result = "error_item";
+                    }
+                } else {
+                    $result = "error_method";
+                }
+            } else if ($destination == 'sl2fr') {
+                if ($deliveryType == "sl2uk_d2d") {
+                    $result = "Your Estimate Charge is: £" . $settings->sl2frd2d;
+                } else {
+                    $result = "error_method";
+                }
+            } else if ($destination == 'fr2sl') {
+                if ($deliveryType == "sl2uk_d2d") {
+                    $result = "Your Estimate Charge is: £" . $settings->fr2sld2d;
+                } else {
+                    $result = "error_method";
+                }
+            } else if ($destination == 'sl2it') {
+                if ($deliveryType == "sl2uk_d2d") {
+                    $result = "Your Estimate Charge is: £" . $settings->sl2itd2d;
+                } else {
+                    $result = "error_method";
+                }
+            } else if ($destination == 'it2sl') {
+                if ($deliveryType == "sl2uk_d2d") {
+                    $result = "Your Estimate Charge is: £" . $settings->it2sld2d;
+                } else {
+                    $result = "error_method";
+                }
+            } else if ($destination == 'sl2ca') {
+                if ($deliveryType == "sl2uk_d2d") {
+                    $result = "Your Estimate Charge is: £" . $settings->sl2cad2d;
+                } else {
+                    $result = "error_method";
+                }
+            } else if ($destination == 'ca2sl') {
+                if ($deliveryType == "sl2uk_d2d") {
+                    $result = "Your Estimate Charge is: £" . $settings->ca2sld2d;
+                } else {
+                    $result = "error_method";
+                }
+            }
+        } else {
+            $result = "error_weight";
+        }
+
+        return response()->json($result);
+    }
+
+
     public function handleFormSubmission(Request $request)
     {
         $settings = Settings::first();

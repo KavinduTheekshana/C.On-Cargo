@@ -91,6 +91,18 @@ class SettingsController extends Controller
         return redirect()->back()->with('success', 'Settings updated successfully.');
     }
 
+    public function sltouk(Request $request)
+    {
+        foreach ($request->sl2ukd2d as $index => $value) {
+            $setting = Settings::find($index + 1); // Assuming the IDs start from 1
+            if ($setting) {
+                $setting->sl2ukd2d = $request->sl2ukd2d[$index];
+                $setting->save();
+            }
+        }
+        return redirect()->back()->with('success', 'Settings updated successfully.');
+    }
+
     public function frtosl(Request $request)
     {
         foreach ($request->fr2sld2d as $index => $value) {

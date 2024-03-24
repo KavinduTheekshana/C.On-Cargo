@@ -73,7 +73,7 @@ Route::get('user/forgot-password', function () {
 })->name('user/forgot-password');
 
 Route::post('regularuser', [ProfileController::class, 'regularuser'])->name('regularuser');
-Route::post('/quote/form', [QuoteController::class, 'handleFormSubmission'])->name('quote.form');
+Route::post('/quote/form', [QuoteController::class, 'quoteForm'])->name('quote.form');
 Route::post('/newsletter', [NewsletterController::class, 'store'])->name('newsletter');
 Route::post('/contactsubmit', [ContactController::class, 'store'])->name('contactsubmit');
 

@@ -19,20 +19,20 @@
                                     <select id="destination">
                                         <option value="sl2uk">Sri Lanka To United Kingdom</option>
                                         <option value="uk2sl">United Kingdom to Sri Lanka</option>
-                                        <option value="sl2uk">Sri Lanka To France</option>
-                                        <option value="uk2sl">France to Sri Lanka</option>
-                                        <option value="sl2uk">Sri Lanka To Italy</option>
-                                        <option value="uk2sl">Italy to Sri Lanka</option>
-                                        <option value="sl2uk">Sri Lanka To Canada</option>
-                                        <option value="uk2sl">Canada to Sri Lanka</option>
-                                        <option value="uk2ind">United Kingdom to India</option>
+                                        <option value="sl2fr">Sri Lanka To France</option>
+                                        <option value="fr2sl">France to Sri Lanka</option>
+                                        <option value="sl2it">Sri Lanka To Italy</option>
+                                        <option value="it2sl">Italy to Sri Lanka</option>
+                                        <option value="sl2ca">Sri Lanka To Canada</option>
+                                        <option value="ca2sl">Canada to Sri Lanka</option>
+                                        {{-- <option value="uk2ind">United Kingdom to India</option> --}}
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 mb-20">
                                 <label>&nbsp;Select Delivary Method</label>
                                 <div>
-                                    <select id="delivery_type">
+                                    <select required id="delivery_type">
                                         <option selected>Choose...</option>
                                         <option value="sl2uk_d2d">Door To Door</option>
                                         <option disabled value="uk2sl_wh2wh">Wherehouse To Wherehouse</option>
