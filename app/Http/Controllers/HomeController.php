@@ -55,11 +55,32 @@ class HomeController extends Controller
         $inactiveCustomersCount = Customer::where('status', 0)->count();
         $totalCustomers = $activeCustomersCount + $inactiveCustomersCount;
 
-    // Calculate percentages
-    $activePercentage = ($activeCustomersCount / $totalCustomers) * 100;
-    $inactivePercentage = ($inactiveCustomersCount / $totalCustomers) * 100;
+        // Calculate percentages
+        $activePercentage = ($activeCustomersCount / $totalCustomers) * 100;
+        $inactivePercentage = ($inactiveCustomersCount / $totalCustomers) * 100;
 
-        return view('backend.dashboard.dashboard', compact('agents_count', 'pending_bookings', 'customers_count',
-         'invoice_count', 'labels', 'totals', 'activeCustomersCount', 'inactiveCustomersCount','activePercentage','inactivePercentage'));
+        $totalActiveBookings = Booking::where('status', 1)->count();
+        $totalPendingBookings = Booking::where('status', 0)->count();
+        $totalBookings = $totalActiveBookings + $totalPendingBookings;
+
+        $activeBookingPercentage = ($totalActiveBookings / $totalBookings) * 100;
+        $pendingBookingPercentage = ($totalPendingBookings / $totalBookings) * 100;
+
+        return view('backend.dashboard.dashboard', compact(
+            'agents_count',
+            'pending_bookings',
+            'customers_count',
+            'invoice_count',
+            'labels',
+            'totals',
+            'activeCustomersCount',
+            'inactiveCustomersCount',
+            'activePercentage',
+            'inactivePercentage',
+            'totalActiveBookings',
+            'totalPendingBookings',
+            'activeBookingPercentage',
+            'pendingBookingPercentage'
+        ));
     }
 }

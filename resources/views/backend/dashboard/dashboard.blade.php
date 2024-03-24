@@ -126,8 +126,38 @@
                                 <li class="ct-series-2 d-flex flex-column">
                                     <h5 class="mb-0">Inactive</h5>
                                     <span class="badge badge-dot my-2 cursor-pointer rounded-pill"
-                                        style="background-color: rgb(253, 172, 52); width: 35px; height: 6px"></span>
+                                        style="background-color: #fdac34; width: 35px; height: 6px"></span>
                                     <div class="text-muted">{{ number_format($inactivePercentage, 2) }}%</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xxl-3 mb-4 order-1 order-xxl-3">
+                    <div class="card">
+                        <div class="card-header d-flex align-items-center justify-content-between">
+                            <div class="card-title mb-0">
+                                <h5 class="m-0 me-2 mb-1">Completed & Pending Bookings</h5>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            <canvas id="doughnutChartBookings" height="300"></canvas>
+                            <br>
+                            <ul class="doughnut-legend d-flex justify-content-around ps-0 mb-2 pt-1">
+
+                                <li class="ct-series-1 d-flex flex-column">
+                                    <h5 class="mb-0">Completed</h5>
+                                    <span class="badge badge-dot my-2 cursor-pointer rounded-pill"
+                                        style="background-color: #836AF9; width: 35px; height: 6px"></span>
+                                    <div class="text-muted">{{ number_format($activeBookingPercentage, 2) }}%</div>
+                                </li>
+                                <li class="ct-series-2 d-flex flex-column">
+                                    <h5 class="mb-0">Pending</h5>
+                                    <span class="badge badge-dot my-2 cursor-pointer rounded-pill"
+                                        style="background-color: #FF8132; width: 35px; height: 6px"></span>
+                                    <div class="text-muted">{{ number_format($pendingBookingPercentage, 2) }}%</div>
                                 </li>
                             </ul>
                         </div>
@@ -251,6 +281,54 @@
                             datasets: [{
                                 data: [{{ $activeCustomersCount }}, {{ $inactiveCustomersCount }}],
                                 backgroundColor: [cyanColor, orangeLightColor],
+                                borderWidth: 0,
+                                pointStyle: 'rectRounded'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            animation: {
+                                duration: 500
+                            },
+                            cutout: '68%',
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            const label = context.label || '';
+                                            const value = context.parsed || 0;
+                                            const dataset = context.dataset;
+                                            const total = dataset.data.reduce((acc, curr) => acc + curr, 0);
+                                            const percentage = ((value / total) * 100).toFixed(2);
+                                            return `${label}: ${percentage}%`;
+                                        }
+                                    },
+                                    // Updated default tooltip UI
+                                    rtl: isRtl,
+                                    backgroundColor: cardColor,
+                                    titleColor: headingColor,
+                                    bodyColor: legendColor,
+                                    borderWidth: 1,
+                                    borderColor: borderColor
+                                }
+                            }
+                        }
+                    });
+                }
+
+                //Booking Active chart
+                const doughnutChartBookings = document.getElementById('doughnutChartBookings');
+                if (doughnutChartBookings) {
+                    const doughnutChartVarBookings = new Chart(doughnutChartBookings, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Active', 'Inactive'],
+                            datasets: [{
+                                data: [{{ $totalActiveBookings }}, {{ $totalPendingBookings }}],
+                                backgroundColor: [purpleColor, orangeColor],
                                 borderWidth: 0,
                                 pointStyle: 'rectRounded'
                             }]
