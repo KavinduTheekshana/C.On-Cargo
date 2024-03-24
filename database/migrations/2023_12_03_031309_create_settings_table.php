@@ -13,25 +13,19 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('sltouk1kg');
-            $table->string('sltouk2kg');
-            $table->string('sltouk3kg');
-            $table->string('sltouk4kg');
-            $table->string('sltouk5kg');
-            $table->string('uktosl1kg');
-            $table->string('uktosl2kg');
-            $table->string('uktosl3kg');
-            $table->string('uktosl4kg');
-            $table->string('uktosl5kg');
-            $table->string('sltoukpkg');
-            $table->string('uktoslpkgpersonal');
-            $table->string('uktoslpkgcommercial');
-            $table->string('sltoukdeandcolless12');
-            $table->string('sltoukdeandcolmore12');
-            $table->string('uktosldeandcolless20wp');
-            $table->string('uktosldeandcolmore20wp');
-            $table->string('uktosldeandcolless20owp');
-            $table->string('uktosldeandcolmore20owp');
+            $table->decimal("uk2slwh2whP", 8, 2);
+            $table->decimal("uk2sld2dwpP", 8, 2);
+            $table->decimal("uk2sld2dowpP", 8, 2);
+            $table->decimal("uk2slwh2whC", 8, 2);
+            $table->decimal("uk2sld2dwpC", 8, 2);
+            $table->decimal("uk2sld2dowpC", 8, 2);
+            $table->decimal("sl2ukd2d", 8, 2);
+            $table->decimal("sl2frd2d", 8, 2);
+            $table->decimal("fr2sld2d", 8, 2);
+            $table->decimal("sl2itd2d", 8, 2);
+            $table->decimal("it2sld2d", 8, 2);
+            $table->decimal("sl2cad2d", 8, 2);
+            $table->decimal("ca2sld2d", 8, 2);
             $table->timestamps();
         });
     }

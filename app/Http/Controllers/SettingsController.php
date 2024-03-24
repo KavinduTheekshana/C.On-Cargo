@@ -12,7 +12,7 @@ class SettingsController extends Controller
      */
     public function index()
     {
-        $settings = Settings::first();
+        $settings = Settings::all();
         return view('backend.settings.settings', compact('settings'));
     }
 
@@ -51,42 +51,106 @@ class SettingsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function uktoslp(Request $request)
     {
-        $request->validate([
-            'sltouk1kg' => 'required',
-            'sltouk2kg' => 'required',
-            'sltouk3kg' => 'required',
-            'sltouk4kg' => 'required',
-            'sltouk5kg' => 'required',
-            'uktosl1kg' => 'required',
-            'uktosl2kg' => 'required',
-            'uktosl3kg' => 'required',
-            'uktosl4kg' => 'required',
-            'uktosl5kg' => 'required',
-            'sltoukpkg' => 'required',
-            'uktoslpkgpersonal' => 'required',
-            'uktoslpkgcommercial' => 'required',
-            'sltoukdeandcolless12' => 'required',
-            'sltoukdeandcolmore12' => 'required',
-            'uktosldeandcolless20wp' => 'required',
-            'uktosldeandcolmore20wp' => 'required',
-            'uktosldeandcolless20owp' => 'required',
-            'uktosldeandcolmore20owp' => 'required',
-
-        ]);
-
-        $setting = Settings::find('1');
-
-        if (!$setting) {
-            return redirect()->back()->with('error', 'Settings not found.');
+        foreach ($request->uk2slwh2whP as $index => $value) {
+            $setting = Settings::find($index + 1); // Assuming the IDs start from 1
+            if ($setting) {
+                $setting->uk2slwh2whP = $request->uk2slwh2whP[$index];
+                $setting->uk2sld2dwpP = $request->uk2sld2dwpP[$index];
+                $setting->uk2sld2dowpP = $request->uk2sld2dowpP[$index];
+                $setting->save();
+            }
         }
-
-        // Update all fields with the values from the form
-        $setting->update($request->all());
-
-        return redirect()->back()->with('success', 'Settings updated successfully!');
+        return redirect()->back()->with('success', 'Settings updated successfully.');
     }
+
+    public function sltoukc(Request $request)
+    {
+        foreach ($request->uk2slwh2whC as $index => $value) {
+            $setting = Settings::find($index + 1); // Assuming the IDs start from 1
+            if ($setting) {
+                $setting->uk2slwh2whC = $request->uk2slwh2whC[$index];
+                $setting->uk2sld2dwpC = $request->uk2sld2dwpC[$index];
+                $setting->uk2sld2dowpC = $request->uk2sld2dowpC[$index];
+                $setting->save();
+            }
+        }
+        return redirect()->back()->with('success', 'Settings updated successfully.');
+    }
+
+    public function sltofr(Request $request)
+    {
+        foreach ($request->sl2frd2d as $index => $value) {
+            $setting = Settings::find($index + 1); // Assuming the IDs start from 1
+            if ($setting) {
+                $setting->sl2frd2d = $request->sl2frd2d[$index];
+                $setting->save();
+            }
+        }
+        return redirect()->back()->with('success', 'Settings updated successfully.');
+    }
+
+    public function frtosl(Request $request)
+    {
+        foreach ($request->fr2sld2d as $index => $value) {
+            $setting = Settings::find($index + 1); // Assuming the IDs start from 1
+            if ($setting) {
+                $setting->fr2sld2d = $request->fr2sld2d[$index];
+                $setting->save();
+            }
+        }
+        return redirect()->back()->with('success', 'Settings updated successfully.');
+    }
+
+    public function sltoit(Request $request)
+    {
+        foreach ($request->sl2itd2d as $index => $value) {
+            $setting = Settings::find($index + 1); // Assuming the IDs start from 1
+            if ($setting) {
+                $setting->sl2itd2d = $request->sl2itd2d[$index];
+                $setting->save();
+            }
+        }
+        return redirect()->back()->with('success', 'Settings updated successfully.');
+    }
+
+    public function ittosl(Request $request)
+    {
+        foreach ($request->it2sld2d as $index => $value) {
+            $setting = Settings::find($index + 1); // Assuming the IDs start from 1
+            if ($setting) {
+                $setting->it2sld2d = $request->it2sld2d[$index];
+                $setting->save();
+            }
+        }
+        return redirect()->back()->with('success', 'Settings updated successfully.');
+    }
+
+    public function sltoca(Request $request)
+    {
+        foreach ($request->sl2cad2d as $index => $value) {
+            $setting = Settings::find($index + 1); // Assuming the IDs start from 1
+            if ($setting) {
+                $setting->sl2cad2d = $request->sl2cad2d[$index];
+                $setting->save();
+            }
+        }
+        return redirect()->back()->with('success', 'Settings updated successfully.');
+    }
+
+    public function catosl(Request $request)
+    {
+        foreach ($request->ca2sld2d as $index => $value) {
+            $setting = Settings::find($index + 1); // Assuming the IDs start from 1
+            if ($setting) {
+                $setting->ca2sld2d = $request->ca2sld2d[$index];
+                $setting->save();
+            }
+        }
+        return redirect()->back()->with('success', 'Settings updated successfully.');
+    }
+
 
     /**
      * Remove the specified resource from storage.

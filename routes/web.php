@@ -138,7 +138,17 @@ Route::middleware(['adminOnly'])->group(function () {
 
     // settings
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
-    Route::post('/settings/update', [SettingsController::class, 'update'])->name('settings.update');
+    Route::post('/settings/update/uktoslp', [SettingsController::class, 'uktoslp'])->name('settings.update.uktoslp');
+    Route::post('/settings/update/sltoukc', [SettingsController::class, 'sltoukc'])->name('settings.update.sltoukc');
+    Route::post('/settings/update/sltouk', [SettingsController::class, 'sltouk'])->name('settings.update.sltouk');
+
+    Route::post('/settings/update/sltofr', [SettingsController::class, 'sltofr'])->name('settings.update.sltofr');
+    Route::post('/settings/update/frtosl', [SettingsController::class, 'frtosl'])->name('settings.update.frtosl');
+    Route::post('/settings/update/sltoit', [SettingsController::class, 'sltoit'])->name('settings.update.sltoit');
+    Route::post('/settings/update/ittosl', [SettingsController::class, 'ittosl'])->name('settings.update.ittosl');
+    Route::post('/settings/update/sltoca', [SettingsController::class, 'sltoca'])->name('settings.update.sltoca');
+    Route::post('/settings/update/catosl', [SettingsController::class, 'catosl'])->name('settings.update.catosl');
+
 });
 Route::middleware('adminOrAgent')->group(function () {
     // Dashboard Routes

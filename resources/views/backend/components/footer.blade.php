@@ -9,9 +9,9 @@
                     document.write(new Date().getFullYear());
                 </script>
                 | Developed by
-                <a href="https://creatxsoftware.com" target="_blank" class="footer-link fw-medium">Creatx Software</a>
+                <a href="https://neuroon.lk" target="_blank" class="footer-link fw-medium">Neuroon Informatic</a>
             </div>
-          
+
         </div>
     </div>
 </footer>

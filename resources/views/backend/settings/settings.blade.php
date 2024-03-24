@@ -9,9 +9,304 @@
 
         <div class="card">
             <div class="col-md-12">
-                <h5 class="card-header">Quote Settings</h5>
+                <h4 class="card-header">Quote Settings</h4>
                 <div class="card-body">
-                    <form action="{{ route('settings.update')}}" method="POST">
+                    <h5>United Kingdom to Sri Lanka Personal</h5>
+                    <div class="table-responsive text-nowrap">
+                        <form method="POST" action="{{ route('settings.update.uktoslp') }}">
+                            @csrf
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Weight (kg)</th>
+                                        <th>Warehouse to Warehouse</th>
+                                        <th>Door to Door West Provience</th>
+                                        <th>Door to Door Out of West Provience</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($settings as $setting)
+                                        <tr>
+                                            <td>{{ $setting->id }}</td>
+                                            <td><input type="number" step=".01" class="form-control"
+                                                    name="uk2slwh2whP[]" value="{{ $setting->uk2slwh2whP }}"></td>
+                                            <td><input type="number" step=".01" class="form-control"
+                                                    name="uk2sld2dwpP[]" value="{{ $setting->uk2sld2dwpP }}"></td>
+                                            <td><input type="number" step=".01" class="form-control"
+                                                    name="uk2sld2dowpP[]" value="{{ $setting->uk2sld2dowpP }}"></td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <button type="submit"
+                                class="float-right mt-2 mb-2 btn btn-warning waves-effect waves-light">Update Table</button>
+                        </form>
+                    </div>
+
+                    <hr>
+                    <br>
+
+                    <h5>United Kingdom to Sri Lanka Commercial</h5>
+                    <div class="table-responsive text-nowrap">
+                        <form method="POST" action="{{ route('settings.update.sltoukc') }}">
+                            @csrf
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Weight (kg)</th>
+                                        <th>Warehouse to Warehouse</th>
+                                        <th>Door to Door West Provience</th>
+                                        <th>Door to Door Out of West Provience</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($settings as $setting)
+                                        <tr>
+                                            <td>{{ $setting->id }}</td>
+                                            <td><input type="number" step=".01" class="form-control"
+                                                    name="uk2slwh2whC[]" value="{{ $setting->uk2slwh2whC }}"></td>
+                                            <td><input type="number" step=".01" class="form-control"
+                                                    name="uk2sld2dwpC[]" value="{{ $setting->uk2sld2dwpC }}"></td>
+                                            <td><input type="number" step=".01" class="form-control"
+                                                    name="uk2sld2dowpC[]" value="{{ $setting->uk2sld2dowpC }}"></td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <button type="submit"
+                                class="float-right mt-2 mb-2 btn btn-warning waves-effect waves-light">Update Table</button>
+                        </form>
+                    </div>
+
+                    <hr>
+                    <br>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <h5>Sri Lanka to United Kingdom</h5>
+                            <div class="table-responsive text-nowrap">
+                                <form method="POST" action="{{ route('settings.update.sltouk') }}">
+                                    @csrf
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Weight (kg)</th>
+                                                <th>Door to Door</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($settings as $setting)
+                                                <tr>
+                                                    <td>{{ $setting->id }}</td>
+                                                    <td><input type="number" step=".01" class="form-control"
+                                                            name="sl2ukd2d[]" value="{{ $setting->sl2ukd2d }}"></td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    <button type="submit"
+                                        class="float-right mt-2 mb-2 btn btn-warning waves-effect waves-light">Update
+                                        Table</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="col-6"></div>
+                    </div>
+
+
+                    <hr>
+                    <br>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <h5>Sri Lanka to France</h5>
+                            <div class="table-responsive text-nowrap">
+                                <form method="POST" action="{{ route('settings.update.sltofr') }}">
+                                    @csrf
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Weight (kg)</th>
+                                                <th>Door to Door</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($settings as $setting)
+                                                <tr>
+                                                    <td>{{ $setting->id }}</td>
+                                                    <td><input type="number" step=".01" class="form-control"
+                                                            name="sl2frd2d[]" value="{{ $setting->sl2frd2d }}"></td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    <button type="submit"
+                                        class="float-right mt-2 mb-2 btn btn-warning waves-effect waves-light">Update
+                                        Table</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-6">
+
+                            <h5>France to Sri Lanka</h5>
+                            <div class="table-responsive text-nowrap">
+                                <form method="POST" action="{{ route('settings.update.frtosl') }}">
+                                    @csrf
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Weight (kg)</th>
+                                                <th>Door to Door</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($settings as $setting)
+                                                <tr>
+                                                    <td>{{ $setting->id }}</td>
+                                                    <td><input type="number" step=".01" class="form-control"
+                                                            name="fr2sld2d[]" value="{{ $setting->fr2sld2d }}"></td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    <button type="submit"
+                                        class="float-right mt-2 mb-2 btn btn-warning waves-effect waves-light">Update
+                                        Table</button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <hr><br>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <h5>Sri Lanka to Italy</h5>
+                            <div class="table-responsive text-nowrap">
+                                <form method="POST" action="{{ route('settings.update.sltoit') }}">
+                                    @csrf
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Weight (kg)</th>
+                                                <th>Door to Door</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($settings as $setting)
+                                                <tr>
+                                                    <td>{{ $setting->id }}</td>
+                                                    <td><input type="number" step=".01" class="form-control"
+                                                            name="sl2itd2d[]" value="{{ $setting->sl2itd2d }}"></td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    <button type="submit"
+                                        class="float-right mt-2 mb-2 btn btn-warning waves-effect waves-light">Update
+                                        Table</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <h5>Italy to Sri Lanka </h5>
+                            <div class="table-responsive text-nowrap">
+                                <form method="POST" action="{{ route('settings.update.ittosl') }}">
+                                    @csrf
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Weight (kg)</th>
+                                                <th>Door to Door</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($settings as $setting)
+                                                <tr>
+                                                    <td>{{ $setting->id }}</td>
+                                                    <td><input type="number" step=".01" class="form-control"
+                                                            name="it2sld2d[]" value="{{ $setting->it2sld2d }}"></td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    <button type="submit"
+                                        class="float-right mt-2 mb-2 btn btn-warning waves-effect waves-light">Update
+                                        Table</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+                    <br>
+                    <div class="row">
+                        <div class="col-6">
+
+                            <h5>Sri Lanka to Canada</h5>
+                            <div class="table-responsive text-nowrap">
+                                <form method="POST" action="{{ route('settings.update.sltoca') }}">
+                                    @csrf
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Weight (kg)</th>
+                                                <th>Door to Door</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($settings as $setting)
+                                                <tr>
+                                                    <td>{{ $setting->id }}</td>
+                                                    <td><input type="number" step=".01" class="form-control"
+                                                            name="sl2cad2d[]" value="{{ $setting->sl2cad2d }}"></td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    <button type="submit"
+                                        class="float-right mt-2 mb-2 btn btn-warning waves-effect waves-light">Update
+                                        Table</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <h5>Canada to Sri Lanka</h5>
+                            <div class="table-responsive text-nowrap">
+                                <form method="POST" action="{{ route('settings.update.catosl') }}">
+                                    @csrf
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Weight (kg)</th>
+                                                <th>Door to Door</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($settings as $setting)
+                                                <tr>
+                                                    <td>{{ $setting->id }}</td>
+                                                    <td><input type="number" step=".01" class="form-control"
+                                                            name="ca2sld2d[]" value="{{ $setting->ca2sld2d }}"></td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    <button type="submit"
+                                        class="float-right mt-2 mb-2 btn btn-warning waves-effect waves-light">Update
+                                        Table</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                    {{-- <form action="{{ route('settings.update')}}" method="POST">
                         @csrf
                         <div class="row mb-4">
                             <p>Sri Lanka To UK First 5KG Price Chart</p>
@@ -178,7 +473,7 @@
                         </div>
                         <br>
                         <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Update Quote Settings</button>
-                    </form>
+                    </form> --}}
                 </div>
 
 
