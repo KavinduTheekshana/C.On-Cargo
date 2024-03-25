@@ -142,8 +142,9 @@
                                             aria-label="Default select example">
                                             <option value="1">Dispatched</option>
                                             <option value="2">In transit</option>
-                                            <option value="3">Out for delivery</option>
-                                            <option value="4">Estimated delivary</option>
+                                            <option value="3">In Custom</option>
+                                            <option value="4">Out for delivery</option>
+                                            <option value="5">Estimated delivary</option>
                                         </select>
                                         <label for="stopid">Status</label>
                                     </div>
@@ -254,8 +255,9 @@
                                             aria-label="Default select example">
                                             <option value="1">Dispatched</option>
                                             <option value="2">In transit</option>
-                                            <option value="3">Out for delivery</option>
-                                            <option value="4">Estimated delivary</option>
+                                            <option value="3">In Custom</option>
+                                            <option value="4">Out for delivery</option>
+                                            <option value="5">Estimated delivary</option>
                                         </select>
                                         <label for="stopid">Status</label>
                                     </div>
@@ -352,6 +354,20 @@
                                                         <div class="timeline-header">
                                                             <small id="textTransit" class="text-uppercase">In
                                                                 Transit</small>
+                                                        </div>
+                                                        {{-- <h6 class="mb-1">Veronica Herman</h6>
+                                                        <p class="mb-0">Sep 03, 8:02 AM</p> --}}
+                                                    </div>
+                                                </li>
+                                                <li class="timeline-item ps-4 border-left-dashed">
+                                                    <span id="iconCustom"
+                                                        class="timeline-indicator-advanced border-0 shadow-none">
+                                                        <i class="mdi mdi-check-circle-outline"></i>
+                                                    </span>
+                                                    <div class="timeline-event ps-1 pb-2">
+                                                        <div class="timeline-header">
+                                                            <small id="textCustom" class="text-uppercase">In
+                                                                Custom</small>
                                                         </div>
                                                         {{-- <h6 class="mb-1">Veronica Herman</h6>
                                                         <p class="mb-0">Sep 03, 8:02 AM</p> --}}
@@ -553,7 +569,7 @@
 
                                 <button type="button"
                                 class="btn btn-icon btn-info btn-fab demo waves-effect waves-light m-1 update-tracking"
-                                    data-bs-toggle="modal" title="View Invoice" data-invoice-id="${invoice.id}"
+                                    data-bs-toggle="modal" title="Update" data-invoice-id="${invoice.id}"
                                     data-bs-target="#singleEditTracking">
                                     <i class="tf-icons mdi mdi-file-edit-outline"></i>
                                 </button>
@@ -637,9 +653,11 @@
                 return `<span class="badge bg-info">Dispatched <br> ${formattedDate}</span>`;
             } else if (invoice.tracking_id == 2) {
                 return `<span class="badge bg-primary">In Transit</span>`;
-            } else if (invoice.tracking_id == 3) {
-                return `<span class="badge bg-warning">Out for delivery</span>`;
+            }else if (invoice.tracking_id == 3) {
+                return `<span class="badge bg-danger">In Custom</span>`;
             } else if (invoice.tracking_id == 4) {
+                return `<span class="badge bg-warning">Out for delivery</span>`;
+            } else if (invoice.tracking_id == 5) {
                 const formattedDate = formatDate(invoice.tracking_arrived_at);
                 return `<span class="badge bg-success">Estimate delivery <br> ${formattedDate}</span>`;
             } else if (invoice.tracking_id == null) {
@@ -704,7 +722,7 @@
 
 
             function updateTrackingIconsAndTexts(stopId) {
-                var trackingStages = ['Dispatched', 'Transit', 'Delivary', 'Arrivel'];
+                var trackingStages = ['Dispatched', 'Transit', 'Custom' ,'Delivary', 'Arrivel'];
 
                 trackingStages.forEach(function(stage, index) {
                     var icon = $('#icon' + stage);
@@ -727,7 +745,7 @@
                 }
 
                 // Update modalInvoiceArrivel
-                if (stopId === 4) {
+                if (stopId === 5) {
                     $('#modalInvoiceArrivel').addClass('text-success').removeClass('text-primary');
                 } else {
                     $('#modalInvoiceArrivel').removeClass('text-success text-primary');

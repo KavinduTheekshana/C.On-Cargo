@@ -261,7 +261,7 @@ input[type="number"] {
 }
 .order-tracking {
     text-align: center;
-    width: 25%;
+    width: 20%;
     position: relative;
     display: block;
 }
@@ -354,4 +354,20 @@ input[type="number"] {
 }
 .white-btn:hover {
     color: #000000 !important;
+}
+@media only screen and (max-width: 767px) {
+    .order-tracking {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .order-tracking::before {
+        width: 3px;
+        height: calc(100% - 40px);
+        top: -28%; /* Adjust top position as needed */
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .order-tracking:first-child:before {
+        display: none;
+    }
 }

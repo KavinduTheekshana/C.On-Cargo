@@ -55,6 +55,10 @@
                                                 <span class="is-complete"></span>
                                                 <p>IN TRANSIT<br></p>
                                             </div>
+                                            <div id="custom" class="order-tracking">
+                                                <span class="is-complete"></span>
+                                                <p>IN CUSTOM<br></p>
+                                            </div>
                                             <div id="out" class="order-tracking">
                                                 <span class="is-complete"></span>
                                                 <p>OUT FOR DELIVERY<br></p>
@@ -95,8 +99,8 @@
                         // Check if the response contains invoice_id
                         if (result.tracking_id) {
                             // Show the tracking section
-                            $('#dispatched_date').text(new Date(result.departed_at).toLocaleDateString('en-US'));
-                            $('#estimate_date').text(new Date(result.arrived_at).toLocaleDateString('en-US'));
+                            $('#dispatched_date').text(new Date(result.departed_at).toLocaleDateString('en-GB'));
+                            $('#estimate_date').text(new Date(result.arrived_at).toLocaleDateString('en-GB'));
                             // $('#dispatched_date').text(result.departed_at);
                             // $('#estimate_date').text(result.arrived_at);
                             if (result.stop_id == 1) {
@@ -109,11 +113,18 @@
                             if (result.stop_id == 3) {
                                 $('#dispatched').addClass('completed');
                                 $('#transit').addClass('completed');
-                                $('#out').addClass('completed');
+                                $('#custom').addClass('completed');
                             }
                             if (result.stop_id == 4) {
                                 $('#dispatched').addClass('completed');
                                 $('#transit').addClass('completed');
+                                $('#custom').addClass('completed');
+                                $('#out').addClass('completed');
+                            }
+                            if (result.stop_id == 5) {
+                                $('#dispatched').addClass('completed');
+                                $('#transit').addClass('completed');
+                                $('#custom').addClass('completed');
                                 $('#out').addClass('completed');
                                 $('#estimate').addClass('completed');
                             }
